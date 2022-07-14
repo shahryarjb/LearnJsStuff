@@ -9,3 +9,20 @@ document.querySelector('#someIDOfAForm').addEventListener('submit', function(e) 
     e.target.elements.productTitle.value // productTitle is the name of a field in a form
 })
 ```
+
+### اضافه کردن و گرفتن اطلاعات از لوکال استوریج مروگر
+
+
+```js
+const product = {title: "Test one", price: 10203}
+const productJson = JSON.stringify(product) // Convert object to Json string
+localStorage.setItem('product', productJson) // Save String with a key in local storage
+```
+
+> دریافت اطلاعات از لوکال استوریج و تبدیل اون به آبجکت
+
+```js
+const productJson = localStorage.getItem('product')
+const product = JSON.parse(productJson) // Convert Json to string
+console.log(`Product: ${product.title} - Price: ${product.price}`)
+```
