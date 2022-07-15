@@ -55,3 +55,46 @@ window.addEventListener('storage', function(e) {
 > نکته: وقتی از `this` استفاده می کنیم دیگر نمی توانیم از ارور فانکشن ها یعنی با `=>` استفاده کنیم
 
 ---
+
+### ساخت new آبجکت و ارث بری از آن
+
+فرض بر مثال که شما خواستید به صورت شی گرایی کار کنید و همینطور ارث بری رو انجام بدهید در مرحله اول بدون ارث بری شما می خواهید این امکان را به یوزر بدهید از آبجکت شما یک اینستنت جدید بسازند
+
+```js
+const User = function(email, id) {
+    this.email = email
+    this.id = id
+}
+const username = new User('test@test.com', 13)
+```
+
+خروجی کد بالا می شود به شرح زیر:
+```js
+User {email: 'test@test.com', id: 13}
+```
+
+همانطور که می بنید خروجی بالا از یک آبجکتی که `new` هست.
+
+حالا فرض بر اینکه ما می خواهیم یک تابع بسازیم در آبجکت به عنوان تابع کانستراکتر که باید از `prototype` استفاده کنیم
+
+فقط کافیست کد زیر را اضافه کنیم قبل از `new` کردن آبجکت
+
+```js
+User.prototype.userInfo = function() {
+    return `ID: ${this.id} - Email: ${this.email}`
+}
+```
+
+حالا دوباره صدا بزنید
+
+```js
+const username = new User('test@test.com', 13)
+console.log(username.userInfo())
+```
+
+حال خروجی می شود
+```js
+ID: 13 - Email: test@test.com
+```
+
+---
