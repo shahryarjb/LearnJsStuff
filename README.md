@@ -10,6 +10,8 @@ document.querySelector('#someIDOfAForm').addEventListener('submit', function(e) 
 })
 ```
 
+---
+
 ### اضافه کردن و گرفتن اطلاعات از لوکال استوریج مروگر
 
 
@@ -26,3 +28,9 @@ const productJson = localStorage.getItem('product')
 const product = JSON.parse(productJson) // Convert Json to string
 console.log(`Product: ${product.title} - Price: ${product.price}`)
 ```
+
+---
+
+### دریافت پارامتر و دیگر موارد از آدرس
+
+برای دریافت اطلاعات مورد نظر از روی لینک سایت می توانیم از `Location` استفاده کنیم که این امکان را می دهد پارامتر پرت هوست و دیگر موارد را دریافت و در کدمان استفاده کنیم.[ اطلاعات بیشتر](https://developer.mozilla.org/en-US/docs/Web/API/Location#location_anatomy)
