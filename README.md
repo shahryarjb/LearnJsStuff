@@ -98,3 +98,23 @@ ID: 13 - Email: test@test.com
 ```
 
 ---
+
+### استفاده از کلاس و تغییر مدلم آبجکت به کلاس
+
+خوب اگر بخواهیم کد های بالا را تبدیل کنیم به نوع کلاس می توانیم به این صورت انجام بدهیم
+
+```js
+class User {
+    constructor(id, email) {
+        this.email = email
+        this.id = id
+    }
+
+    userInfo() {
+        return `ID: ${this.id} - Email: ${this.email}`
+    }
+}
+
+const username = new User('test@test.com', 13)
+console.log(username.userInfo())
+```
