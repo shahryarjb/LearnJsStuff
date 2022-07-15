@@ -149,3 +149,34 @@ console.log(username)
 ```js
 Job { email: 13, id: 'test@test.com', jobTitle: 'Developer' }
 ```
+
+---
+
+### اضافه کردن گتر و ستر
+برای اینکه بتوانیم به یک آبجکت یک گتر و ستر اضافه کنیم به صورت زیر عمل می کنیم
+
+```js
+const product = {
+    title: "Book",
+    price: 26,
+    get productInfo() {
+        return `Title: ${this.title} -- Price: ${this.price}`
+    },
+    set productInfo(value) {
+        const seperetedValue = value.split(' ')
+        this.title = seperetedValue[0]
+        this.price = seperetedValue[1]
+    }
+}
+```
+همانطور که در کد بالا می بنید ما از یک فانکشن در دو حالت `set` و `get` استفاده کردیم البته با ورودی مختلف
+
+حالا برای دوباره بایند کردند و همینطور چاپ کردن به صورت زیر عمل کنید
+
+```js
+console.log(product.productInfo)
+product.productInfo = "BookSha 99"
+console.log(product.productInfo)
+```
+
+---
