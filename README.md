@@ -118,3 +118,32 @@ class User {
 const username = new User('test@test.com', 13)
 console.log(username.userInfo())
 ```
+
+### استفاده از ساب کلس و super
+وقتی می خواهیم ساب کلس بسازیم و همینطور اکستند شده باشد در تابع کانسترکتر نیاز هست از کلاس مادر با `super` بیاییم اطلاعات رو بیاریم مواردی که نیاز هست به شرح زیر عمل کنید. کد بالا + کلاس جدید
+```js
+class User {
+    constructor(id, email) {
+        this.email = email
+        this.id = id
+    }
+
+    userInfo() {
+        return `ID: ${this.id} - Email: ${this.email}`
+    }
+}
+
+class Job extends User {
+    constructor(id, email, jobTitle) {
+        super(id, email)
+        this.jobTitle = jobTitle
+    }
+}
+const username = new Job('test@test.com', 13, 'Developer')
+console.log(username)
+```
+
+خروجی می شود:
+```js
+Job { email: 13, id: 'test@test.com', jobTitle: 'Developer' }
+```
