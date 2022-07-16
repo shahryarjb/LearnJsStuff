@@ -373,3 +373,10 @@ const cartDetails = (userName, totalPrice, ...products) => {
 cartDetails("testUser", 100, 'book1', 'book2', 'book3')
 ```
 دو پارامتر اول تابع خوب به صورت تیکی وارد تابع می شند و بقیه موارد یعنی از book1 تا book3 به صورت لیست دریافت می گردد.
+
+حالا فرض کنید ما می خواهیم یک آرایه را بگیریم و به آن آرایه جدید اضافه کنیم مثل `++` یا `|` در الیکسیر اینجا اگر `...` را استفاده کنیم به آن `spread` می گویم نه `rest` مثال را ببنید
+
+```js
+let products = ['book1', 'book2', 'book3']
+products = [...products, 'book4']
+```
