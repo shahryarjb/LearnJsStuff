@@ -328,3 +328,22 @@ sendHttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts', {
     console.log(e)
 })
 ```
+
+ولی بهترین راه برای ارسال درخواست استفاده از کتابخانه `axios` می باشد که می توانید نمونه کد زیر را مشاهده کنید
+```js
+axios.get('https://jsonplaceholder.typicode.com/posts/1')
+.then(res => {
+    console.log(res)
+})
+
+// For post
+
+axios.post('https://jsonplaceholder.typicode.com/posts', {
+    userId: 2
+})
+.then(res => {
+    console.log(res)
+})
+```
+به همین راحتی تمامی امکانات رو خواهید داشت و گیت هابش حتما چک بشه داخلش آپشن های زیادی هست 
+https://github.com/axios/axios
