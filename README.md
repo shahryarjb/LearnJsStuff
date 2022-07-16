@@ -291,3 +291,40 @@ sendHttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts', {
     console.log(e)
 })
 ```
+
+در قطعه کد زیر بجای استفاده از مورد بالا از `fetch` استفاده می کنیم که بسیار تمیز تر و همینطور بهینه تر می باشد 
+
+```js
+const sendHttpRequest = (method, url, data) => {
+    return fetch(url, {
+        method: method,
+        body: JSON.stringify(data),
+        headers: data ? { 'Content-Type': 'application/json' } : {}
+    })
+    .then(res => {
+        return res.json()
+    })
+}
+
+
+sendHttpRequest('GET', 'https://jsonplaceholder.typicode.com/posts/1')
+.then((value) => {
+    console.log(value)
+})
+.catch((e) => {
+    console.log(e)
+})
+
+sendHttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts', {
+    id: 1,
+    userId: 1,
+    title: "Post title",
+    body: "Post Body"
+})
+.then((value) => {
+    console.log(value)
+})
+.catch((e) => {
+    console.log(e)
+})
+```
