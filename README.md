@@ -180,3 +180,21 @@ console.log(product.productInfo)
 ```
 
 ---
+
+### کال بک برای انجام توابع توالی
+
+لازم به ذکر است کال بک همان تابع دومی هست که باید به صورت توالی انجام شود به صورت یک آرگون در فانکشن اول قرار می گیرد و نکته بسیار مهم این است که نباید پرانتز داشته باشد
+
+به مثال زیر توجه کنید:
+```js
+function myDisplayer(some) {
+    document.getElementById("demo").innerHTML = some;
+}
+  
+function myCalculator(num1, num2, myCallback) {
+    let sum = num1 + num2;
+    myCallback(sum);
+}
+
+myCalculator(5, 5, myDisplayer);    
+```
