@@ -244,3 +244,50 @@ async function asyncCall() {
 asyncCall();
   
 ```
+
+---
+
+### ارسال درخواست به `API`
+
+اولین متدی که می خواهیم جلو برویم که نباید روی آن فوکوس کرد `XMLHttpRequest` می باشد
+
+```js
+const sendHttpRequest = (method, url, data) => {
+    const promise = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        if (data) {
+            xhr.setRequestHeader('Content-Type', 'application/json')
+        }
+        xhr.onload = () => {
+            resolve(xhr.response)
+        }
+        xhr.onerror = (e) => {
+            reject(e)
+        }
+        xhr.send(JSON.stringify(data))
+    })
+    return promise
+}
+
+
+sendHttpRequest('GET', 'https://jsonplaceholder.typicode.com/posts/1')
+.then((value) => {
+    console.log(value)
+})
+.catch((e) => {
+    console.log(e)
+})
+
+sendHttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts', {
+   userId: 1,
+   id: 2,
+})
+.then((value) => {
+    console.log(value)
+})
+.catch((e) => {
+    console.log(e)
+})
+```
