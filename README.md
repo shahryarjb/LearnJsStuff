@@ -401,3 +401,15 @@ const { title, price, exist = true} = product
 ```
 
 ---
+
+### اکسپورت کردن توابع برای وب پک و ...
+
+```js
+export { productTitle, productPrice, productId as default}
+```
+همانطور که در خطوط بالا می بنید هر کدام از از موارد مطرح شده یک متغییر یا تابع هستند که می توانیم در دیگر فایل های js بعد از کانورت استفاده کنیم ولی `productId` چون با `as default` اومده در فایل های دیگه می تونیم اسمشو سفارشی خودمون قرار بدهیم
+
+```js
+import coustomIdName, {productTitle, productPrice } from './util'
+```
+به این صورت در دیگر فایل ها قابل فراخوانی می باشد نیاز نیست js به آخر مسیر اضافه شود خودش آن را شناسایی می کند
