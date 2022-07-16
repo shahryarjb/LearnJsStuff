@@ -218,3 +218,29 @@ myPromise
 ```
 همانطور که در کد بالا دیدید شما می توانید در `resolve()` و همینطور `reject()` خروجی مورد نظر خودتان را قرار بدهید و بعد بیایید در زمانی که ارور ندارید `.then` و زمانی که خطا هست در `catch` استفاده کنید. لازم به ذکر هست در اکوسیستم پرامیس موارد دیگری نیز وجود دارد که در لینک زیر می تونید مطالعه کنید
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+
+---
+
+### تابع `async` برای توالی فانکشن
+اگر به کد زیر توجه کنید تابعی که صدا زده می شود مدتی طول می کشد و چون برایش `await` قرار گرفته پس برنامه منتظر آن می ماند تا کامل انجام شد برود به برای انجام دیگر موارد
+
+```js
+function resolveAfter2Seconds() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, 2000);
+    });
+}
+  
+async function asyncCall() {
+    console.log('calling');
+    const result = await resolveAfter2Seconds();
+    console.log(result);
+    // expected output: "resolved"
+}
+
+asyncCall();
+  
+```
