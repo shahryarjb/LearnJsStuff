@@ -364,3 +364,12 @@ const checkOut = (...prices) => {
 console.log(checkOut(1, 10, 1))
 ```
 همانطور که می بنید ما ورودی تابع را به صورت `...prices` نوشتیم که می شود ورودی ما یعنی آرایه است
+
+به قطعه کد زیر توجه کنید
+```js
+const cartDetails = (userName, totalPrice, ...products) => {
+
+}
+cartDetails("testUser", 100, 'book1', 'book2', 'book3')
+```
+دو پارامتر اول تابع خوب به صورت تیکی وارد تابع می شند و بقیه موارد یعنی از book1 تا book3 به صورت لیست دریافت می گردد.
