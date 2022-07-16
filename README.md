@@ -198,3 +198,23 @@ function myCalculator(num1, num2, myCallback) {
 
 myCalculator(5, 5, myDisplayer);    
 ```
+
+---
+
+### کنترل توالی تابع با `Promise`
+این مورد هم مثل کال بک هست ولی باید از آن یک انستنت ساخت و همینطور دو آرگومان دارد که می تواند اسم هایی که شما می پسندید باشد `myResolve, myReject` 
+```js
+let myPromise = new Promise(function(resolve, reject) {
+    if (!error) {
+        resolve(); // when successful
+    } else {
+        reject();  // when error
+    }
+});
+
+myPromise
+    .then(value => { console.log(value) })
+    .catch(err => { console.log(err) })
+```
+همانطور که در کد بالا دیدید شما می توانید در `resolve()` و همینطور `reject()` خروجی مورد نظر خودتان را قرار بدهید و بعد بیایید در زمانی که ارور ندارید `.then` و زمانی که خطا هست در `catch` استفاده کنید. لازم به ذکر هست در اکوسیستم پرامیس موارد دیگری نیز وجود دارد که در لینک زیر می تونید مطالعه کنید
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
