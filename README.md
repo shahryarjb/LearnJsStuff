@@ -380,3 +380,24 @@ cartDetails("testUser", 100, 'book1', 'book2', 'book3')
 let products = ['book1', 'book2', 'book3']
 products = [...products, 'book4']
 ```
+
+
+---
+
+### استفاده از destructing
+اگر بخواهیم به صورت دیگیری به آبجکت دسترسی داشته باشیم یا حتی مورد جدیدی را هم به آن اضافه کنیم به صورت زیر انجام می دهیم
+```js
+const product = {
+    title: 'Book',
+    price: 79
+}
+const { title, price, exist = true} = product
+```
+
+این مورد در خود آرایه هم می توانید مورد استفاده قرار بگیرد
+```js
+const product = ['book', 79]
+const { title, price, exist = true} = product
+```
+
+---
