@@ -413,3 +413,14 @@ export { productTitle, productPrice, productId as default}
 import coustomIdName, {productTitle, productPrice } from './util'
 ```
 به این صورت در دیگر فایل ها قابل فراخوانی می باشد نیاز نیست js به آخر مسیر اضافه شود خودش آن را شناسایی می کند
+
+
+---
+### استفاده از DOMContentLoaded
+اولین چیزی که بعد از لود صفحه باید انجام بگیرد این رویداد هست به صورت مثال:
+
+```js
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+});
+```
