@@ -451,3 +451,5 @@ document.addEventListener("something", () => {
 ```js
 cardBtn.addEventListener('click', this.showCart)
 ```
+
+> نکته: برای حذف یک المنت وقتی از `removeChild` استفاده می کنیم باید به آن بگویم از کجا شروع به حذف بکنه و کجا متوقف بشه در این زمان است که می توانیم به این صورت عمل کنیم `cardContent.removeChild(removeItem.parentElement.parentElement)`
