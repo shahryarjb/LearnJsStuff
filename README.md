@@ -424,3 +424,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 });
 ```
+
+---
+
+### استفاده از static
+وقتی در یک کلاس برای یک متد از `static` استفاده می کنیم دیگر نیاز نیست در جاهایی که می خواهیم از آن استفاده کنیم حتما یک اینستنت درست کنیم
+
+```js
+class Name {
+    static save() {
+        console.log("Test")
+    }
+}
+
+document.addEventListener("something", () => {
+    Name.save()
+})
+```
+
+همانطور که مشاهده می کنید دیگر نیازی به `new` کردن کلاس قبل از آن نیست
