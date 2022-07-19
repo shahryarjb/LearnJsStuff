@@ -453,3 +453,7 @@ cardBtn.addEventListener('click', this.showCart)
 ```
 
 > نکته: برای حذف یک المنت وقتی از `removeChild` استفاده می کنیم باید به آن بگویم از کجا شروع به حذف بکنه و کجا متوقف بشه در این زمان است که می توانیم به این صورت عمل کنیم `cardContent.removeChild(removeItem.parentElement.parentElement)`
+
+
+> لازم به ذکر است برای دیدن رویداد های مروگر مخصوصا ویندوز و متد هایش می توانید به صورت کامل در لینک زیر به آن دسترسی داشته باشید
+https://developer.mozilla.org/en-US/docs/Web/API/Window
