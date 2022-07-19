@@ -473,3 +473,24 @@ function name() {
 console.log(name)
 ```
 در این قطعه کد باید `shahryar` چاپ شود ولی اگر `var name` باشد و مساوی با چیزی نباشد کنسول لاگ تابع را چاپ می کند
+
+---
+
+### چطور کلوژر بسازیم
+
+در جاوااسکریپت وقتی خروجی یا return تابعی یک تابع دیگر باشد یعنی ما کلوژر ساختیم و وقتی آن را در یک متغیر قرار بدهیم خود متغیر می تواند به صورت تابع عمل کند
+
+```js
+function name() {
+    const firstName = "shahryar"
+    
+    return function () {
+        console.log(firstName)
+     }
+}
+
+const newFn = name()
+newFn()
+```
+
+---
