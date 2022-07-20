@@ -25,3 +25,15 @@ axios.get(url).then((response) => {
 همانطور کی می بنید `as Todo` را استفاده کردیم.
 
 ---
+
+### ورودی های تابع را مشخص کنید
+اگر ورود هارا مشخص نکنید مثلا برای مواردی که می خواهید چاپ کنید ممکن است ارور any بگیرید که یعنی نوع ان مشخص نیست نمونه تابع با ورودی و تایپ مشخص
+```ts
+const logTodo = (id: number, title: string, completed: boolean) => {
+  console.log(`
+    ID: ${id}
+    Title: ${title}
+    Finished: ${completed}
+  `);
+};
+```
