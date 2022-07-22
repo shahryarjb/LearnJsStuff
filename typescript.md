@@ -40,7 +40,7 @@ const logTodo = (id: number, title: string, completed: boolean) => {
 
 به مثال زیر توجه کنید. در این مثال ما در اینترفیس تایپ جدید را ساختیم و در ورودی تابع اون رو معرفی کردیم
 
-```js
+```ts
 interface Vehicle {
   name: string;
   year: number;
