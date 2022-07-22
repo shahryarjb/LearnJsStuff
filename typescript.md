@@ -37,3 +37,28 @@ const logTodo = (id: number, title: string, completed: boolean) => {
   `);
 };
 ```
+
+به مثال زیر توجه کنید. در این مثال ما در اینترفیس تایپ جدید را ساختیم و در ورودی تابع اون رو معرفی کردیم
+
+```js
+interface Vehicle {
+  name: string;
+  year: number;
+  broken: boolean;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: 2000,
+  broken: true,
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(`Name: ${vehicle.name}`);
+  console.log(`Year: ${vehicle.year}`);
+  console.log(`Broken: ${vehicle.broken}`);
+};
+
+printVehicle(oldCivic);
+```
+در این قسمت دیگر از `as` استفاده نکردیم
