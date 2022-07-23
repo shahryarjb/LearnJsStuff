@@ -174,3 +174,17 @@ interface Sortable {
 ```
 
 هر کلاس یا جایی که فراخوانی بشه نیاز هست آن را لود کنیم ولی موضوع کلاس منطقی هست که از ابسترک استفاده بشه
+
+
+---
+### قطعه کد مربوط به خواندن فایل csv
+
+```tc
+fs.readFileSync('football.csv', {
+    encoding: 'utf-8',
+  })
+  .split('\n')
+  .map((row: string): string[] => {
+    return row.split(',');
+  });
+```
