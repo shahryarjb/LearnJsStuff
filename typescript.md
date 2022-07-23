@@ -124,3 +124,15 @@ class Sorted {
   constructor(public collection: number[]) {}
 }
 ```
+
+### یک نمونه از دیستراکچرینگ
+
+کد زیر 
+```ts
+const { length } = this.collection;
+```
+مساوی هست با 
+
+```ts
+const length = this.collection.length;
+```
