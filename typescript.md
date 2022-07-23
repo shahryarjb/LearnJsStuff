@@ -136,3 +136,39 @@ const { length } = this.collection;
 ```ts
 const length = this.collection.length;
 ```
+
+
+---
+
+### استفاده از کلاس های abstract
+در این نوع کلاس ما متد های تعریف شده نداریم بلکه بدن واسته به کلاسی هست که قرار این کلاس را اکستند کند. پس نمی توان از این کلاس اینستنسی ساخت
+نمونه
+```ts
+export abstract class Sorter {
+  abstract compare(leftIndex: number, rightIndex: number): boolean;
+  abstract swap(leftIndex: number, rightIndex: number): void;
+  abstract length: number;
+
+  sort(): void {
+    const { length } = this;
+
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - i - 1; j++) {
+        if (this.compare(j, j + 1)) {
+          this.swap(j, j + 1);
+        }
+      }
+    }
+  }
+}
+```
+همانطور که می بنید قبل از کلاس `abstract` آورده شده و متغیر و متد هایی که قرار هست در بدنه استفاده شود و هر کلاس مادر باید آن را داشته باشد نیز قبل از اسمشان `abstract` قرار گرفته است.
+لازم به ذکر هست همین کار را می توان با اینترفیس نیز انجام داد که به صورت زیر می باشد:
+‍‍‍```ts
+interface Sortable {
+  length: number;
+  compare(leftIndex: number, rightIndex: number): boolean;
+  swap(leftIndex: number, rightIndex: number): void;
+}
+```
+هر کلاس یا جایی که فراخوانی بشه نیاز هست آن را لود کنیم ولی موضوع کلاس منطقی هست که از ابسترک استفاده بشه
