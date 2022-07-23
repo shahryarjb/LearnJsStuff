@@ -89,3 +89,16 @@ export class Company implements Mappable {
   color: string = 'red';
   ...
 ```
+
+---
+
+### فراخوانی چند دستور و لود آن با یک کامند
+```json
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
+  },
+```
+
+همانطور که در بالا می بنید ما دستور ها را با `start:` شروع کردیم و بعد از آن با `npm:start:*` استارت زدیم لازم به ذکر است برای این کار با پکیج `concurrently` رو استفاده کردیم  
