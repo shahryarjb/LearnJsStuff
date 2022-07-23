@@ -62,3 +62,30 @@ const printVehicle = (vehicle: Vehicle): void => {
 printVehicle(oldCivic);
 ```
 در این قسمت دیگر از `as` استفاده نکردیم
+
+
+---
+### نحوه استفاده از اینترفیس در کلاس ها
+در کد های بالا مشاهده کردیم که می توانیم اینترفیس معرفی شده را در یک کلاس یا تابع فراخوانی کنیم ولی تمامی موارد در خود آن فایل بوده در این مثال می توانیم یک فایل را ایمپورت کرده و آن را در جاهای دیگری استفاده کنیم. برای استفاده از اینترفیس حتما باید `export` شود 
+
+```js
+export interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+  color: string;
+}
+
+import { Mappable } from './CustomMap';
+export class Company implements Mappable {
+  companyName: string;
+  catchPhrase: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  color: string = 'red';
+  ...
+```
