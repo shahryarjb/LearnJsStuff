@@ -164,11 +164,13 @@ export abstract class Sorter {
 ```
 همانطور که می بنید قبل از کلاس `abstract` آورده شده و متغیر و متد هایی که قرار هست در بدنه استفاده شود و هر کلاس مادر باید آن را داشته باشد نیز قبل از اسمشان `abstract` قرار گرفته است.
 لازم به ذکر هست همین کار را می توان با اینترفیس نیز انجام داد که به صورت زیر می باشد:
-‍‍‍```ts
+
+```ts
 interface Sortable {
   length: number;
   compare(leftIndex: number, rightIndex: number): boolean;
   swap(leftIndex: number, rightIndex: number): void;
 }
 ```
+
 هر کلاس یا جایی که فراخوانی بشه نیاز هست آن را لود کنیم ولی موضوع کلاس منطقی هست که از ابسترک استفاده بشه
