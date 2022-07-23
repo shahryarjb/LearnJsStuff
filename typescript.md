@@ -102,3 +102,25 @@ export class Company implements Mappable {
 ```
 
 همانطور که در بالا می بنید ما دستور ها را با `start:` شروع کردیم و بعد از آن با `npm:start:*` استارت زدیم لازم به ذکر است برای این کار با پکیج `concurrently` رو استفاده کردیم  
+
+---
+
+### استفاده از `public` و حذف متغیر ها در زیر کلاس
+
+کد زیر 
+
+```ts
+class Sorted {
+  collection: number[];
+
+  constructor(collection: number[]) {
+    this.collection = collection;
+  }
+}
+```
+ که می تواند می شود به این صورت
+ ```ts
+ class Sorted {
+  constructor(public collection: number[]) {}
+}
+```
