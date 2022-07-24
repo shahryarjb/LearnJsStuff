@@ -179,7 +179,7 @@ interface Sortable {
 ---
 ### قطعه کد مربوط به خواندن فایل csv
 
-```tc
+```ts
 fs.readFileSync('football.csv', {
     encoding: 'utf-8',
   })
@@ -187,4 +187,16 @@ fs.readFileSync('football.csv', {
   .map((row: string): string[] => {
     return row.split(',');
   });
+```
+
+
+### استفاده جنریک در فانکشن ها
+```ts
+function printAnything<T>(arr: T[]): void {
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+  }
+}
+
+printAnything<string>(['a', 'b', 'c']);
 ```
