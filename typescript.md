@@ -234,3 +234,20 @@ class Car {
   printHousesOrCars<Car>([new Car(), new Car()]);
   ```
   اگر توجه کرده باشید `arr[i].print();` نیاز به تابعی دارد که `print` داشته باشید به همین ترتیب نیاز هست جنریک اکستند شود به یک اینترفیس
+
+---
+### استفاده از Generic Constraints
+خوب در زمانی که به خود کلاس می آییم جنریک تایپ اضافه می کنیم متوجه این می شویم که برخی از توابع نمی توانند مثلا آرگیومنت هایی از یک آبجکت را دسترسی پیدا کنند پس اونجاست که مبحث `Generic Constraints` مطرح می شود
+
+```ts
+export class Attributes<T> {
+  constructor(private data: T) {}
+
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
+  }
+}
+```
+
+منبع:
+https://www.typescriptlang.org/docs/handbook/2/generics.html
