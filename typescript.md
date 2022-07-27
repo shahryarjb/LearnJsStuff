@@ -327,7 +327,7 @@ export class Attributes<T> {
 
 بجای کد زیر
 ```ts
-get on() {
+  get on() {
     return this.events.on;
   }
 
