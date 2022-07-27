@@ -293,3 +293,29 @@ export class User {
 ```
 
 حال می تونیم `user.on` آن را فراخوانی کنیم
+
+
+> نکته: فرض بر اینکه ما یک متدی رو دلیگیت کردیم که اون متد داخلش `this` داره خوب اون مورد به داخل کلاس خودش جستجو می کنه و چیزی رو دریافت نمی کنه و پس بهمون ارور می ده به عنوان مثال این متد `get` رو ببنید که در خود کلاس خودش تبدیل می شه به تابع انانمس که به یک متغیر تخصیص داده شده است
+
+
+```ts
+export class Attributes<T> {
+  constructor(private data: T) {}
+
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
+  }
+```
+
+این متد تبدیل می شه به:
+
+```ts
+export class Attributes<T> {
+  constructor(private data: T) {}
+
+  get = <K extends keyof T>(key: K): T[K] => {
+    return this.data[key];
+  };
+```
+
+< نکته: تا زمانی که `this` می بنید بهتره از ارو فانکشن استفاده کنید در ۱۰۰ درصد موارد تقریبا :D ولی اگر `this` ندارید که می تونید بدون ارور استفاده شود
