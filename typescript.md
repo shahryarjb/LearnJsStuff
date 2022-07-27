@@ -253,3 +253,43 @@ export class Attributes<T> {
 https://www.typescriptlang.org/docs/handbook/2/generics.html
 
 ---
+
+### نحوه دلیگیت کردن یک تابع
+
+فرض مثال از یک کلاس دیگیری در کلاس اصلی یک ایستنت ساختیم. و اگر بخواهیم فانکشن آن را صدا بزنیم به صورت مثال
+
+```ts
+export class User {
+  public events: Eventing = new Eventing();
+  public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+  ...
+}
+```
+
+برای صدا زدن یک متد در `Eventing` باید بیاییم به این صورت عمل کنیم
+```ts
+const user = new User({ name: 'shahryar', age: 30 });
+user.events.on(...)
+```
+حالا اگر بخوایم مستقیم از خود `user` آن را بخوانیم باید چطور عمل کنیم.
+
+در خود کلاس یوزر باید از `get` استفاده کنیم.
+```ts
+export class User {
+  public events: Eventing = new Eventing();
+  public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+
+  // when we need to have dynamic attrs, then must have constructor
+  public attributes: Attributes<UserProps>;
+
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes<UserProps>(attrs);
+  }
+
+  get on() {
+    return this.events.on;
+  }
+}
+```
+
+حال می تونیم `user.on` آن را فراخوانی کنیم
