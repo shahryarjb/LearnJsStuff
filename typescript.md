@@ -320,3 +320,34 @@ export class Attributes<T> {
 
 > نکته: تا زمانی که `this` می بنید بهتره از ارو فانکشن استفاده کنید در ۱۰۰ درصد موارد تقریبا :D ولی اگر `this` ندارید که می تونید بدون ارور استفاده شود
 > نکته: اگر در کلاس مذکور `this` به یک پراپرتی موجود در خودش اشاره کنه این مورد نیاز به انجامش نیست ولی بهتره انجام بشه
+
+---
+
+### کوتاه نویسی توابع دلیگیت شده
+
+بجای کد زیر
+```ts
+get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+```
+
+می توانیم به صورت زیر بنویسیم
+
+```ts
+  on = this.events.on;
+
+  trigger = this.events.trigger;
+
+  get = this.attributes.get;
+```
+
+توجه داشته باشید بدون پرانتز می باشد
