@@ -20,4 +20,41 @@ export const ChildAsFc: React.FC<ChildProps> = ({color}) => {
     return <div>{color}</div>
 };
 ```
-حال در auto کامپلیت این مورد در ایدتور نمایان می شود
+حال در auto کامپلیت این مورد در ایدتور نمایان می شود. حالا فرض کنید شما می خواهید یکی از این فانکشن ها که اولیش مثلا Child هست رو صدا بزنید. وقتی اون رو صدا می زنید باید به صورت تک خطی باشه مثلا
+```tsx
+return <Child color="red" onClick={() => console.log('Cliked')} />
+```
+نمی تونید صدا بزنید مثلا
+```tsx
+return <Child color="red" onClick={() => console.log('Cliked')}/>
+    ssss
+    </Child>;
+```
+بخاطر اینکه در اینترفیس مثلا شما فقط گفتید
+
+```tsx
+interface ChildProps {
+    color: string;
+    onClick: () => void;
+}
+```
+فقط رنگ و فانکشن بیاد ولی بین دوتا چایلد رو اگر چیزی بیاد خطا می گیرید اینجاست که باید مثل کد بالا از دومین متغییر که با ` React.FC` استفاده کنید
+
+```tsx
+interface ChildProps {
+    color: string;
+    onClick: () => void;
+    children: any;
+}
+
+
+export const ChildAsFC: React.FC<ChildProps> = ({color, onClick, children}) => {
+    return (
+        <div>
+            {color}
+            {children}
+            <button onClick={onClick}>Clic me</button>
+        </div>
+    );
+};
+```
