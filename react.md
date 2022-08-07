@@ -58,3 +58,11 @@ export const ChildAsFC: React.FC<ChildProps> = ({color, onClick, children}) => {
     );
 };
 ```
+
+### کتابخانه های پیشفرض اکثر پروژه ها ( به روز می شود)
+
+1. redux-thunk
+2. redux
+3. react-redux
+4. @types/react-redux
+5. axios
