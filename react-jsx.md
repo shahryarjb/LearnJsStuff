@@ -192,3 +192,16 @@ changePriceHandler = (newTitle) => {
 this.changePriceHandler.bind(this, 'New Title')
 ```
 همانطور که می بنید با this به آبجمت های فانکشن دسترسی پیدا می کند
+
+راه دیگری که می توانیم استفاده کنیم از ارو فانکشن هاست `() => this.changePriceHandler('New Title')`
+
+```js
+ <Product 
+   title={this.state.products[2].title} 
+   price={this.state.products[2].price} 
+   click={() => this.changePriceHandler('New Title')}
+ />
+```
+ 
+---
+          
