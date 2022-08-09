@@ -258,3 +258,31 @@ render() {
  ....
  <button style={btn} onClick={this.changePriceHandler}>Change Price</button>
  ```
+
+
+---
+
+### استفاده از شرط در jsx ری اکت
+
+```js
+{this.state.showProducts ? (
+    <div>
+      <Product 
+        title={this.state.products[0].title} 
+        price={this.state.products[0].price} 
+      />
+      <Product 
+        title={this.state.products[1].title} 
+        price={this.state.products[1].price}
+        change={this.changeTitleHandler} 
+      />
+      <Product 
+        title={this.state.products[2].title} 
+        price={this.state.products[2].price} 
+      />
+    </div>
+) : null }
+```
+
+همانطور که می بینید شرط ها به صورت تک خطی قرار گرفتند و در آخر : آماده و اگر نه به صورت null قرار گرفته است
+          
