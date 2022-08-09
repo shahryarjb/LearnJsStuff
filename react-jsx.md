@@ -137,4 +137,36 @@ class App extends React.Component {
   }
 ```
 
+نکته: در موارد بالا ما در کلاس بودیم و آبجکت مورد نظر ساخته شده را تغییر می دادیم ولی این مورد در تابع ها دارای مشکل هست در نسخه ۱۸ خوردی ری اکت چیزی اضافه شده به عنوان Hook که باید از اون استفاده شود
 ---
+
+### استفاده از hook برای ویرایش state
+
+```js
+import React, { useState } from 'react';
+```
+ در بالای فایل useState رو قرار دادیم حال باید state رو تعریف کنیم و همینطور ارزش گذاری اولیه کنیم
+ 
+ ```js
+ const App = (props) => {
+  const [productState, setProductState] = useState({
+      products: [
+        {title: 'Book1', price: 100},
+        {title: 'Book2', price: 200},
+        {title: 'Book3', price: 300},
+      ],
+    })
+```
+همانطور که می بنید ما از useState تستفاده کردیم و اون رو قرار دادیم در یک آرایه به عنوان متغییر در آوردیم اولین خانه که productState هست همان state ماست و می تونیم در جاهای مختلف اون رو نمایش بدهیم ولی دومین گزینه setProductState متدی هست که با آن ویرایش این state را انجام می دهیم به صورت زیر:
+
+```js
+  const changePriceHandler = () => {
+    setProductState({
+      products: [
+        {title: 'Book1', price: 50},
+        {title: 'Book2', price: 60},
+        {title: 'Book3', price: 70},
+      ]
+    })
+  }
+```
