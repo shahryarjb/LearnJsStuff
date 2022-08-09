@@ -202,6 +202,7 @@ this.changePriceHandler.bind(this, 'New Title')
    click={() => this.changePriceHandler('New Title')}
  />
 ```
- 
+
+در دو گزینه بالا ما در حقیقت داریم به ریفرنس تابع اشاره می کنیم و در در راه حل دوم چون یک خط می باشد return می کند
 ---
           
