@@ -27,4 +27,27 @@ const App = () => {
         </div>
     )
 };
+
+export default App;
+```
+
+### اضافه کردن یک کامپوننت با کلاس
+
+در کد بالا مشاهده کردید که یک کامپوننت با یک تابع اضافه شده است ولی در مثال زیر با کلاس همین کارو انجام دادیدم
+```js
+import React from 'react';
+import Product from './components/Product/Product';
+
+class App extends React.Component {
+    render() {
+      return (
+        <div>
+            <h2>Ract App</h2>
+            <Product />
+        </div>
+      )
+    }
+}
+
+export default App;
 ```
