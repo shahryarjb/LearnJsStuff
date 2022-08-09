@@ -207,3 +207,31 @@ this.changePriceHandler.bind(this, 'New Title')
 
 ---
           
+
+فرض کنیم می خواهیم تیتر یکی از کامپوننت ها عوض شود. در تابع App می آییم کد متد تغییر دهنده رو می نویسیم مثلا
+```js
+  changeTitleHandler = (event) => {
+    this.setState({
+      products: [
+        {title: 'Book1', price: 50},
+        {title: event.target.value, price: 60},
+        {title: 'Book3', price: 70},
+      ]
+    })
+  }
+```
+همانطور که می بنید event رو گرفتیم که ازش value رو بگیریم حالا این event باید بر اساس یک اکشنی باشه که در تابع خود کامپوننت می نویسیم
+
+```js
+const Product = (props) => {
+    return (
+       <div className='product'>
+          <p>Product Name: {props.title}</p>
+          <p onClick={props.click}>Product Price: {props.price}</p>
+          <p>{props.children}</p>
+          <input type="text" onChange={props.change} />
+       </div>
+    )
+};
+```
+همانطور که می بنید onChange اکشن ماست و با هر تغییر می یاید تابعی که در App نوشتیم رو اجرا می کنه 
