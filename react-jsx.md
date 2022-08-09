@@ -235,3 +235,26 @@ const Product = (props) => {
 };
 ```
 همانطور که می بنید onChange اکشن ماست و با هر تغییر می یاید تابعی که در App نوشتیم رو اجرا می کنه 
+
+---
+
+### اینلاین استایل دادن در ری اکت
+
+در تابع render می یاییم مثل این مورد معرفی می کنیم 
+
+```js
+render() {
+    const btn = {
+      backgroundColor: '#7b1fa2',
+      color: '#ffffff',
+      font: 'inherit',
+      border: 'none',
+      outline: 'none',
+      borderRadius: '3px',
+      padding: '0.6rem',
+      margin: '0.6rem auto',
+    }
+ 
+ ....
+ <button style={btn} onClick={this.changePriceHandler}>Change Price</button>
+ ```
