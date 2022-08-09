@@ -107,3 +107,34 @@ const Product = (props) => {
 
 export default Product;
 ```
+
+---
+
+### ساخت state داخلی و تغییر اون با setState
+
+خوب اگر بخواهیم در ری اکت یک state درست کنیم می تونیم در کلاس یا تابع اصلی یک state معرفی کنیم به این صورت
+```js
+class App extends React.Component {
+  state = {
+    products: [
+      {title: 'Book1', price: 100},
+      {title: 'Book2', price: 200},
+      {title: 'Book3', price: 300},
+    ]
+  }
+```
+خوب در این قسمت ما state خودمون اینشلایز کردیم و بایند شده حالا فرض بر مثال یک تابعی داریم که به دکمه ای وصل هست و می خواهیم این استیت اولیه رو تغییر بده که اونجا می تونیم به صورت زیر عمل کنیم
+
+```js
+ changePriceHandler = () => {
+    this.setState({
+      products: [
+        {title: 'Book1', price: 50},
+        {title: 'Book2', price: 60},
+        {title: 'Book3', price: 70},
+      ]
+    })
+  }
+```
+
+---
