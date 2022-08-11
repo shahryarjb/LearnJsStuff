@@ -314,3 +314,35 @@ useEffect(() => {
 })
 ```
 می باشد که هر وقت یک صفحه رندر می شود این نیز اجرا می شود که بهترین مکان برای کار با `API` می باشد
+
+
+### رندر کردن بدون div
+همانطور که می دونیم داخل render باید همیشه html رو بزاریم بین یک div تا ارور نده متد render ولی می تونیم چند کار دیگه رو انجام بدیم 
+مثلا می تونیم بجای پرانتز همه رو ببریم تو آرایه و هر خط رو یک کاما بزاریم یا حتی می تونیم یک فایل دیگه درست کنیم مثلا به نام Container بعد اون رو ایمپورت کنیم 
+
+خود فایل
+
+```js
+const Container = props => props.children
+
+export default Container;
+```
+
+حالا در فایل مورد نظر می تونیم ایمپورت کنیمش و به این صورت بیاریم. لازم به ذکر است ما از آبجکت رزور children استفاده کردیم 
+
+```js
+import Container from '../../hoc/Container';
+
+class Product extends Component {
+    render() {
+      return (
+         <Container>
+               <p onClick={this.props.click}>Product Name: {this.props.title}</p>
+               <p>Product Price: {this.props.price}</p>
+               <p>{this.props.children}</p>
+               <input type="text" onChange={this.props.change} value={this.props.title} />
+            </div>
+      )
+    }
+};
+```
