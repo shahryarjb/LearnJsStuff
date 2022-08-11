@@ -346,3 +346,20 @@ class Product extends Component {
     }
 };
 ```
+
+لازم به ذکر است خود ری اکت نیز برای این مورد گزینه ای خوبی را برای برنامه نویس آماده کرده است
+
+```js
+render() {
+  return (
+     <React.Fragment>
+        <div className='product'>
+           <p onClick={this.props.click}>Product Name: {this.props.title}</p>
+           <p>Product Price: {this.props.price}</p>
+           <p>{this.props.children}</p>
+           <input type="text" onChange={this.props.change} value={this.props.title} />
+        </div>
+     </React.Fragment>
+  )
+}
+```
