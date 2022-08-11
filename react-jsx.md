@@ -341,7 +341,7 @@ class Product extends Component {
                <p>Product Price: {this.props.price}</p>
                <p>{this.props.children}</p>
                <input type="text" onChange={this.props.change} value={this.props.title} />
-            </div>
+          </Container>
       )
     }
 };
