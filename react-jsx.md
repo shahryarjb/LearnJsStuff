@@ -500,7 +500,7 @@ export default authContext;
 ۱. در جایی که می خواخیم کانکست را ارزش گذاری مجدد کنیم از Provider استفاده می کنیم
 ۲. در جایی که می خواهیم اطلاعات وارد شده در کانکست را بخوانیم از Consumer استفاده می کنیم
 
-```
+```js
 return (
   <Container>
     <button onClick={() => {this.setState({ showMain: false })}}>Remove Main</button>
