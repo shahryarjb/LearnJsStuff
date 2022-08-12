@@ -363,3 +363,46 @@ render() {
   )
 }
 ```
+
+---
+
+### ساخت یک رپر و higher order component
+فرض بکنیم می خواهیم یک کامپوننت بسازیم که یک کامپوننت دیگه رو کامل بیاره داخل خودش و همچنین props هاشو بگیره و بهش یک استایل هم بده
+
+خود کامپوننت به شرح زیر می باشد:
+```js
+import React from "react";
+
+const Wrapper = (WrapperComponent, className) => {
+   return (props) => (
+    <div className={className}>
+        <WrapperComponent {...props} />
+    </div>
+   )
+}
+
+export default Wrapper;
+```
+همانطور که می بنید WrapperComponent به عنوان ورودی هست که خوب کل کامپوننت رو باید توش قرار بدیم و className هم اسم کلاسی هست که می خواهیم به div اصلی یا عنصر اصلی بدهیم ولی نکته ای که اینجا بسیار کاربردی می باشد گرفتن و ارسال props هست ولی همانطور که می دانیم props ها آرایه هستند و برای ارسال تک تک مثلا name یا ... باید اون رو به صورت لیستی بنویسیم که می شود `{...props}`
+
+حالا در فایلی که کامپوننت اصلی هست باید به این صورت انجام بدهیم
+
+```js
+import Wrapper from './hoc/Wrapper';
+import Container from './hoc/Container';
+
+class App extends React.Component {
+    return (
+      <Container>
+        <button onClick={() => {this.setState({ showMain: false })}}>Remove Main</button>
+          {this.state.showMain ?
+          <Main products={this.state.products} click={this.toggleProductHandler} /> : null }
+          {products}
+      </Container>
+    )
+}
+
+export default Wrapper(App, 'center');
+```
+
+همانطور که می بنید کل App را در موقع export بردیم تو کامپوننت Wrapper  
