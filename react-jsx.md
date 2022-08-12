@@ -477,3 +477,58 @@ const Main = (props) => {
 ```js
 <button ref={btnRef} style={btn} onClick={props.click}>
 ```
+
+
+---
+
+### استفاده از context
+از اینکه تک تک کامپوننت ها بخواهند اطلاعات را به کامپوننت دیگر ارسال کنند در مرور زمان این کار بسیار سخت می شود و به همین دلیل react موردی را توسعه داده است در بستر کامپوننت ها به نام کانتکست
+
+```js
+import React from "react";
+
+const authContext = React.createContext({
+    auth: false,
+    login: () => {}
+})
+
+export default authContext;
+```
+این یک کامپوننت کانکست می باشد که در اون اومده دوتا پارامتر تعریف کرده که یکی از نوع بولین می باشد و دومی نیز یک تابعی را اجرا می کند. که در بالا ارزش گذاری اولیه شده است به صورت دیفالت چی باشند.
+
+برای شروع کانکست باید بدونیم ما دو مفهوم داریم:
+۱. در جایی که می خواخیم کانکست را ارزش گذاری مجدد کنیم از Provider استفاده می کنیم
+۲. در جایی که می خواهیم اطلاعات وارد شده در کانکست را بخوانیم از Consumer استفاده می کنیم
+
+```
+return (
+  <Container>
+    <button onClick={() => {this.setState({ showMain: false })}}>Remove Main</button>
+    <AuthContext.Provider value={{ auth: this.state.auth, login: this.loginHandler }}>
+      {this.state.showMain ? (
+        <Main 
+          products={this.state.products} 
+          click={this.toggleProductHandler} 
+        />
+      ) : null }
+      {products}
+    </AuthContext.Provider>
+  </Container>
+)
+```
+در مثال بالا می بنیم که یک کامپوننت درست شده است به نام `AuthContext.Provider` که داخلش یک value قرار گرفته است و داخل یک آبجکت اومده ایم اطلاعات رو ریرایت کردیم با نسخه اولیه اون و در اون یک کامپوننت Main هست حالا در کامپوننت Main می خواهیم تمام اطلاعات را بخوانیم 
+
+```js
+return(
+    <div>
+        <h2>Book Store</h2>
+        <button ref={btnRef} style={btn} onClick={props.click}>
+        Show/Hide Products
+        </button>
+        <AuthContext.Consumer>
+            {(context) => <button onClick={context.login}>Login</button>}
+        </AuthContext.Consumer>
+    </div>
+)
+```
+  
