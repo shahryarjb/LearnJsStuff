@@ -406,3 +406,50 @@ export default Wrapper(App, 'center');
 ```
 
 همانطور که می بنید کل App را در موقع export بردیم تو کامپوننت Wrapper  
+
+
+### استفاده از ref برای فوکوس
+برای ارتباط با اجرای html و jsx می تونیم از ref استفاده کنیم به عنوان مثال اگر بخواهیم روی یکی از input ها بعد از ریفرش فوکوس بشه می تونیم از دو روش استفاده کنیم.
+
+```js
+<input 
+   ref={(element) => this.inputElement = element}
+   type="text" 
+   onChange={this.props.change} 
+   value={this.props.title} 
+/>
+```
+در این قسمت در حقیقت ما یک inputElement ساختیم از نوع آبجکت element که ری اکت به ما می دهد و حالا چون نیاز داریم در زمانی که کامپوننت ها لود شدند فوکوس انجام بشه می تونیم در متد زیر بیاریم
+
+```js
+componentDidMount() {
+  this.inputElement.focus()
+}
+```
+
+روش بعدی می تونیم از کنستراکتور استفاده کنیم که ساده تر می باشد
+
+```js
+constructor(props) {
+  super(props)
+  this.inputRef = React.createRef()
+}
+```
+
+همانطور که می بنید ما از متد createRef ری اکت یکی ساختیم و حالا می تونیم اون رو جوری که نیاز داریم تنظیم کنیم 
+
+```js
+componentDidMount() {
+  this.inputRef.current.focus()
+}
+```
+
+همانطور که در بالا دیدید ما گفتیم المنت current فوکوس بشه و حالا فقط می مونه که بیاییم اون رو در اچتی ام المون صدا بزنیم
+
+```js
+<input 
+   ref={this.inputRef}
+   type="text" 
+   onChange={this.props.change} 
+   value={this.props.title} 
+/>
