@@ -453,3 +453,27 @@ componentDidMount() {
    onChange={this.props.change} 
    value={this.props.title} 
 />
+
+
+> حال اگر بخواهیم در فانکشنال کامپوننت ها فراخوانی کنیم باید اول `useRef` را به ایمپورت صدا بزنیم در این مثال می خواهیم یک دکمه بعد از لود شده کلیک شده باشد
+
+```js
+import React, { useEffect, useRef } from "react";
+
+const Main = (props) => {
+    const btnRef = useRef(null);
+    
+    useEffect(() => {
+        console.log('Main.js useEffect')
+        btnRef.current.click()
+        return () => {
+            console.log('CleanUp')
+        }
+    }, [])
+    
+```
+همانطور که در بالا مشاهده کردید ما در خود تابع یک متغییر از نوع `useRef(null)` ساختیم و حالا در هوک `useEffect` که بعد از اینکه کامپوننت لود شده صدا زده می شه اونجا اومدیم و گفتیم که ` btnRef.current.click()` کلیک شده باشد حالا زمان این هست که روی خود دکمه ای که می خواهیم اعمال کنیم
+
+```js
+<button ref={btnRef} style={btn} onClick={props.click}>
+```
