@@ -556,3 +556,33 @@ static contextType = AuthContext
 ```js
 {this.context.auth ? <p>Logged in!</p> : <p>Please log in</p>}
 ```
+
+
+### استفاده از useContext در فانکشنال کامپوننت ها
+
+در بالا مواردی که استفاده کردیم در کلاس ها بود و وقتی بخواهیم در تابع از آن استفاده کنیم باید هوک آن را صدا بزنیم
+```js
+import React, { useEffect, useRef, useContext } from "react";
+```
+بعد می آییم آن را در یک متغییر قرار می دهیم تا داده ای رو ریترن کنه
+
+```js
+const Main = (props) => {
+    const btnRef = useRef(null);
+    const authContext = useContext(AuthContext)
+```
+
+همانطور که می بنید ما اومدیم AuthContext که کانتکست ما می باشد را در هوک useContext صدا زدیم بجای کد زیر
+
+```js
+<AuthContext.Consumer>
+    {(context) => <button onClick={context.login}>Login</button>}
+</AuthContext.Consumer>
+```
+
+می نویسیم
+```js
+<button onClick={authContext.login}>Login</button>
+```
+
+> توجه داشته باشید همیشه در تابع ها بجای کلاس اگر می خواهیم این موارد استفاده کنیم باید از هوک ها کمک بگیریم
