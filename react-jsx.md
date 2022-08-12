@@ -532,3 +532,27 @@ return(
 )
 ```
   
+
+---
+
+### استفاده از contextType
+
+راه کوتاه تری برای Consumer وجود دارد که رزرو شده خود ری اکت می باشد به این صورت فایلی که می خواهیم اطلاعات را از آن استخراج کنیم در پایین constructor می تونیم به این صورت معرفی کنیم
+
+```js
+static contextType = AuthContext
+```
+
+بعد از اون می تونیم یک تابعی که قبلا بوده
+
+```js
+<AuthContext.Consumer>
+    {(context) => context.auth ? <p>Logged in!</p> : <p>Please log in</p>}
+</AuthContext.Consumer>
+```
+
+را تبدیل کنیم به 
+
+```js
+{this.context.auth ? <p>Logged in!</p> : <p>Please log in</p>}
+```
