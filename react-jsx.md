@@ -614,7 +614,7 @@ const memoizedCallback = useCallback(() => {
 
 ### ریداکس پایه بدون ری اکت شامل دپریکیت کد
 
-```
+```js
 const redux = require('redux');
 
 const createStore = redux.createStore;
