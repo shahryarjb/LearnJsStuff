@@ -608,3 +608,46 @@ const memoizedCallback = useCallback(() => {
 ```
 
 نکته: بر اساس تجربه هوک های ری اکت دسترسی بیشتری در اختیار کاربران قرار می دهند تا کلاس کامپوننت ها
+
+
+---
+
+### ریداکس پایه بدون ری اکت شامل دپریکیت کد
+
+```
+const redux = require('redux');
+
+const createStore = redux.createStore;
+
+const initialState = {
+  counter: 0,
+};
+
+const rootReducer = (state = initialState, action) => {
+  if (action.type === 'INC') {
+    return {
+      ...state,
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === 'ADD') {
+    return {
+      ...state,
+      counter: state.counter + action.value,
+    };
+  }
+  return state;
+};
+
+const store = createStore(rootReducer);
+
+store.subscribe(() => {
+  console.log('subscribe', store.getState());
+});
+
+store.dispatch({ type: 'INC' });
+store.dispatch({ type: 'ADD', value: 2 });
+
+console.log(store.getState())
+```
