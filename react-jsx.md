@@ -843,6 +843,7 @@ const Product = ({ history, match }) => {
 
 نکته: بعد از تمامی این مطالب بالا شما باید در فایل index.js که شروع پروژه می باشد بیایید 
 ```js
+import { Provider } from 'react-redux'
 import store from './store'
 
 ...
