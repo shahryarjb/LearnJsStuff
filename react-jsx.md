@@ -844,5 +844,15 @@ const Product = ({ history, match }) => {
 نکته: بعد از تمامی این مطالب بالا شما باید در فایل index.js که شروع پروژه می باشد بیایید 
 ```js
 import store from './store'
+
+...
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
 ```
 رو قرار بدهید تا پروژه state رو ران کند و اطلاعات را از ان بگیرد
+
