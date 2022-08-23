@@ -651,3 +651,191 @@ store.dispatch({ type: 'ADD', value: 2 });
 
 console.log(store.getState())
 ```
+
+
+---
+### ریداکس پیشرفته
+
+فایل `store` 
+```js
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+
+import {
+  productListReducer,
+  productDetailReducer,
+} from './reducer/productReducer'
+
+import { cartReducer } from './reducer/cartReducer'
+
+const reducer = combineReducers({
+  productList: productListReducer,
+  productDetail: productDetailReducer,
+  cart: cartReducer,
+})
+
+const initialState = {
+  cart: { cartItems: {} },
+}
+
+const middleware = [thunk]
+
+const store = createStore(reducer, initialState, applyMiddleware(...middleware))
+
+export default store
+```
+
+همانطور که می بینید در این فایل که مثل هلپر می ماند ما از `redux-thunk` که یک میدل ور می باشد نیز استفاده کردیم. و همینطور چندین ردیوسر و استیت داریم که می توان با `combineReducers` اون رو مدیریت کرد
+
+دو فایل ردیوسر:
+توجه کنید ردیوسر این تابع ساده می باشد که فقط مشخص می کند که چطور ریترن شود و فعالیت هایی که از سرور یا روی دیتابیس انجام می شود اون موارد در اکشن می باشد
+
+نمونه اول:
+
+```js
+export const cartReducer = (state = { cartItems: [] }, action) => {
+  switch (action.type) {
+    case 'CART_ADD_ITEM':
+      const item = action.paylod
+
+      const existingItem = state.cartItems.find(
+        (i) => i.product === item.product
+      )
+
+      if (existingItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((i) =>
+            i.product === existingItem.product ? item : i
+          ),
+        }
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, item],
+        }
+      }
+    case 'CART_REMOVE_ITEM':
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((i) => i.product !== action.payload),
+      }
+    default:
+      return state
+  }
+}
+```
+نمونه دوم:
+
+```js
+export const productListReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case 'PRODUCT_LIST_REQUEST':
+      return { loading: true, products: [] }
+    case 'PRODUCT_LIST_SUCCESS':
+      return { loading: false, products: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productDetailReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case 'PRODUCT_DETAIL_REQUEST':
+      return { loading: true, ...state }
+    case 'PRODUCT_DETAIL_SUCCESS':
+      return { loading: false, product: action.payload }
+    default:
+      return state
+  }
+}
+```
+
+حال نوبت می رسد به اکشن ها که می تونیم مثل فایل کانتکس مربوط به کواری زدن یا کاری کردن در زیر لایه app مثال بزنیم
+
+نمونه اول:
+```js
+import axios from 'axios'
+
+export const addTocart = (id) => async (dispatch, getState) => {
+  const { data } = await axios.get(`http://localhost:8000/api/products/${id}`)
+
+  dispatch({
+    type: 'CART_ADD_ITEM',
+    paylod: {
+      product: data._id,
+      name: data.name,
+      image: data.image,
+      price: data.price,
+    },
+  })
+
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch({
+    type: 'CART_REMOVE_ITEM',
+    payload: id,
+  })
+
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+```
+نمونه دوم:
+```js
+import axios from 'axios'
+
+export const productListAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'PRODUCT_LIST_REQUEST' })
+
+    const { data } = await axios.get('http://localhost:8000/api/products')
+
+    dispatch({
+      type: 'PRODUCT_LIST_SUCCESS',
+      payload: data,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const productDetailAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: 'PRODUCT_DETAIL_REQUEST' })
+
+    const { data } = await axios.get(`http://localhost:8000/api/products/${id}`)
+
+    dispatch({
+      type: 'PRODUCT_DETAIL_SUCCESS',
+      payload: data,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+```
+
+حالا می توانیم در یک فایل به کامپوننت ری اکت به این صورت انجام بدهیم
+
+```js
+import { productDetailAction } from '../action/productAction'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+const Product = ({ history, match }) => {
+
+  const dispatch = useDispatch()
+
+  const productDetail = useSelector((state) => state.productDetail)
+  const { loading, product } = productDetail
+  
+  
+  useEffect(() => {
+    dispatch(productDetailAction(match.params.id))
+  }, [dispatch, match])
+
+}
+```
+سه خط بعد از تابع که مشخص می کند دیپچ می کنیم به ردیوسر و استور و همینطور کدوم state رو می خوایم و از استیت مذکور چه مواردی نیاز داریم و در تابع useEffect می ریم که state رو بسازیم
