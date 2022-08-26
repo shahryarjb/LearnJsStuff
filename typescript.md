@@ -462,3 +462,34 @@ function logError(target: any, key: string, desc: PropertyDescriptor): void {
 new Boat().pilot();
 ```
 سومین ورودی می تواند در تابع دکورتور اینجا برای ما مناسب باشد و خروجی را برای ما فراهم کند
+
+
+---
+
+### دریافت ورودی در دکورتور ها
+
+فرض کنید می خواهید اگر اروری داد متن خطا به عنوان ورودی دکورتور قرار بگیره. این کار به سادگی با قرار دادن همین تابع در یک تابع دیگیری که return شده انجام پذیر هست
+
+```ts
+
+  @logError('Something bad!')
+  pilot(): void {
+    throw new Error();
+    console.log('swish');
+  }
+  
+  function logError(errorMessage: string) {
+  return function (target: any, key: string, desc: PropertyDescriptor): void {
+    const method = desc.value;
+
+    desc.value = function () {
+      try {
+        method();
+      } catch (e) {
+        console.log(errorMessage);
+      }
+    };
+  };
+}
+```
+همانطور که مشاهده می کنید تغییر خاصی نسبت به کد بالا انجام نشده فقط خود تابع دکورتور رفته در زیر مجموعه تابع دیگیری که return می شود
