@@ -380,3 +380,35 @@ describe(this: CLASSNAME) {
   console.log(`Team: ${this.name}`)
 }
 ```
+
+---
+
+### دکوریتور
+این مبحث فقط در کلاس ها استفاده می شود و نمونه های زیادش در انگولار بیشتر دیده می شود ولی امکانات خوبی برای مدیریت پراپرتی ها دارد. دکوریتور ها در حقیقت فانکشن هستند. و با `@` بالای متد ها و کلاس ها قرار می گیرند
+
+```ts
+class Boat {
+  color: string = 'red';
+
+  get formattedColor(): string {
+    return `This boats color is ${this.color}`;
+  }
+
+  @testDecorator
+  pilot(): void {
+    console.log('swish');
+  }
+}
+
+function testDecorator(target: any, key: string): void {
+  console.log('Target:', target);
+  console.log('Key:', key);
+}
+```
+
+خروجی می شود:
+
+```
+Target: Boat { formattedColor: [Getter], pilot: [Function] }
+Key: pilot
+```
