@@ -431,3 +431,34 @@ Key: pilot
 ```ts
 testDecorator(Boat.prototype, 'pilot')
 ```
+
+---
+
+### نمایش یک خطا با دکوریتور
+
+به قطعه کد زیر توجه کنید به صورت مثال می خواهیم اگر تابع اروری داد با دکوریتور یک کاری باهاش بکنیم در اینجا فقط می خواهیم یک چاپ داشته باشیم
+
+```ts
+class Boat {
+  ...
+  @logError
+  pilot(): void {
+    throw new Error();
+    console.log('swish');
+  }
+}
+
+function logError(target: any, key: string, desc: PropertyDescriptor): void {
+  const method = desc.value;
+  desc.value = function () {
+    try {
+      method();
+    } catch (e) {
+      console.log('Oops, boat was sunk');
+    }
+  };
+}
+
+new Boat().pilot();
+```
+سومین ورودی می تواند در تابع دکورتور اینجا برای ما مناسب باشد و خروجی را برای ما فراهم کند
