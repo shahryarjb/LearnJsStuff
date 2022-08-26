@@ -419,3 +419,8 @@ Key: pilot
 تبدیل کد بالا به js در تصویر زیر می تونید ببنید:
 ![Screen Shot 2022-08-26 at 12 49 27](https://user-images.githubusercontent.com/8413604/186856959-43b4199c-ee6d-4f12-99d7-890eb25a53fb.png)
 
+
+
+تصویر دیگر:
+
+![Screen Shot 2022-08-26 at 12 51 20](https://user-images.githubusercontent.com/8413604/186857266-44fdf770-740d-49ab-be74-096c03126bf1.png)
