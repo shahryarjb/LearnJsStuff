@@ -412,3 +412,5 @@ function testDecorator(target: any, key: string): void {
 Target: Boat { formattedColor: [Getter], pilot: [Function] }
 Key: pilot
 ```
+
+لازم به ذکر است که می توانیم `@testDecorator` رو روی هر فانکشن و پراپرتی بالا قرار بدهیم برای تست روی `pilot` دادیم 
