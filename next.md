@@ -91,3 +91,19 @@ const loadProjectHandler = () => {
   });
 };
 ```
+
+---
+### ساخت صفحه ۴۰۴
+برای ساخت این صفحه کافیه در pages بیایید یک 404.js بسازید و هر کدی رو توش می تونید قرار بدید نمونه:
+
+```js
+const NotFoundPage = () => {
+  return (
+    <div>
+      <h1>Page Custom Not Found</h1>
+    </div>
+  );
+};
+
+export default NotFoundPage;
+```
