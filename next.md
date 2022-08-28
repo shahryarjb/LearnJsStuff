@@ -84,10 +84,10 @@ const loadProjectHandler = () => {
 ```
 نکته: push هم می توانید مثل لینک pathname و همینطور query بگیرد.
 ```js
-  const loadProjectHandler = () => {
-    router.push({
-      pathname: '/clients/[id]/[clientprojectid]',
-      query: { id: 'sha', clientprojectid: 'projecta' },
-    });
-  };
+const loadProjectHandler = () => {
+  router.push({
+    pathname: '/clients/[id]/[clientprojectid]',
+    query: { id: 'sha', clientprojectid: 'projecta' },
+  });
+};
 ```
