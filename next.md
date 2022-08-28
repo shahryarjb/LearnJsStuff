@@ -73,3 +73,21 @@ npx create-next-app@latest --typescript
   {client.name}
 </Link>
 ```
+
+---
+### نویگیت کردن به صورت کد
+همانطور که در بالا مشاهده کردید ما هوک روتر از nextjs داریم که می تونیم به صورت زیر عمل کنیم
+```js
+const loadProjectHandler = () => {
+    router.push('/clients/max/projecta')
+}
+```
+نکته: push هم می توانید مثل لینک pathname و همینطور query بگیرد.
+```js
+  const loadProjectHandler = () => {
+    router.push({
+      pathname: '/clients/[id]/[clientprojectid]',
+      query: { id: 'sha', clientprojectid: 'projecta' },
+    });
+  };
+```
