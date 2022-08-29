@@ -107,3 +107,14 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 ```
+
+---
+### استفاده از انکر تگ در لینک کامپوننت
+برخی مواقع نیاز هست a تگ برای استایل دهی استفاده بشه وقتی بین Link استفاده می شه دیگه از لینک معمولی استفاده نمی کنه و براش href نباید بزارید به صورت مثال
+```js
+<Link href={props.Link}>
+  <a className={classes.btn}>
+    {props.children}
+  </a>
+</Link>
+```
