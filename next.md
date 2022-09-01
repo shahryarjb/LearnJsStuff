@@ -280,3 +280,32 @@ if (!loadedProduct) {
 ```
 
 نیست
+
+---
+### حل مشکل فال بک در زمانی true می باشد برای صفحات ۴۰۴
+فرض کنید در کد بالا فال بک روی true می باشد و شما تو لینک رو دایرکت می زنید و وجود ندارد خوب بلاکینگ نیست که به ۴۰۴ برود و یک بار لود می شود در اون جا شما اگر یک شرط لودینگ هم قرار بدهید بازم ارور می گیرید چون از لود می شود و می بیند داده ای نیست و مثلا به لوپ شما که توش داده ای نیست اشاره می کند
+
+در اینجا شما باید باز برگردید به getStaticProps و از فلگ notFound استفاده کنید
+
+```js
+export async function getStaticProps(context) {
+  const { params } = context;
+
+  const productId = params.pid;
+
+  const data = await getData();
+
+  const product = data.products.find((product) => product.id === productId);
+
+  if (!product) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      loadedProduct: product,
+    },
+  };
+}
+```
+به کد بالا نگاه کنید در اون قسمت گفتیم اگر محصولی نیست بره به صفحه ۴۰۴ اینجوری اول لودینگ اجرا می شود و بعدش کاربر صفحه ۴۰۴ رو می بینه
