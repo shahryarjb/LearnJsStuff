@@ -156,3 +156,27 @@ function Home(props) {
   );
 }
 ```
+
+---
+### ساخت قسمت های استاتیک هر ۱۲۰ ثانیه
+خوب فرض بر اینکه شما صفحات مورد نظر خود را ساختید ولی ممکن است چیز جدید به آن اضافه شود و می خواهید آن را بسازید که خوب از نظر منطقی زیاد به بخش کش کردن کمک نمی کند ولی در لود بسیار سریع خواهد بود نسبت به اینکه هر سری از دیتابیس بگیرید. به همین منظور شما باید به این صورت عمل کنید
+
+```js
+export async function getStaticProps() {
+  console.log('Re Generate');
+  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
+  const jsonData = await fs.readFile(filePath);
+  const data = JSON.parse(jsonData);
+
+  return {
+    props: {
+      products: data.products,
+    },
+    revalidate: 120,
+  };
+}
+```
+
+همانطور که می بنید revalidate به کد قبلی اضافه شده است که عددش بر اساس ثانیه است و خودتون می تونید تغییر بر اساس نیاز خودتان بدهید
+
+اطلاعات بیشتر: https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation
