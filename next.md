@@ -347,3 +347,59 @@ export async function getServerSideProps(contex) {
 * `defaultLocale` contains the configured default locale (if enabled).
 
 اطلاعات بیشتر https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props
+
+
+---
+### مثال از استفاده ری اکت پیور در nextjs
+خوب در این مثال می تونید ببنید که دقیقا کد ری اکت به صورت کلاینت ساید در حال لود می باشد و برای کاربر قرار گرفته است البته این کامل کلاینت ساید نیست نسبت به خود ری اکت ولی برای سئو کار زیاد تفاوتی نمی کند نمونه کد 
+
+```js
+import { useEffect, useState } from 'react';
+
+const LastSalesPage = () => {
+  const [sales, setSales] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      'https://react-redux-main-43799-default-rtdb.europe-west1.firebasedatabase.app/sales.json'
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const transformedSales = [];
+
+        for (const key in data) {
+          transformedSales.push({
+            id: key,
+            username: data[key].username,
+            volume: data[key].volume,
+          });
+        }
+
+        setSales(transformedSales);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!sales) {
+    return <p>No data yet...</p>;
+  }
+
+  return (
+    <ul>
+      {sales.map((sale) => (
+        <li key={sale.id}>
+          {sale.username} - ${sale.voulume}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default LastSalesPage;
+```
