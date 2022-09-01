@@ -194,3 +194,14 @@ export async function getStaticProps() {
   };
 }
 ```
+
+
+برای اینکه کامل بتونید تمام آپشن هارو ببنید به این لینک سر بزنید
+https://nextjs.org/docs/api-reference/data-fetching/get-static-props
+
+به صورت مثال موارد زیر
+revalidate
+notFound
+redirect
+
+نکته: در لینک بالا در مورد تایپ اسکریپت نیز محتوا نوشته شده است
