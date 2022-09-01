@@ -620,3 +620,29 @@ export default function Document() {
 
 اطلاعات بیشتر
 https://nextjs.org/docs/advanced-features/custom-document
+
+---
+### بهینه سازی و قرار دادن تصویر در nextjs
+از اونجایی که شعار nextjs بر این هست که این فریم ورک آماده پروداکشن هست یکی از کامپوننت ها و ماژول های اون در مورد تصاویر هست که بهینه سازی عحیبی رو انجام می ده و در چندین فرمت قرار می دهد و همینطور این فرمت ها می تونه مواردی باشه که مروگر نیاز داره اطلاعات بیتشر
+https://nextjs.org/docs/basic-features/image-optimization
+
+
+```
+import Image from 'next/image'
+// OR
+import Image from 'next/future/image'
+
+function Home() {
+  return (
+    <>
+      <h1>My Homepage</h1>
+      <Image
+        src={profilePic}
+        alt="Picture of the author"
+        // width={500} automatically provided
+        // height={500} automatically provided
+        // blurDataURL="data:..." automatically provided
+        // placeholder="blur" // Optional blur-up while loading
+      />
+```
+در بالا می تونید یک نمونه رو ببنید اصلا با تگ image فرق نداره ولی آپشن های زیادی رو می گیره که در کامنت بالا مشخص می باشد
