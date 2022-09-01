@@ -345,3 +345,5 @@ export async function getServerSideProps(contex) {
 * `locale` contains the active locale (if enabled).
 * `locales` contains all supported locales (if enabled).
 * `defaultLocale` contains the configured default locale (if enabled).
+
+اطلاعات بیشتر https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props
