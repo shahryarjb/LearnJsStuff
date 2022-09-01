@@ -180,3 +180,5 @@ export async function getStaticProps() {
 همانطور که می بنید revalidate به کد قبلی اضافه شده است که عددش بر اساس ثانیه است و خودتون می تونید تغییر بر اساس نیاز خودتان بدهید
 
 اطلاعات بیشتر: https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation
+
+> نکته این مورد برای بخش پروداکشن می باشد چون در دولپر مود هر سری رکواست می فرستید صفحه ریجنریت می شود
