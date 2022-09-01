@@ -458,3 +458,5 @@ const LastSalesPage = () => {
 
 export default LastSalesPage;
 ```
+
+از جمله امکانات این کتابخانه لود کردن خودکار با ارسال هر سری داده هست که ui نیز خودکار تغییر می کنه
