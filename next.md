@@ -200,9 +200,9 @@ export async function getStaticProps() {
 https://nextjs.org/docs/api-reference/data-fetching/get-static-props
 
 به صورت مثال موارد زیر
-revalidate
-notFound
-redirect
+- revalidate
+- notFound
+- redirect
 
 نکته: در لینک بالا در مورد تایپ اسکریپت نیز محتوا نوشته شده است
 
@@ -309,3 +309,39 @@ export async function getStaticProps(context) {
 }
 ```
 به کد بالا نگاه کنید در اون قسمت گفتیم اگر محصولی نیست بره به صفحه ۴۰۴ اینجوری اول لودینگ اجرا می شود و بعدش کاربر صفحه ۴۰۴ رو می بینه
+
+---
+### لود سرور ساید
+وقتی کار با api دارید بر خلاف ری اکت که در useEffect قرار می گیره بعد از ران شدن کامپوننت می یاد بالا و هیچ چیزی در سورس نمی بینید nextjs براش تابع داره که به صورت سرور ساید لودش کنه
+
+```js
+function UserIdPage(props) {
+  return <h1>{props.id}</h1>;
+}
+
+export default UserIdPage;
+
+export async function getServerSideProps(contex) {
+  const { params } = contex;
+  const userId = params.uid;
+
+  return {
+    props: {
+      id: 'userid-' + userId,
+    },
+  };
+}
+```
+به کد بالا توجه کنید می بنید که تابع getServerSideProps به صورت داینامیک داره یک اطلاعاتی را می گیرد که uid می باشد و اونرو مثلا در سروری سرچ می کنه اطلاعات رو ارسال می کنه به کامپوننت خیلی شبی به نوع استاتیک پراپس هست که تقریبا تمامی موارد اون رو داره ولی بر خلاف نوع استاتیکش می تونید نوع ریسپانس رو بررسی کنید به صورت مثال موارد زیر داخلش هست
+
+
+* `params`: If this page uses a dynamic route, params contains the route parameters. If the page name is [id].js , then params will look like { id: ... }.
+* `req`: The HTTP IncomingMessage object, with an additional cookies prop, which is an object with string keys mapping to string values of cookies.
+* `res`: The HTTP response object.
+* `query`: An object representing the query string, including dynamic route parameters.
+* `preview`: preview is true if the page is in the Preview Mode and false otherwise.
+* `previewData`: The preview data set by setPreviewData.
+* `resolvedUrl`: A normalized version of the request URL that strips the _next/data prefix for client transitions and includes original query values.
+* `locale` contains the active locale (if enabled).
+* `locales` contains all supported locales (if enabled).
+* `defaultLocale` contains the configured default locale (if enabled).
