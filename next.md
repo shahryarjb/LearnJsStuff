@@ -627,7 +627,7 @@ https://nextjs.org/docs/advanced-features/custom-document
 https://nextjs.org/docs/basic-features/image-optimization
 
 
-```
+```js
 import Image from 'next/image'
 // OR
 import Image from 'next/future/image'
