@@ -403,3 +403,58 @@ const LastSalesPage = () => {
 
 export default LastSalesPage;
 ```
+
+---
+### استفاده از پکیج swr
+این پکیج نوشته شده فقط برای next که کمک کنه موارد مربوط به ری اکت هوک با این پیاده کنیم با امکانات خیلی بیشتر 
+
+به عنوان مثال کد بالا تغییر کرد به کد زیر
+
+```js
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+
+const LastSalesPage = () => {
+  const [sales, setSales] = useState();
+  const fetcher = (url) => fetch(url).then((response) => response.json());
+  const { data, error } = useSWR(
+    'https://react-redux-main-43799-default-rtdb.europe-west1.firebasedatabase.app/sales.json',
+    fetcher
+  );
+
+  useEffect(() => {
+    if (data) {
+      const transformedSales = [];
+
+      for (const key in data) {
+        transformedSales.push({
+          id: key,
+          username: data[key].username,
+          volume: data[key].volume,
+        });
+      }
+      setSales(transformedSales);
+    }
+  }, [data]);
+
+  if (error) {
+    return <p>Failed to load...</p>;
+  }
+
+  if (!data || !sales) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <ul>
+      {sales.map((sale) => (
+        <li key={sale.id}>
+          {sale.username} - ${sale.voulume}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default LastSalesPage;
+```
