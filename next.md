@@ -460,3 +460,57 @@ export default LastSalesPage;
 ```
 
 از جمله امکانات این کتابخانه لود کردن خودکار با ارسال هر سری داده هست که ui نیز خودکار تغییر می کنه
+
+
+---
+### گرفتن اطلاعات از سرور با استاتیک پراپس
+
+نمونه اول:
+
+```js
+export async function getStaticProps() {
+  const response = await fetch(
+    'https://react-redux-main-43799-default-rtdb.europe-west1.firebasedatabase.app/sales.json'
+  );
+  const data = await response.json();
+
+  const transformedSales = [];
+
+  for (const key in data) {
+    transformedSales.push({
+      id: key,
+      username: data[key].username,
+      volume: data[key].volume,
+    });
+  }
+
+  return {
+    props: { sales: transformedSales, revalidate: 10 },
+  };
+}
+```
+
+همین کد ساده تر
+```js
+export async function getStaticProps() {
+  return fetch(
+    'https://react-redux-main-43799-default-rtdb.europe-west1.firebasedatabase.app/sales.json'
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const transformedSales = [];
+
+      for (const key in data) {
+        transformedSales.push({
+          id: key,
+          username: data[key].username,
+          volume: data[key].volume,
+        });
+      }
+
+      return {
+        props: { sales: transformedSales, revalidate: 10 },
+      };
+    });
+}
+```
