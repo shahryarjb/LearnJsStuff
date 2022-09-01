@@ -596,3 +596,27 @@ return {
  };
 ```
 پارامتر revalidate رو برداریم حتی اگر داده با swr تغییر کنه در سورس تغییراتشو نمی بیند مثلا یک پارامتر جدید اضافه بشه کاربر به صورت ری اکت ساید می بینه ولی در سورس نیست
+
+
+---
+### استفاده از _Document.js
+فرض بر این داشته باشید می خواهید کل html پروژه رو با ترتیب خاصی لود کنید در آن زمان باید یک فایل بسازید در pages به نام _document.js یک نمونه کد 
+```js
+import { Html, Head, Main, NextScript } from 'next/document'
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```
+اگر این فایل ساخته نشود دیفالت کد بالا انجام می شود ولی برخی از پروژه ها به آن نیاز دارند تا تغییر کلی در html و فراخوانی آن بدهند
+
+اطلاعات بیشتر
+https://nextjs.org/docs/advanced-features/custom-document
