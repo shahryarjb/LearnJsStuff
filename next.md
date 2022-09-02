@@ -646,3 +646,59 @@ function Home() {
       />
 ```
 در بالا می تونید یک نمونه رو ببنید اصلا با تگ image فرق نداره ولی آپشن های زیادی رو می گیره که در کامنت بالا مشخص می باشد
+
+---
+### سرور ساید API
+فریم ورک nextjs قسمت api هم داره که فقط کافی هست در pages یک فولدر درست کنید به نام api و اون بخش می شه تقریبا آدرس دامنتون api/something اینجوری می تونید لینک بدید و چون سرور ساید هست تقریبا کد هاش شبی به nodejs و همینطور اکسپرس هست و چون سرور ساید هست کد های node هم به راحتی توش import می شه و قالب استفاده هست
+
+هر یک فایل مربوط به یک endpoint می شود که باید یک تابع به اسم handler داشته باشد به صورت مثال فایل feedback.js در api در داخلش به این صورت عمل می گردد
+
+```js
+function handler(req, res) {
+ ...
+}
+
+export default handler;
+```
+دو ورودی تابع مذکور از خود nextjs می آید و شامل اطلاعات زیاد هست. اطلاعات بیشتر: https://nextjs.org/docs/api-routes/introduction
+
+نمونه یک api که اطلاعات را به صورت Post متد می گیرد و در فایل فایل در مسیر روت ذخیره می کند
+```js
+import fs from 'fs';
+import path from 'path';
+
+export function buildFeedbackPath() {
+  return path.join(process.cwd(), 'data', 'feedback.json');
+}
+
+export function extractFeedback(filePath) {
+  const fileData = fs.readFileSync(filePath);
+  const data = JSON.parse(fileData);
+  return data;
+}
+
+function handler(req, res) {
+  if (req.method === 'POST') {
+    const email = req.body.email;
+    const feedbackText = req.body.text;
+
+    const newFeedback = {
+      id: new Date().toISOString(),
+      email: email,
+      text: feedbackText,
+    };
+
+    const filePath = buildFeedbackPath();
+    const data = extractFeedback(filePath);
+    data.push(newFeedback);
+    fs.writeFileSync(filePath, JSON.stringify(data));
+    res.status(200).json({ message: 'Success!', feedback: newFeedback });
+  } else {
+    const filePath = buildFeedbackPath();
+    const data = extractFeedback(filePath);
+    res.status(200).json({ feedback: data });
+  }
+}
+
+export default handler;
+```
