@@ -767,3 +767,26 @@ return () => {
   clearTimeout(timer);
 };
 ```
+
+---
+### قرار دادن متغییر های سیستمی
+
+برای اطلاعات بیشتر به این لینک مراجعه کنید: https://nextjs.org/docs/api-reference/next.config.js/environment-variables
+پسورد های سیستم ها یا مواردی که در سیستم به عنوان کانفیگ قرار می گیرند و ممکن هستند تغییر کنند را در این بخش ذخیره می کنید به همین منظور حتما باید پروژه شما فایل next.config.js داشته باشد و بعد می تونید به صورت زیر عمل کنید
+
+```js
+module.exports = {
+  env: {
+    customKey: 'my-value',
+  },
+}
+```
+حالا هرجا در پروژه خودتون می تونید این متغییری که اینجا ساختید رو به این صورت صدا بزنید `{process.env.customKey}` به صورت مثال در jsx
+
+```js
+function Page() {
+  return <h1>The value of customKey is: {process.env.customKey}</h1>
+}
+
+export default Page
+```
