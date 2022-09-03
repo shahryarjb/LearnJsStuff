@@ -755,3 +755,15 @@ const notificationCtx = useContext(NotificationContext);
 ```
 
 کانتکسی که ساختیم رو می تونید در اینجا صدا بزنید
+
+
+نکته: اگر برای پاک کردن ناتفیکیشن از ست تایمر استفاده کردید و اون رو در useEffect قرار دادید حتما اون رو کلین آپ کنید که هر سری انجام می شود از اول کار کنه
+```js
+const timer = setTimeout(() => {
+  setActiveNotification(null);
+}, 3000);
+
+return () => {
+  clearTimeout(timer);
+};
+```
