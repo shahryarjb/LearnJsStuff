@@ -746,3 +746,12 @@ function MyApp({ Component, pageProps }) {
 }
 ```
 همانطور که می بنید کل کد را قرار را در کامپوننت NotificationContextProvider قرار دادیم  
+
+تمامی موارد بالا که انجام شده این امکان رو می دهد شما state رو بسازید ولی برای مدیریت اون می تونید هرجا خواستید بیایید اینجوری کانتکس رو بگیرید
+
+```js
+import NotificationContext from '../../store/notification-context';
+const notificationCtx = useContext(NotificationContext);
+```
+
+کانتکسی که ساختیم رو می تونید در اینجا صدا بزنید
