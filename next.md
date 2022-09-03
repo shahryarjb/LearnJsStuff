@@ -727,3 +727,27 @@ export function NotificationContextProvider(props) {
 export default NotificationContext;
 ```
 چون در یک فایل هست می تونه NotificationContext رو بخونه در بالا 
+
+حالا فقط می مونه که state رو استارت کنیم در پوشه _app.js
+```js
+import { NotificationContextProvider } from '../store/notification-context';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <NotificationContextProvider>
+      <Layout>
+        <Head>
+          <title>Next Events</title>
+          <meta name='description' content='NextJS Events' />
+          <meta
+            name='viewport'
+            content='initial-scale=1.0, width=device-width'
+          />
+        </Head>
+        <Component {...pageProps} />
+      </Layout>
+    </NotificationContextProvider>
+  );
+}
+```
+همانطور که می بنید کل کد را قرار را در کامپوننت NotificationContextProvider قرار دادیم  
