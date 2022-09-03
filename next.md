@@ -702,3 +702,28 @@ function handler(req, res) {
 
 export default handler;
 ```
+
+---
+### استفاده از ری اکت کانتکس در nextjs
+```js
+import { createContext } from 'react';
+
+const NotificationContext = createContext({
+  notification: null, // { title, message, status }
+  showNotification: function (notificationData) {},
+  hideNotification: function () {},
+});
+```
+به صورت بالا یک کانتکس درست می کنیم و می گیم که این یک کامپوننت هست حالا برای پروایدرش به این صورت می تونیم عمل کنیم
+
+```js
+export function NotificationContextProvider(props) {
+ return (
+    <NotificationContext.Provider>
+      {props.children}
+    </NotificationContext.Provider>
+  );
+  
+export default NotificationContext;
+```
+چون در یک فایل هست می تونه NotificationContext رو بخونه در بالا 
