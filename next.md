@@ -808,3 +808,19 @@ const Home: NextPage = () => {
 };
 ```
 
+
+---
+### نصب بوتسترپ در next
+نصب فایل css  اون بسیار ساده هست فقط کافی هست بعد از نصب پکیج npm اون بیاییم در فایل app به این صورت آن را صدا کنیم 
+```js
+import 'bootstrap/dist/css/bootstrap.css';
+```
+ولی فایل js اون رو باید با useEffect ری اکت نصب کنیم که آخر فایل بالا بیاید 
+
+```js
+ useEffect(() => {
+   // Installing Bootstrap based on this post: https://blog.logrocket.com/handling-bootstrap-integration-next-js/
+   require('bootstrap/dist/js/bootstrap.bundle.min.js');
+ }, []);
+ ```
+ اگر در اینجا import استفاده کنیم تایپ اسکریپت به ما ارور می دهد کهuseEffect باید یا void ریترن کند یا یک ریترنی داشته باشد به صورت آبجکت پس بهتر است از  require استفاده کنید و چون `[]` یوزافکت بسته می شود یعنی آخر کامپوننت کامل شد بالا می آید
