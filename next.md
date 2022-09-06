@@ -790,3 +790,21 @@ function Page() {
 
 export default Page
 ```
+
+### اینلاین css زدن در next
+
+```js
+const Home: NextPage = () => {
+  return (
+    <>
+      <style jsx global>{`
+        body {
+          background: #40485d !important;
+        }
+      `}</style>
+      <div className="container">Hi</div>
+    </>
+  );
+};
+```
+
