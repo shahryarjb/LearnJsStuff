@@ -66,3 +66,16 @@ export const ChildAsFC: React.FC<ChildProps> = ({color, onClick, children}) => {
 3. react-redux
 4. @types/react-redux
 5. axios
+
+
+---
+
+### استفاده از کلاس set
+
+```ts
+setContent(prev => [...new Set([...prev, ...lastPosts.entries])])
+```
+باید تبدیل شود به
+```ts
+setContent(prev => Array.from(new Set([...prev, ...lastPosts.entries])));
+```
