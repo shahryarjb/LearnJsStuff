@@ -12,6 +12,10 @@
 
 (https://github.com/sudheerj/reactjs-interview-questions)
 
+## تایپ‌اسکریپت
+
+(https://www.interviewbit.com/typescript-interview-questions/)
+
 ## کوییز لینکدین
 
 (https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/blob/main/react/reactjs-quiz.md)
