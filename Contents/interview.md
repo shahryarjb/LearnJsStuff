@@ -26,21 +26,48 @@
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
 1. Data types
+جاوااسکریپت یک زبان داینامیک تایپ هست و مستقیم به یک نوع از داده تخصیص داده نمی شه. و همینطور از نوع weakly typed می باشد به همین منظور ممکن است شما به اشتباه یک نوع استرینگ را با number در یک متغیر جمع کنید که خوباین خودش یک ضعف می باشد
+```js
+const foo = 42;
+const result = foo + "1"; 
+console.log(result); // 421
+```
+ما در جاوااسکریپت موارد زیر را دارا می باشیم برای تایپ ها 
+```
+Primitive values
+Boolean type
+Null type
+Undefined type
+Number type
+BigInt type
+String type
+Symbol type
+```
+اخیرا Symbol اضافه شده است که امیوتبل می باشد و همینطور یونیک می باشد. لازه به ذکر است یونیک بودن آن ها ریفرنس در حافظه می باشد پس از نظر ولیو نیست به صورت مثال:
+```js
+const sym2 = Symbol('foo');
+const sym3 = Symbol('foo');
+Symbol('foo') === Symbol('foo')  // false
+```
+اطلاعات بیشتر:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures
+
+
 2. Functions 
-3. Scope in JavaScript
-4. Closure
-5. Event loop
-6. Prototype and prototype chain
-7. Class and inheritance
-8. DOM
-9. bind/call/apply
-10. Promise
-11. WebAPI
-12. Task queue
-13. Call stack
-14. Async/await
-15. Generators
-16. Typescript
+4. Scope in JavaScript
+5. Closure
+6. Event loop
+7. Prototype and prototype chain
+8. Class and inheritance
+9. DOM
+10. bind/call/apply
+11. Promise
+12. WebAPI
+13. Task queue
+14. Call stack
+15. Async/await
+16. Generators
+17. Typescript
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗛𝗧𝗠𝗟 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
 1. block element
