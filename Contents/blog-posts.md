@@ -4,6 +4,7 @@
 
 (https://konstantinlebedev.com/solid-in-react/)
 (https://medium.com/airbnb-engineering/rearchitecting-airbnbs-frontend-5e213efc24d2)
+(https://khalilstemmler.com/articles/client-side-architecture/architecture/)
 
 ## ری‌اکت
 
