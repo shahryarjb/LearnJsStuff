@@ -169,3 +169,90 @@ if ('serviceWorker' in navigator) {
 }
 ```
 در اولین خط چک می کنیم که آیا این مورد در این مروگر فعال و ساپورت می شه و در مرحله بعدی می یاییم ثبتش می کنیم و فایل نیز در روت پروژه قرار می گیره که کد جدا بشه و در صورت لزوم لود بشه
+
+---
+
+## لایف سایکل
+
+شروع چرخه زندگی سرویس ورکر به این صورت می باشد که اول باید ریجیستر شود در یک فایل مثلا app.js
+```js
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(() => {
+    console.log('serviceWorker registered!');
+  });
+}
+```
+در این بخش که ریجستر شد حال نوبت این می باشد که یک سری ایونت لیسنر ها تو فایل sw.js نوشته شود
+
+```js
+self.addEventListener('install', (event) => {
+  console.log('[Service Worker] installing Service Wroker ...', event);
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('[Service Worker] Activating Service Wroker ...', event);
+  return self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  console.log('[Service Worker] fetching something ...', event);
+  event.respondWith(fetch(event.request));
+});
+```
+
+همانطور که می بنید در این بخش ما install و activate  و fetch به ترتیب داریم.
+
+حال نیاز به این هست که ما مروگر رو از اکشن هاش متوقف کنیم و بیاییم event مورد نظرمون برای نمایش بنر ثبت اپ اجرا کنیم. اینجاست که در فایل مثلا app.js می آییم یک گلوبال متغییر درست می کنیم مثلا به نام
+```js
+let deferredPrompt;
+```
+و حال نیاز داریم در همون فایل بیاییم یکی از event های خود مروگر برای این کارو صدا کنیم و event رو بدیم به این متغییر 
+```js
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('beforeinstallprompt fired');
+  event.preventDefault();
+  deferredPrompt = event;
+  return false;
+});
+```
+قبل از نصب اپ ما اومدیم متغییر ساختیم
+
+حالا فرض کنید ما یک فایلی داریم که فایل js خودشم داره و قرار هست یک دکمه ای رو اجرا کنه به صورت مثال 
+
+```js
+var shareImageButton = document.querySelector('#share-image-button');
+function openCreatePostModal() {
+  createPostArea.style.display = 'block';
+}
+shareImageButton.addEventListener('click', openCreatePostModal);
+```
+
+این کد ساده فقط می آید یک display به کد ما اضافه می کند. به همین سادگی حالا می خوایم بگیم اگر این event صدا زده شد بیا کار های نصب به صورت بنر در مروگر به کاربر نشون بده پیشنهاد بدیم که اگر می خوای اضافه کن این اپ رو به هوم اسکرینت. اگر یادتون باشه یک متغیر سراسری در بالا ساختیم و حالا نوبت این هست که فانکشن openCreatePostModal را یکمی به کد هاش اضافه کنیم
+
+```js
+function openCreatePostModal() {
+  createPostArea.style.display = 'block';
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      console.log(choiceResult.outcome);
+
+      if (choiceResult.outcome === 'dismissed') {
+        console.log('user cancelled installation');
+      } else {
+        console.log('user added to home screen');
+      }
+    });
+
+    deferredPrompt = null;
+  }
+}
+```
+همانطور که در کد ها مشخص می باشد در این لحظه ما چک کردیم آیا متغیر deferredPrompt صدا زده شده بعد از اون یکی از توابع از deferredPrompt صدا زده می شود و در مرحله بعدی که یک پرامیس می باشد مشخص می کند کاربر چه اکشنی رو انتخاب کرده. آیا حاظر بوده که اپ نصب کنه یا اون ریجیکت کرده و در آخر هم deferredPrompt رو نال می کنیم که کار تکراری در زمان آینده ممکن باشد
+
+لازم به ذکر است در فایل html نیز فایل های js به این صورت با اولیت لود شدند
+```html
+<script src="/src/js/app.js"></script>
+<script src="/src/js/feed.js"></script>
+```
