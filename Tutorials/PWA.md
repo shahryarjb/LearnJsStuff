@@ -118,3 +118,22 @@
 در بالا ما کل فایل را قرار دادیدم بعد از تصویر start_url بخشی هست که اپ می فهمونی که از کجا بالا بیاید و شروع کند و همینطور در scope مشخص می کنید که چه بخشی از فایل ها می تواند معرفی شود و در بخش بعدی نیز مربوط به display هست می تواند فول واید و ... نیز باشد و بخش بعدی مربوط به گردش می باشد که orientation که آیا لندایکیپ باشد یا پتریت و  ... . گزینه background_color نیز وقتی اپ در ریلود می شود و در بخش بعدی theme_color نیز مربوط به رنگ های تلبار و ... می باشد دیگر موارد نیز از اسمشون مشخص هست
 
 ---
+
+## پشتیبانی در سافاری
+
+خوب همینطور که سافاری خیلی از بخش هارو ساپورت نمی کنه ولی می شه یک سری موارد رو با اضافه کردن تگ meta به فایل html اون رو تقریبا اوکی کرد. لیست برخی از مواردی که می شود اضافه نمود 
+
+```html
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="PWAGram" />
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-57x57.png" sizes="57x57"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-60x60.png" sizes="60x60"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-72x72.png" sizes="72x72"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-76x76.png" sizes="76x76"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-114x114.png" sizes="114x114"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-120x120.png" sizes="120x120"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-144x144.png" sizes="144x144"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-152x152.png" sizes="152x152"/>
+<link rel="apple-touch-icon" href="/src/images/icons/apple-icon-180x180.png" sizes="180x180"/>
+```
