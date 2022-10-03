@@ -57,20 +57,52 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures
 ---
 
 2. Functions 
-4. Scope in JavaScript
-5. Closure
-6. Event loop
-7. Prototype and prototype chain
-8. Class and inheritance
-9. DOM
-10. bind/call/apply
-11. Promise
-12. WebAPI
-13. Task queue
-14. Call stack
-15. Async/await
-16. Generators
-17. Typescript
+3. Scope in JavaScript
+4. Closure
+5. Event loop
+حلقه رویداد
+جاوا اسکریپت دارای یک مدل زمان اجرا بر اساس یک حلقه رویداد است که وظیفه اجرای کد، جمع آوری و پردازش رویدادها و اجرای وظایف فرعی در صف را بر عهده دارد. این مدل با مدل های زبان های دیگر مانند C و Java کاملاً متفاوت است.
+
+مفاهیم زمان اجرا
+
+بخش های زیر یک مدل نظری را توضیح می دهند. موتورهای جاوا اسکریپت مدرن معنایی توصیف شده را پیاده سازی و به شدت بهینه می کنند.
+
+به کد زیر توجه کنید:
+
+```js
+function foo(b) {
+  const a = 10;
+  return a + b + 11;
+}
+
+function bar(x) {
+  const y = 3;
+  return foo(x * y);
+}
+const baz = bar(7); // 42
+```
+
+۱. هنگام فراخوانی ‍`bar`، اولین فریم حاوی ارجاع به آرگومان های نوار و متغیرهای محلی ایجاد می شود.
+
+۲. وقتی نوار foo را فراخوانی می‌کند، یک فریم دوم ایجاد می‌شود و در بالای فریم اول قرار می‌گیرد که حاوی ارجاعاتی به آرگومان‌های foo و متغیرهای محلی است.
+
+۳. وقتی foo برمی گردد، عنصر فریم بالایی از پشته بیرون می آید (فقط فریم تماس نوار باقی می ماند).
+۴. وقتی نوار برمی گردد، پشته خالی است.
+
+---
+
+
+8. Prototype and prototype chain
+9. Class and inheritance
+10. DOM
+11. bind/call/apply
+12. Promise
+13. WebAPI
+14. Task queue
+15. Call stack
+16. Async/await
+17. Generators
+18. Typescript
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗛𝗧𝗠𝗟 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
 1. block element
