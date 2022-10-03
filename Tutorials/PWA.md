@@ -256,3 +256,52 @@ function openCreatePostModal() {
 <script src="/src/js/app.js"></script>
 <script src="/src/js/feed.js"></script>
 ```
+
+---
+## کش کردن اطلاعات
+
+یکی از متد ها یا API های سرویس ورکر کش کردن می باشد که وب سایت و بخش های وب سایت را به عنوان PWA از کش بیاید بالا. خوب همانطور که قبلا در فایل sw که برای سرویس ورکر ساختیم می تونیم به این صورت عمل کنیم
+
+
+```js
+self.addEventListener('install', function (event) {
+  console.log('[Service Worker] Installing Service Worker ...', event);
+  event.waitUntil(
+    caches.open('static').then(function (cache) {
+      console.log('[Service Worker] Precaching App Shell');
+      cache.addAll([
+        '/',
+        '/index.html',
+        '/src/js/app.js',
+        '/src/js/feed.js',
+        '/src/js/promise.js',
+        '/src/js/fetch.js',
+        '/src/js/material.min.js',
+        '/src/css/app.css',
+        '/src/css/feed.css',
+        '/src/images/main-image.jpg',
+        'https://fonts.googleapis.com/css?family=Roboto:400,700',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css',
+      ]);
+    })
+  );
+});
+```
+
+همانطور که می بنید ما تک تک صفحات و تک تک فایل هاریی که نیاز داشتیم را در event مربوط به install اومدیم معرفی کردیم که کش بشه و بعد از اون نیاز داریم در evenet مربوط به fetch بیاییم بگیم خوب اگر کشی وجود داشت از از کش بخون در غیر این صورت از fetch استفاده کن
+
+```js
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (response) {
+      if (response) {
+        return response;
+      } else {
+        return fetch(event.request);
+      }
+    })
+  );
+});
+```
+ولی به این صورت ممکن است صفحات زیادی داشته باشیم و .. که کمی کار را سخت می کند که مبحثی هست به نام داینامیک کش که در ادامه توضیح می دهیم
