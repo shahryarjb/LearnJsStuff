@@ -305,3 +305,31 @@ self.addEventListener('fetch', function (event) {
 });
 ```
 ولی به این صورت ممکن است صفحات زیادی داشته باشیم و .. که کمی کار را سخت می کند که مبحثی هست به نام داینامیک کش که در ادامه توضیح می دهیم
+
+
+---
+
+## داینامیک کش
+
+بهترین جا برای ذخیره کش داینامیک در event متد fetch هست چون می شه ببنی کش در هر ریکواست وجود داره یا نه و اگر نداشت ذخیره کنیم. خوب به این ترتیب می تونیم به صورت زیر عمل کنیم
+
+```js
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (response) {
+      if (response) {
+        return response;
+      } else {
+        return fetch(event.request).then(function (res) {
+          return caches.open('dynamic').then(function (cache) {
+            cache.put(event.request.url, res.clone());
+            return res;
+          });
+        }).catch(function(err) {
+          
+        });
+      }
+    })
+  );
+});
+```
