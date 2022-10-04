@@ -1,27 +1,5 @@
 # آمادگی برای مصاحبه
 
-## وب‌سایت‌ها
-
-- [ ] https://www.frontendinterviewhandbook.com/introduction/
-
-## جاوااسکریپت
-
-- [ ] https://ditty.ir/posts/70-javascript-interview-questions-part-1/nMQzn
-
-## ری‌اکت
-
-- [ ] https://github.com/sudheerj/reactjs-interview-questions
-
-## تایپ‌اسکریپت
-
-- [ ] https://www.interviewbit.com/typescript-interview-questions/
-
-## کوییز لینکدین
-
-- [ ] https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/blob/main/react/reactjs-quiz.md
-- [ ] https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/blob/main/javascript/javascript-quiz.md
-
-
 ## پوشش مباحث
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
@@ -197,3 +175,28 @@ d. Compiler
 17. Mocking Data
 18. Understanding Webpack (Bundler)
 19. Babel, env, prettier, linter 
+
+
+---
+
+
+## وب‌سایت‌ها
+
+- [ ] https://www.frontendinterviewhandbook.com/introduction/
+
+## جاوااسکریپت
+
+- [ ] https://ditty.ir/posts/70-javascript-interview-questions-part-1/nMQzn
+
+## ری‌اکت
+
+- [ ] https://github.com/sudheerj/reactjs-interview-questions
+
+## تایپ‌اسکریپت
+
+- [ ] https://www.interviewbit.com/typescript-interview-questions/
+
+## کوییز لینکدین
+
+- [ ] https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/blob/main/react/reactjs-quiz.md
+- [ ] https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes/blob/main/javascript/javascript-quiz.md
