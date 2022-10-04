@@ -59,7 +59,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures
 2. Functions 
 3. Scope in JavaScript
 4. Closure
-5. Event loop
+#### 5. Event loop
 
 حلقه رویداد
 جاوا اسکریپت دارای یک مدل زمان اجرا بر اساس یک حلقه رویداد است که وظیفه اجرای کد، جمع آوری و پردازش رویدادها و اجرای وظایف فرعی در صف را بر عهده دارد. این مدل با مدل های زبان های دیگر مانند C و Java کاملاً متفاوت است.
