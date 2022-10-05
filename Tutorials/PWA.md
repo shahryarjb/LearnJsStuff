@@ -495,3 +495,24 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(caches.match(event.request));
 });
 ```
+
+---
+
+### استراتژی network fallback
+در این استراتژی اولیت با اینترنت می باشد در صورتی که اینترنت وجود داشته باشد از اینترنت لود می کند ولاغیر از از کش 
+```js
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    fetch(event.request)
+      .then(function (res) {
+        return caches.open(CACHE_DYNAMIC_NAME).then(function (cache) {
+          cache.put(event.request.url, res.clone());
+          return res;
+        });
+      })
+      .catch(function (err) {
+        return caches.match(event.request);
+      })
+  );
+});
+```
