@@ -483,3 +483,15 @@ self.addEventListener('fetch', function (event) {
   );
 });
 ```
+
+---
+
+### استراتژی cache only
+
+فرض کنید که شما هیچ پلن B ندارید در اون زمان هست که شما می خواهید فقط کش کنید صفحاتی که کش شدن بیاند بالا می تونید در لسنر fetch اینجوری عمل کنید
+
+```js
+self.addEventListener('fetch', function (event) {
+  event.respondWith(caches.match(event.request));
+});
+```
