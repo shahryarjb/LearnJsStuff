@@ -553,3 +553,35 @@ navigator.serviceWorker.getRegistrations()
   })
 }
 ```
+
+---
+### استراتژی فقط شبکه
+
+فرض کنید می خواهید یک سری موارد رو کش کنید مثل asset ها ولی می خواهید همیشه از شبکه بیاد بالا این استراتژی فقط شبکه می باشد
+```js
+// Network-only
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    fetch(event.request)
+  );
+});
+```
+
+استراتژی های بر اساس نیازمند ها می تونند درست بشند به عنوان مثال در کد زیر اول چک می کند آیا اینترنت هست اگر بود از ریسپانس خود اینترنت استفاده می کند و بعد از اون اگر ارور بود اینترنت نبود از موارد کش شده
+```js
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    fetch(event.request)
+      .then(function(res) {
+        return caches.open(CACHE_DYNAMIC_NAME)
+                .then(function(cache) {
+                  cache.put(event.request.url, res.clone());
+                  return res;
+                })
+      })
+      .catch(function(err) {
+        return caches.match(event.request);
+      })
+  );
+});
+```
