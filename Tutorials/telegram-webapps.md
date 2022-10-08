@@ -31,7 +31,7 @@ const Layout = ({ children }: Children): JSX.Element => {
 ```
 همانطور که می بنید وقتی کامپوننت کامل لود شد برای یک بار تلگرام بات ریسپانس ready می دهد. این بخش فقط مربوط به وب اپ قسمت UI می باشد. شما در مرحله بعدی باید حتما موارد اولیه را اجرا کنید
 
-```
+```js
 const { Telegraf } = require('telegraf');
 const TOKEN = '';
 const bot = new Telegraf(TOKEN);
