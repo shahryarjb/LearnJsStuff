@@ -588,3 +588,13 @@ self.addEventListener('fetch', function(event) {
   );
 });
 ```
+
+---
+### اضافه کردن و ایمپورت کردن فایل در سرویس ورکر
+مثل اینکه سرویس ورکر به ما اینچنین اجازه ای رو نمی ده و به جاش دستور دیگه ای رو معرفی کرده به شرح زیر 
+```js
+importScripts('/src/js/idb.js');
+```
+
+اطلاعات بیشتر در موردش
+https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts
