@@ -66,3 +66,10 @@ reply_markup: {
 
 ![08727d5d763e24d750](https://user-images.githubusercontent.com/8413604/194699911-30e83f57-339e-4026-a5e1-8f9df8f4ddfa.jpeg)
 
+---
+### دریافت اطلاعات اولیه کاربر
+```js
+var search = Telegram.WebApp.initData
+var converted = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
+JSON.parse(converted.user).username
+```
