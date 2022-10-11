@@ -234,7 +234,70 @@ https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_even
 
 ---
 
-8. Prototype and prototype chain
+### 8. Prototype and prototype chain
+
+هر شی در جاوا اسکریپت دارای یک ویژگی داخلی است که به آن نمونه اولیه یا prototype می گویند.
+ نمونه اولیه به خودی خود یک شی است، بنابراین prototype نیز در خورد prototype خودش را دارد و چیزی را که یک زنجیره اولیه نامیده می شود، می سازد.
+ این زنجیره زمانی به پایان می رسد که به یک prototype برسیم که برای prototype خودش null دارد.
+ 
+ برای مثال اگر چنین چیزی در js درست شود
+ ```js
+ const myObject = {
+  city: "Madrid",
+  greet() {
+    console.log(`Greetings from ${this.city}`);
+  },
+};
+
+myObject.greet();
+```
+
+موارد زیر را در آبجکتی که ساختیم خواهیم داشت
+```
+__defineGetter__
+__defineSetter__
+__lookupGetter__
+__lookupSetter__
+__proto__
+city
+constructor
+greet
+hasOwnProperty
+isPrototypeOf
+propertyIsEnumerable
+toLocaleString
+toString
+valueOf
+```
+
+برای دسترسی به پورتوتایپ یک آبجکت می توانیم از اسم غیر استاندارد `__proto__` استفاده کنیم که در اکثر مروگر ها می باشد ولی می توانیم از دستور زیر نیز استفاده کنیم `Object.getPrototypeOf()`
+
+هنگامی که سعی می کنید به property یک شی دسترسی پیدا کنید: اگر ویژگی در خود شی پیدا نشود، property برای ویژگی جستجو می شود. اگر هنوز property پیدا نشد، property یه property جستجو می‌شود و به همین ترتیب تا زمانی که property پیدا شود یا به انتهای زنجیره برسد، در این صورت undefined برگردانده می‌شود.
+
+
+![myobject-prototype-chain](https://user-images.githubusercontent.com/8413604/195201475-63ce78cf-6039-4bfd-a529-b8cb832d6115.svg)
+
+
+به این تصور نگاه کنید
+![mydate-prototype-chain](https://user-images.githubusercontent.com/8413604/195201669-8b48115c-878a-4095-a0e0-3fee32a1c427.svg)
+
+به صورت کلی وقتی یک آجکت آشنایی مثل myDate2.getMonth() را صدا می زنید در حقیقت شما Date.prototype را صدا زده اید
+
+به این کد و خروجی آن توجه کنید
+```js
+const myDate = new Date(1995, 11, 17);
+console.log(myDate.getYear()); // 95
+myDate.getYear = function () {
+  console.log('something else!');
+};
+myDate.getYear(); // 'something else!'
+```
+
+
+
+
+---
+
 9. Class and inheritance
 10. DOM
 11. bind/call/apply
