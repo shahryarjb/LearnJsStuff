@@ -188,7 +188,51 @@ const baz = bar(7); // 42
 ۴. وقتی `bar` برمی گردد، پشته خالی است
 
 ---
+### 6. Creating and triggering events
 
+یک سری event هست که از قبل در جاوااسکریپت تعریف شده مثل click ولی اگر نیاز به ساخت یک event اختصاصی داریم جاوااسکریپت دوتا وب API داره که این کارو انجام می ده و همینطور براش راه قدیمی نیز وجود داره که وب API به عنوان کلاس اینترفیس اون رو راحتر کرده
+
+اولین راه کلاس Event هست که نمونه کد اون به شرح زیر می باشد:
+```js
+const event = new Event('build');
+
+// Listen for the event.
+elem.addEventListener('build', (e) => { /* … */ }, false);
+
+// Dispatch the event.
+elem.dispatchEvent(event);
+```
+
+
+راه دوم هم CustomEvent می باشد که می تونید به واسطه اون ورودی های سفارشی هم بدهید ولی در Event این مورد انجام نمی شد نمونه کد:
+```js
+const event = new CustomEvent('build', { detail: elem.dataset.time });
+function eventHandler(e) {
+  console.log(`The time is: ${e.detail}`);
+}
+```
+
+و راهی که در گذشته استفاده می شد استفاده از document.createEvent بود که به شرح زیر می باشد
+```js
+// Create the event.
+const event = document.createEvent('Event');
+
+// Define that the event name is 'build'.
+event.initEvent('build', true, true);
+
+// Listen for the event.
+elem.addEventListener('build', (e) => {
+  // e.target matches elem
+}, false);
+
+// target can be any Element or other EventTarget.
+elem.dispatchEvent(event);
+```
+
+اطلاعات بیشتر:
+https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events
+
+---
 
 8. Prototype and prototype chain
 9. Class and inheritance
