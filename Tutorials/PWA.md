@@ -906,3 +906,6 @@ self.addEventListener('notificationclick', function(event) {
   }
 });
 ```
+
+در مورد قسمت کلاینت می تونید این پست من در الیکسیر رو ببنید
+https://elixirforum.com/t/50934
