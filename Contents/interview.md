@@ -13,6 +13,7 @@
 ### 5. [Subject: Event loop](#5-event-loop)
 ### 6. [Subject: Creating and triggering events](#6-creating-and-triggering-events)
 ### 7. [Subject: Prototype and prototype chain](#7-prototype-and-prototype-chain)
+### 8. [Subject: Inheritance and the prototype chain](#8-inheritance-and-the-prototype-chain)
 ---
 ---
 
@@ -307,11 +308,52 @@ myDate.getYear = function () {
 myDate.getYear(); // 'something else!'
 ```
 
-
-
-
 ---
 
+### 8. Inheritance and the prototype chain
+
+اگر بکگراند شما از زبان هایی مثل جاوا و c++ می باشد ممکن است بخش وراثت در شروع برای شما کمی گیج کننده باشد. دلیلش این هست که جاوااسکریپت پویا است و انواع ایستا ندارد.
+وقتی صحبت از وراثت به میان می آید، جاوا اسکریپت فقط یک ساختار دارد: اشیاء. هر شی دارای یک ویژگی خصوصی است که پیوندی به شی دیگری به نام prototype خود دارد. آن شی prototype، باز prototype خود را دارد، و به همین ترتیب تا زمانی که یک شی با null به عنوان prototype آن به دست آید. طبق تعریف، null هیچ prototype ای ندارد و به عنوان حلقه نهایی در این زنجیره اولیه عمل می کند. امکان جهش هر عضوی از زنجیره prototype یا حتی تعویض prototype در زمان اجرا وجود دارد، بنابراین مفاهیمی مانند ارسال استاتیک در جاوا اسکریپت وجود ندارد.
+در حالی که این سردرگمی اغلب به عنوان یکی از نقاط ضعف جاوا اسکریپت در نظر گرفته می شود، خود prototype وراثت در واقع قدرتمندتر از مدل کلاسیک است. برای مثال، ساختن یک مدل کلاسیک بر روی یک مدل prototype، نسبتاً پیش پا افتاده است - به این ترتیب کلاس ها پیاده سازی می شوند.
+
+اگرچه کلاس ها در حال حاضر به طور گسترده ای پذیرفته شده اند و به یک پارادایم جدید در جاوا اسکریپت تبدیل شده اند، کلاس ها الگوی وراثت جدیدی را به ارمغان نمی آورند. در حالی که کلاس‌ها بیشتر مکانیسم‌های اولیه را انتزاعی می‌کنند
+
+```js
+// Properties all boxes created from the Box() constructor
+// will have
+Box.prototype.getValue = function () {
+  return this.value;
+};
+```
+
+که در کلاس ها به شکل بهتری نمایش داده می شود و خوانایی و منطقی بیشتر نمایش داده می شود ولی جاوااسکریپت به خود خود مفهوم کلاس را ندارد مخصوصا در مرورگر های قدیمی با استفاده از کتابخانه های مبدل مثل بابل.
+```js
+class Box {
+  constructor(value) {
+    this.value = value;
+  }
+
+  // Methods are created on Box.prototype
+  getValue() {
+    return this.value;
+  }
+}
+```
+به موارد زیر توجه کنید:
+```js
+const object = { a: 1 };
+Object.getPrototypeOf(object) === Object.prototype; // true
+
+// Array literals automatically have `Array.prototype` as their `[[Prototype]]`
+const array = [1, 2, 3];
+Object.getPrototypeOf(array) === Array.prototype; // true
+
+// RegExp literals automatically have `RegExp.prototype` as their `[[Prototype]]`
+const regexp = /abc/;
+Object.getPrototypeOf(regexp) === RegExp.prototype; // true
+```
+
+---
 9. Class and inheritance
 10. DOM
 11. bind/call/apply
