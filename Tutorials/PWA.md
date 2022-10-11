@@ -779,3 +779,130 @@ self.addEventListener('notificationclose', function (event) {
   console.log('Notification was closed', event)
 });
 ```
+
+---
+### ارسال push notification
+
+ارسال ناتفیکیشن داری چند بخش هست 
+
+- اول: بخش کلاینت هست که یک سری اطلاعات را درست می کند برای شناسایی مروگر و در آینده ارسال نوتیفیکیشن
+
+```js
+function configurePushSub() {
+  if (!('serviceWorker' in navigator)) {
+    return;
+  }
+
+  var reg;
+  navigator.serviceWorker.ready
+    .then(function (swreg) {
+      reg = swreg;
+      return swreg.pushManager.getSubscription();
+    })
+    .then(function (sub) {
+      if (sub === null) {
+        // Create a new subscription
+        var vapidPublicKey = 'BKapuZ3XLgt9UZhuEkodCrtnfBo9Smo-w1YXCIH8YidjHOFAU6XHpEnXefbuYslZY9vtlEnOAmU7Mc-kWh4gfmE';
+        var convertedVapidPublicKey = urlBase64ToUint8Array(vapidPublicKey);
+        return reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidPublicKey,
+        });
+      } else {
+        // We have a subscription
+      }
+    })
+    .then(function (newSub) {
+      return fetch('https://react-redux-main-43799-default-rtdb.europe-west1.firebasedatabase.app/subscriptions.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(newSub),
+      });
+    })
+    .then(function (res) {
+      if (res.ok) {
+        displayConfirmNotification();
+      }
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+}
+```
+
+در کد بالا می تونید ببنید که یک ناتیفیکیشن درست می شود و در دیتابیس فایربیس ذخیره می شود ولی لازم به ذکر هست می تواند در جای دیگیری ذخیره شود
+خروجی آن یک آبجکتی است از endpoint و keys که در keys دو مورد دیگیری است به نام های auth و p256dh
+
+که کد آن این بخش می باشد 
+```js
+return reg.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: convertedVapidPublicKey,
+});
+```
+این کد در موقع دریافت دسترسی از کاربر هست که می تواند در فایلی مثلا app.js ساخته شود
+
+- مرحله بعدی یک سرور هست با یک کتابخانه که بخواهید یک متنی یا چیزی را ارسال کند ولی سرور نمی تواند به صورت مستقیم وصل شود اینجاست که نیاز به یک سرور پرووایدر دارد مثل فایربیس یا ...
+- - مرحله بعدی هم یک لیسنر هست در sw فایل که بتواند نشان بدهد
+
+```
+self.addEventListener('push', function(event) {
+  console.log('Push Notification received', event);
+
+  var data = {title: 'New!', content: 'Something new happened!', openUrl: '/'};
+
+  if (event.data) {
+    data = JSON.parse(event.data.text());
+  }
+
+  var options = {
+    body: data.content,
+    icon: '/src/images/icons/app-icon-96x96.png',
+    badge: '/src/images/icons/app-icon-96x96.png',
+    data: {
+      url: data.openUrl
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+```
+
+حال اگر بخواهیم به صورت مثال وقتی کلیک شد وارد خود لینک شود باید بیاییم در ایونت دیگری که قبلا در موردش صحبت کردیم انجام بدهیم
+
+```js
+self.addEventListener('notificationclick', function(event) {
+  var notification = event.notification;
+  var action = event.action;
+
+  console.log(notification);
+
+  if (action === 'confirm') {
+    console.log('Confirm was chosen');
+    notification.close();
+  } else {
+    console.log(action);
+    event.waitUntil(
+      clients.matchAll()
+        .then(function(clis) {
+          var client = clis.find(function(c) {
+            return c.visibilityState === 'visible';
+          });
+
+          if (client !== undefined) {
+            client.navigate(notification.data.url);
+            client.focus();
+          } else {
+            clients.openWindow(notification.data.url);
+          }
+          notification.close();
+        })
+    );
+  }
+});
+```
