@@ -727,3 +727,48 @@ function displayConfirmNotification() {
 
 گزینه tag نشان می دهد که این ناتفیکیشن بر اساس یک آیدی که اینجا confirm-notification می باشد ارسال شده است و در صورتی که renotify روی false باشد یعنی ارسال مجدد شد نباید نمایش داده شود جلوگیری از spam احتمالی. 
 گزینه badge که برای گوشی های اندروید می باشد که در بالای گوشی آیکن در زمانی که ناتیفیکیشن باشد می آید و vibrate نیز برای ویبره رفتن و اندازه اون می باشد
+
+---
+
+### ساخت اکشن برای هر ناتفیکیشن
+
+حال فرض کنید شما می خواهید برای ناتیفیکیشن خود دوتا گزینه اضافه کنید کنسل و اوکی و بر اساس اون کنسل یا اوکی بیاید کاری انجام دهد در کد زیر ما یک بخشی را به کل کد ناتفیکیشن اضافه می کنیم به نام اکشنز در اولین مرحله. این کد مثلا در فایل app.js که بر اساس یک دکمه می باشد نوشته می شود
+
+```js
+function displayConfirmNotification() {
+  var options = {
+    ...
+    tag: 'confirm-notification',
+    renotify: true,
+    actions: [
+      { action: 'confirm', title: 'Okay', icon: '/src/images/icons/app-icon-96x96.png' },
+      { action: 'cancel', title: 'Cancel', icon: '/src/images/icons/app-icon-96x96.png' },
+    ],
+  };
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function (swreg) {
+      swreg.showNotification('Successfully subscribed! (from SW)', options);
+    });
+  }
+}
+```
+
+و در فایل sw یا سرویس ورکر می توانیم یک لیسنر صدا بزنیم که مخصوص خود سرویس ورکر می باشد. توجه کنید ما کل ناتفیکیشن را با سرویس ورکر نوشتیم و مورد اولی که برای تست بود را تغییر دادیم پس نیاز داریم در سرویس ورکر هم اون رو هندل کنیم
+
+```js
+self.addEventListener('notificationclick', function (event) {
+  var notification = event.notification;
+  var action = event.action;
+
+  console.log(notification);
+
+  if (action === 'confirm') {
+    console.log('confirm was chosen');
+    notification.close();
+  } else {
+    console.log('Cansel was chosen');
+    notification.close();
+  }
+});
+```
