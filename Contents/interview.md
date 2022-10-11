@@ -234,7 +234,7 @@ https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_even
 
 ---
 
-### 8. Prototype and prototype chain
+### 7. Prototype and prototype chain
 
 هر شی در جاوا اسکریپت دارای یک ویژگی داخلی است که به آن نمونه اولیه یا prototype می گویند.
  نمونه اولیه به خودی خود یک شی است، بنابراین prototype نیز در خورد prototype خودش را دارد و چیزی را که یک زنجیره اولیه نامیده می شود، می سازد.
