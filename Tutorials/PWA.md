@@ -636,3 +636,31 @@ if ('Notification' in window) {
   }
 }
 ```
+
+---
+
+### درست کردن پیام سفارشی بعد از فعال سازی ناتفیکیشن
+
+حال فرض کنید کاربر درخواست فعال سازی را قبول کرد چطور باید به آن پیامی را نمایش داد. باز هم اینجا اینترفیکس کلاس آماده شده است که مثل alert می ماند
+
+```js
+function displayConfirmNotification() {
+  var options = {
+    body: 'You successfully suscribed to our Notification service',
+  };
+  return new Notification('Successfully subscribed!', options);
+}
+```
+و بعد از اون می آییم این تابع را در کد بالا صدا می زنیم
+```
+function askForNotificationPermission() {
+  Notification.requestPermission(function (result) {
+    console.log('User Choice', result);
+    if (result !== 'granted') {
+      console.log('No Notification Permission granted!', result);
+    } else {
+      displayConfirmNotification();
+    }
+  });
+}
+```
