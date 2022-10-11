@@ -353,6 +353,9 @@ const regexp = /abc/;
 Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 ```
 
+> نکته: مهم نیست یک تابع چطور معرفی می کنید همیشه یک تایع یک شی prototype دارد بجز یک استثنا آن هم ارو فانکشن ها هستند arrow function
+
+
 ---
 9. Class and inheritance
 10. DOM
