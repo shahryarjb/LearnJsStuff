@@ -605,3 +605,34 @@ https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts
 به علت اینکه آموزش نسخه قدیمی این کتابخانه را کار کرده و خودش به تنهایی کل ساخت و کار کرد با ایندکست دیبی رو مطرح نکرده بهتره است از داکیومنت خود کتابخانه جلو بروید
 https://github.com/jakearchibald/idb
 در جاهایی که در سرویس ورکر در cashes نوشته می شد حال باید ریپلیس شود با ایندکس دیبی. فقط باید توجه داشت IndexedDB برای ذخیره سازی json یا همان آبجکت می باشد و ذخیره asset و ... در آن قرار نمی گیرد. بیشتر برای کانتنت مناسب هست مخصوصا اگر حجم آن زیاد باشد
+
+---
+
+### ارسال اطلاع رسانی به کاربر
+
+توجه داشته باشید که این امکان در برخی از مروگر ها پوشش داده نمی شود یا اگر می شود کامل نیست ولی برای فعال سازی حتما نیاز به دسترسی کاربر هست به عنوان مثال قرار دادن در یک دکمه و سوال کردن از کاربر. کد اون ساده می باشد به شرح زیر است
+
+یک تابع می سازیم 
+
+```js
+function askForNotificationPermission() {
+  Notification.requestPermission(function (result) {
+    console.log('User Choice', result);
+    if (result !== 'granted') {
+      console.log('No Notification Permission granted!', result);
+    } else {
+      // Hide button
+    }
+  });
+}
+```
+
+و اون تابع رو مثلا در یک لیسنر قرار می دهیم. مثال انتخاب یک دکمه
+```js
+if ('Notification' in window) {
+  for (var i = 0; i < enableNotificationsButtons.length; i++) {
+    enableNotificationsButtons[i].style.display = 'inline-block';
+    enableNotificationsButtons[i].addEventListener('click', askForNotificationPermission);
+  }
+}
+```
