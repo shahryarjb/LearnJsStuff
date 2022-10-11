@@ -2,6 +2,20 @@
 
 ## پوشش مباحث
 
+### سرفصل ها
+
+---
+---
+### 1.[ Data types](#1-data-types)
+### 2. [Functions](#2-functions)
+### 3. [Scope in JavaScript](#3-scope-in-javascript)
+### 4. [Closure](#4-closure)
+### 5. [Event loop](#5-event-loop)
+### 6. [Creating and triggering events](#6-creating-and-triggering-events)
+### 7. [Prototype and prototype chain](#7-prototype-and-prototype-chain)
+---
+---
+
 ### 𝗕𝗮𝘀𝗶𝗰 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
 
 ### 1. Data types
