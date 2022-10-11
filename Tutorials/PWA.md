@@ -697,3 +697,33 @@ function displayConfirmNotification() {
   }
 }
 ```
+
+---
+
+### آپشن های مربوط به ارسال ناتیفکیشن از سرویس ورکر
+
+باید توجه داشت که خیلی از این امکانات که به عنوان آپشن قرار می گیرد ممکن است در یک سیستم عامل کار کند یا چند سیستم عامل را مورد پوشش قرار ندهد. به کد زیر توجه کنید
+```js
+function displayConfirmNotification() {
+  var options = {
+    body: 'You successfully suscribed to our Notification service',
+    icon: '/src/images/icons/app-icon-96x96.png',
+    image: '/src/images/sf-boat.jpg',
+    dir: 'ltr',
+    lang: 'en-US',
+    vibrate: [100, 50, 200],
+    badge: '/src/images/icons/app-icon-96x96.png',
+    tag: 'confirm-notification',
+    renotify: true,
+  };
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function (swreg) {
+      swreg.showNotification('Successfully subscribed! (from SW)', options);
+    });
+  }
+}
+```
+
+گزینه tag نشان می دهد که این ناتفیکیشن بر اساس یک آیدی که اینجا confirm-notification می باشد ارسال شده است و در صورتی که renotify روی false باشد یعنی ارسال مجدد شد نباید نمایش داده شود جلوگیری از spam احتمالی. 
+گزینه badge که برای گوشی های اندروید می باشد که در بالای گوشی آیکن در زمانی که ناتیفیکیشن باشد می آید و vibrate نیز برای ویبره رفتن و اندازه اون می باشد
