@@ -6,13 +6,13 @@
 
 ---
 ---
-### 1.[ Data types](#1-data-types)
-### 2. [Functions](#2-functions)
-### 3. [Scope in JavaScript](#3-scope-in-javascript)
-### 4. [Closure](#4-closure)
-### 5. [Event loop](#5-event-loop)
-### 6. [Creating and triggering events](#6-creating-and-triggering-events)
-### 7. [Prototype and prototype chain](#7-prototype-and-prototype-chain)
+### 1. [Subject: Data types](#1-data-types)
+### 2. [Subject: Functions](#2-functions)
+### 3. [Subject: Scope in JavaScript](#3-scope-in-javascript)
+### 4. [Subject: Closure](#4-closure)
+### 5. [Subject: Event loop](#5-event-loop)
+### 6. [Subject: Creating and triggering events](#6-creating-and-triggering-events)
+### 7. [Subject: Prototype and prototype chain](#7-prototype-and-prototype-chain)
 ---
 ---
 
