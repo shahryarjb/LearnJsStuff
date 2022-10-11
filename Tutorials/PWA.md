@@ -664,3 +664,36 @@ function askForNotificationPermission() {
   });
 }
 ```
+
+---
+
+### ارسال ناتفیکیشن با سرویس ورکر بجایNotification
+
+دد کد قبلی ما اومدیم برای ارسال یک ناتفیکیشن از Notification استفاده کردیم ولی در این کد می آییم از سرویس ورکر استفاده می کنیم
+
+کد قدیمی:
+
+```js
+function displayConfirmNotification() {
+  var options = {
+    body: 'You successfully suscribed to our Notification service',
+  };
+  return new Notification('Successfully subscribed!', options);
+}
+```
+
+کد جدید:
+
+```js
+function displayConfirmNotification() {
+  var options = {
+    body: 'You successfully suscribed to our Notification service',
+  };
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function (swreg) {
+      swreg.showNotification('Successfully subscribed! (from SW)', options);
+    });
+  }
+}
+```
