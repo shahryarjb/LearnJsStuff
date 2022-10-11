@@ -848,7 +848,7 @@ return reg.pushManager.subscribe({
 - مرحله بعدی یک سرور هست با یک کتابخانه که بخواهید یک متنی یا چیزی را ارسال کند ولی سرور نمی تواند به صورت مستقیم وصل شود اینجاست که نیاز به یک سرور پرووایدر دارد مثل فایربیس یا ...
 - - مرحله بعدی هم یک لیسنر هست در sw فایل که بتواند نشان بدهد
 
-```
+```js
 self.addEventListener('push', function(event) {
   console.log('Push Notification received', event);
 
