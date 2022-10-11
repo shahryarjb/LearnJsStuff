@@ -772,3 +772,10 @@ self.addEventListener('notificationclick', function (event) {
   }
 });
 ```
+
+لازم به ذکر است که ما دیگر event هایی رو هم برای سرویس ورکر داریم مثلا رویداد زیر که بیشتر برای گوشی ها کاربرد دارد و در زمانی هست که کاربر ناتفیکیشن را کلوز می کند یعنی سوآیپ می کنند به چپ راست مثل اسکیپ کردن
+```js
+self.addEventListener('notificationclose', function (event) {
+  console.log('Notification was closed', event)
+});
+```
