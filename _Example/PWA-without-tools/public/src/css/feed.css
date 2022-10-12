@@ -1,0 +1,86 @@
+#create-post {
+  z-index: 1001;
+  position: fixed;
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  overflow-y: scroll;
+  bottom: 0;
+  top: 56px;
+  background: white;
+  text-align: center;
+  /*display: none;*/
+  transform: translateY(100vh);
+  transition: transform 0.3s;
+}
+
+#create-post video, #create-post canvas {
+  width: 512px;
+  max-width: 100%;
+  display: none;
+  margin: auto;
+}
+
+#create-post #pick-image, #create-post #location-loader {
+  display: none;
+}
+
+#create-post #capture-btn {
+  margin: 10px auto;
+}
+
+.mdl-spinner {
+  margin: auto;
+}
+
+.main-image {
+  max-width: 100%;
+  margin: auto;
+  display: block;
+}
+
+.floating-button {
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 30px;
+}
+
+.input-section {
+  display: block;
+  margin: 10px auto;
+}
+
+.shared-moment-card.mdl-card {
+  margin: 10px auto;
+  /*width: 270px;*/
+  width: 80%;
+}
+
+@media (min-width: 600px) {
+  .shared-moment-card.mdl-card {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .shared-moment-card.mdl-card {
+    width: 45%;
+  }
+}
+
+.shared-moment-card .mdl-card__title {
+  height: 140px;
+}
+
+@media (min-height: 700px) {
+  .shared-moment-card .mdl-card__title {
+    height: 160px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .shared-moment-card .mdl-card__title {
+    height: 200px;
+  }
+}
