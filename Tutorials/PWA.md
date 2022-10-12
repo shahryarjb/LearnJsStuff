@@ -1002,3 +1002,17 @@ https://developer.chrome.com/docs/workbox/
 
 مثال پیاده سازی برای nextjs
 https://dev.to/josedonato/adding-a-service-worker-into-your-next-js-application-1dib
+
+---
+
+### بخش های مهم workbox
+
+- **workbox-routing:** https://developer.chrome.com/docs/workbox/modules/workbox-routing/
+- **workbox-strategies:** https://developer.chrome.com/docs/workbox/modules/workbox-strategies/
+- **workbox-precaching:** https://developer.chrome.com/docs/workbox/modules/workbox-precaching/
+- **workbox-expiration:** https://developer.chrome.com/docs/workbox/modules/workbox-expiration/
+- **workbox-window:** https://developer.chrome.com/docs/workbox/modules/workbox-window/
+- **Example TS file:** https://glitch.com/edit/#!/wb-typescript-injectmanifest
+- **Workbox CLI:** https://developer.chrome.com/docs/workbox/modules/workbox-cli/
+- **Workbox Build:** https://developer.chrome.com/docs/workbox/modules/workbox-build/
+- **workbox-sw:** https://developer.chrome.com/docs/workbox/modules/workbox-sw/
