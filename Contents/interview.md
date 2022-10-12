@@ -366,28 +366,6 @@ Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 15. Call stack
 16. Async/await
 17. Generators
-18. Typescript
-
-### 𝗕𝗮𝘀𝗶𝗰 𝗛𝗧𝗠𝗟 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
-1. block element
-2. import
-3. etc - infinite questions
-
-### 𝗕𝗮𝘀𝗶𝗰 𝗖𝗦𝗦 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
-1. Class and other selectors
-2. Pseudo Classes
-3. Box Model
-4. Pseudo Elements
-5. CSS type - flex, grid, normal
-6. How to centre
-7. pseudo classes and elements
-8. All element states - active, hover
-9. Media queries
-10. Pre-processors - SCSS or LESS
-1. mixins
-11. CSS constants
-12. BEM
-13. Import
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗪𝗲𝗯 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
 1. Page rendering cycle
