@@ -13,7 +13,7 @@
 ### 5. [Subject: Event loop](#5-event-loop)
 ### 6. [Subject: Creating and triggering events](#6-creating-and-triggering-events)
 ### 7. [Subject: Prototype and prototype chain](#7-prototype-and-prototype-chain)
-### 8. [Subject: Inheritance and the prototype chain](#8-inheritance-and-the-prototype-chain)
+### 8. [Subject: Inheritance and the prototype chain](#8-class-inheritance-and-the-prototype-chain)
 ---
 ---
 
@@ -310,7 +310,7 @@ myDate.getYear(); // 'something else!'
 
 ---
 
-### 8. Inheritance and the prototype chain
+### 8. Class Inheritance and the prototype chain
 
 اگر بکگراند شما از زبان هایی مثل جاوا و c++ می باشد ممکن است بخش وراثت در شروع برای شما کمی گیج کننده باشد. دلیلش این هست که جاوااسکریپت پویا است و انواع ایستا ندارد.
 وقتی صحبت از وراثت به میان می آید، جاوا اسکریپت فقط یک ساختار دارد: اشیاء. هر شی دارای یک ویژگی خصوصی است که پیوندی به شی دیگری به نام prototype خود دارد. آن شی prototype، باز prototype خود را دارد، و به همین ترتیب تا زمانی که یک شی با null به عنوان prototype آن به دست آید. طبق تعریف، null هیچ prototype ای ندارد و به عنوان حلقه نهایی در این زنجیره اولیه عمل می کند. امکان جهش هر عضوی از زنجیره prototype یا حتی تعویض prototype در زمان اجرا وجود دارد، بنابراین مفاهیمی مانند ارسال استاتیک در جاوا اسکریپت وجود ندارد.
@@ -357,7 +357,7 @@ Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 
 
 ---
-9. Class and inheritance
+
 10. DOM
 11. bind/call/apply
 12. Promise
