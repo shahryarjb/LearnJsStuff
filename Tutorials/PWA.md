@@ -907,5 +907,44 @@ self.addEventListener('notificationclick', function(event) {
 });
 ```
 
-در مورد قسمت کلاینت می تونید این پست من در الیکسیر رو ببنید
+در مورد قسمت سرور می تونید این پست من در الیکسیر رو ببنید
 https://elixirforum.com/t/50934
+
+---
+
+### استفاده از امکانات نیتیو ( قسمت دوربین)
+لازم به ذکر است قبل از شروع این بخش به این نکته توجه کنید. وب api های مربوطه متاسفانه همه پلتفرم هارو ساپورت نمی کنند و وقتی می خواهید امکانات سیستم عاملی مثل لوکیشن یا دوربین و ... رو در وب سایت خود قرار بدهید همیشه باید صفحه mdn رو در موزیلا ببنید.
+در مورد بعدی اینکه خیلی از این بخش ها بر اساس ورژن یک مروگر به بعد اوکی هستند که اونم می تونه در زمان تارگت کردن به درد شما بخورد. خیلی به شخصه پیشنهاد می شه قبل از پیاده سازی محدود های خودتان را اعمال کنید
+
+```js
+function initializeMedia() {
+  if (!('mediaDevices' in navigator)) {
+    navigator.mediaDevices = {};
+  }
+
+  if (!('getUserMedia' in navigator.mediaDevices)) {
+    navigator.mediaDevices.getUserMedia = function (constraints) {
+      var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+      if (!getUserMedia) {
+        return Promise.reject(new Error('getUserMedia is not implemented'));
+      }
+
+      return new Promise(function (resolve, reject) {
+        getUserMedia.call(navigator, constraints, resolve, reject);
+      });
+    };
+  }
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then(function (stream) {
+      videoPlayer.srcObject = stream;
+      videoPlayer.style.display = 'block';
+    })
+    .catch(function (err) {
+      imagePickerArea.style.display = 'block';
+    });
+}
+```
+به کد بالا توجه کنید. در زمانی نوشته شده است که هنوز سافاری و ... کامل پشتیبانی مناسبی از `navigator.mediaDevices` نداشتند. پس تلاش شد هرکدام از امکانات خودشان برداشته بشه و در آخر دوربین به کار بیفته. البته الان با آخرین بررسی در تاریخ ۲۰ مهر ۱۴۰۱ به عمل اومده خیلی از مروگر ها کامل ساپورت می شند و مشکلی ندارند
+کد بالا این امکان را به شما می دهد تا دوربین را در وب سایت خود فعال کنید
