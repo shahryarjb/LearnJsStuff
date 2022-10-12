@@ -998,3 +998,7 @@ https://www.youtube.com/playlist?list=PLNYkxOF6rcIC3BwCw--jvZNN7obH4QUlH
 
 منبع سازندش
 https://developer.chrome.com/docs/workbox/
+
+
+مثال پیاده سازی برای nextjs
+https://dev.to/josedonato/adding-a-service-worker-into-your-next-js-application-1dib
