@@ -994,3 +994,7 @@ locationBtn.addEventListener('click', function (event) {
 
 گوگل یک ابزار داده به نام workbox که استاندارد هست و همینطور استراتژی های متفاوت داره بهتره ازش برای ساخت فایل sw استفاده بشه در اینجا یک پلی لیست از آموزش اون وجود داره
 https://www.youtube.com/playlist?list=PLNYkxOF6rcIC3BwCw--jvZNN7obH4QUlH
+
+
+منبع سازندش
+https://developer.chrome.com/docs/workbox/
