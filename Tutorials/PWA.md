@@ -948,3 +948,42 @@ function initializeMedia() {
 ```
 به کد بالا توجه کنید. در زمانی نوشته شده است که هنوز سافاری و ... کامل پشتیبانی مناسبی از `navigator.mediaDevices` نداشتند. پس تلاش شد هرکدام از امکانات خودشان برداشته بشه و در آخر دوربین به کار بیفته. البته الان با آخرین بررسی در تاریخ ۲۰ مهر ۱۴۰۱ به عمل اومده خیلی از مروگر ها کامل ساپورت می شند و مشکلی ندارند
 کد بالا این امکان را به شما می دهد تا دوربین را در وب سایت خود فعال کنید
+
+---
+### گرفتن لوکیشن
+تا اونجایی که بررسی کردم اکثر مروگر های کامل ساپورت می کنند ولی چون لوکیشن بر اساس حریم شخصی می تونه سفارشی کاربر باشه و نیاز نباشه gps فعال باشه بهترین راه اینکه بازم چک بشه اگر مشکلی داشت پیام خطا بده و از کاربر بخواد که خودش وارد کنه. همانطور که در کد زیر می بنید ما از `navigator.geolocation.getCurrentPosition` که یک وب آای پی آی دیگر هست استفاده کردیم تا پوزیشن کاربر رو بگیریم. خوب اینجا یک تایم اوت دارد به عنوان آخرین وردی که به سیستم می گوید در صورتی که بیشتر از این طول کشید ارور برگردد و دوتا کال بک یکی در صورتی که موفقیت آمیز بود و یکی هم بر اساس اینکه نا موفق بود. مابقی موارد بیشتر استیل دهی هست برای ui 
+
+```js
+var fetchedLocation = {lat: 0, lng: 0};
+function initializeLocation() {
+  if (!('geolocation' in navigator)) {
+    locationBtn.style.display = 'none';
+  }
+}
+locationBtn.addEventListener('click', function (event) {
+  if (!('geolocation' in navigator)) {
+    return;
+  }
+  var sawAlert = false;
+
+  locationBtn.style.display = 'none';
+  locationLoader.style.display = 'block';
+
+  navigator.geolocation.getCurrentPosition(function (position) {
+    locationBtn.style.display = 'inline';
+    locationLoader.style.display = 'none';
+    fetchedLocation = {lat: position.coords.latitude, lng: 0};
+    locationInput.value = 'In Munich';
+    document.querySelector('#manual-location').classList.add('is-focused');
+  }, function (err) {
+    console.log(err);
+    locationBtn.style.display = 'inline';
+    locationLoader.style.display = 'none';
+    if (!sawAlert) {
+      alert('Couldn\'t fetch location, please enter manually!');
+      sawAlert = true;
+    }
+    fetchedLocation = {lat: 0, lng: 0};
+  }, {timeout: 7000});
+});
+```
