@@ -581,7 +581,7 @@ cartoon();
 // Cartoon
 // Jerry
 // should it be right after Tom, before Jerry?
-//Tom
+// Tom
 ```
   
 #### اطلاعات بیشتر:
