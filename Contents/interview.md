@@ -14,6 +14,7 @@
 ### 6. [Subject: Creating and triggering events](#6-creating-and-triggering-events)
 ### 7. [Subject: Prototype and prototype chain](#7-prototype-and-prototype-chain)
 ### 8. [Subject: Inheritance and the prototype chain](#8-class-inheritance-and-the-prototype-chain)
+### 9. [Subject: DOM](#9-dom)
 ---
 ---
 
@@ -358,7 +359,53 @@ Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 
 ---
 
-10. DOM
+### 9. DOM
+
+این گزینه مخفف `The Document Object Model` می باشد. نمایش داده‌های object هایی است که ساختار و محتوای یک سند را در وب تشکیل می‌دهند. در حقیقت DOM یک اینترفیکس برای اسناد در وب هست. نمایش دهنده این است که برنامه نویس می توانید اطلاعات در یک صفحه وب از جمله کانتنت استایل و ... را تغییر دهید. DOM سند را به صورت nodeها و اشیاء نشان می دهد. به این ترتیب، زبان های برنامه نویسی می توانند با صفحه تعامل داشته باشند. DOM با استفاده از چندین API که با هم کار می کنند ساخته شده است. هسته DOM موجودیت هایی را که هر سند و اشیاء درون آن را توصیف می کنند، تعریف می کند. این در صورت نیاز توسط سایر APIها که ویژگی ها و قابلیت های جدیدی را به DOM اضافه می کنند، گسترش می یابد. به عنوان مثال، HTML DOM API پشتیبانی از نمایش اسناد HTML را به DOM اصلی اضافه می کند، و API SVG پشتیبانی برای ارائه اسناد SVG اضافه می کند. DOM بخشی از زبان جاوا اسکریپت نیست، بلکه یک وب API است که برای ساخت وب سایت ها استفاده می شود. جاوا اسکریپت را می توان در زمینه های دیگر نیز استفاده کرد. به عنوان مثال، Node.js برنامه های جاوا اسکریپت را روی یک کامپیوتر اجرا می کند، اما مجموعه متفاوتی از API ها را ارائه می دهد، و DOM API بخشی اصلی از زمان اجرا Node.js نیست.
+
+باید توجه کرد DOM به صورتی ساخته شده است که با هر زبانی بتوان باهاش کار کرد
+
+#### بخش های مهم مربوط به DOM به شرح زیر می باشد:
+- Document
+هنگامی که یک عضو یک شی از نوع document را برمی گرداند، این شیء خود شیء سند ریشه است. بخش مرجع سند DOM شی سند را توصیف می کند.
+- Node
+هر شی که در یک سند قرار دارد نوعی node  است. در یک سند HTML، یک object می تواند یک node عنصر باشد، مثال یک node متن یا node اتربیوت باشد.
+- Element
+المنت تایپ ها بر اساس node می باشند. اشاره دارد به یک المنت یا یک node از المنت ها که یکی از اعضای DOM API آن را برمی گرداند به عنوان مثال `document.createElement()`  این API یک آبجکت رفرنس شده به از یک node را به عنوان یک المنت بر می گرداند.
+
+المنت ها به وسیله HTML DOM API's معرفی می شوند که هر کدام می گویند امکانات و خاصیت های یک المنت چیست
+- NodeList
+لیستی از المنت ها می باشد مثل مواردی که با `document.querySelectorAll()` فراخوانی می شوند
+- Attr
+هنگامی که یک ویژگی توسط یک عضو برگردانده می شود مثال مواردی که با `createAttribute() ` درست می شوند. attribute ها node  در DOM هستند، درست مانند المنت ها، اگرچه ممکن است به ندرت از آنها استفاده کنید.
+- NamedNodeMap
+یک namedNodeMap مانند یک آرایه است، اما آیتم‌ها با نام یا index قابل دسترسی هستند، اگرچه این مورد صرفاً یک راحتی برای شمارش است، زیرا ترتیب خاصی در لیست ندارند. یک namedNodeMap یک متد item() برای این منظور دارد و همچنین می‌توانید موارد را از یک namedNodeMap اضافه و حذف کنید.
+
+برخی از موارد کاربردی:
+* NamedNodeMap.length
+* NamedNodeMap.getNamedItem()
+* NamedNodeMap.setNamedItem()
+* NamedNodeMap.removeNamedItem()
+
+و غیره.
+
+> باید توجه داشت یک DOM از HTML می تواند با شرایط مختلف ایجاد گردد ولی در آخر یک Node می باشد و قالب دسترسی. در زیر لیست مختصری از APIهای رایج در برنامه نویسی صفحات وب و XML با استفاده از DOM آمده است:
+
+- document.querySelector(selector)
+- document.querySelectorAll(name)
+- document.createElement(name)
+- parentNode.appendChild(node)
+- element.innerHTML
+- element.style.left
+- element.setAttribute()
+- element.getAttribute()
+- element.addEventListener()
+- window.content
+- Window.onload
+- window.scrollTo()
+
+---
+
 11. bind/call/apply
 12. Promise
 13. WebAPI
