@@ -394,27 +394,27 @@ Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 یک namedNodeMap مانند یک آرایه است، اما آیتم‌ها با نام یا index قابل دسترسی هستند، اگرچه این مورد صرفاً یک راحتی برای شمارش است، زیرا ترتیب خاصی در لیست ندارند. یک namedNodeMap یک متد item() برای این منظور دارد و همچنین می‌توانید موارد را از یک namedNodeMap اضافه و حذف کنید.
 
 برخی از موارد کاربردی:
-* NamedNodeMap.length
-* NamedNodeMap.getNamedItem()
-* NamedNodeMap.setNamedItem()
-* NamedNodeMap.removeNamedItem()
+* `NamedNodeMap.length`
+* `NamedNodeMap.getNamedItem()`
+* `NamedNodeMap.setNamedItem()`
+* `NamedNodeMap.removeNamedItem()`
 
 و غیره.
 
 > باید توجه داشت یک DOM از HTML می تواند با شرایط مختلف ایجاد گردد ولی در آخر یک Node می باشد و قالب دسترسی. در زیر لیست مختصری از APIهای رایج در برنامه نویسی صفحات وب و XML با استفاده از DOM آمده است:
 
-- document.querySelector(selector)
-- document.querySelectorAll(name)
-- document.createElement(name)
-- parentNode.appendChild(node)
-- element.innerHTML
-- element.style.left
-- element.setAttribute()
-- element.getAttribute()
-- element.addEventListener()
-- window.content
-- Window.onload
-- window.scrollTo()
+- `document.querySelector(selector)`
+- `document.querySelectorAll(name)`
+- `document.createElement(name)`
+- `parentNode.appendChild(node)`
+- `element.innerHTML`
+- `element.style.left`
+- `element.setAttribute()`
+- `element.getAttribute()`
+- `element.addEventListener()`
+- `window.content`
+- `Window.onload`
+- `window.scrollTo()`
 
 ---
 
