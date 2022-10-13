@@ -18,6 +18,7 @@
 ### 10. [Subject: bind/call/apply](#10-bindcallapply)
 ### 11. [Subject: Promise](#11-promise)
 ### 12. [Subject: WebAPI](#12-webapi)
+### 13. [Subject: Task queue](#13-task-queue)
 ---
 ---
 
@@ -526,7 +527,65 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 وب API در جاوا اسکریپت استفاده می شوند که یک سری اینترفیس و امکانات بر اساس نیاز است. ولی این دلیل نمی شود که فقط در js استفاده می شوند. این موارد در خود browser درست شده است مثلا نمایش لوکیشن کاربر یا نمایش دوربین که می تواند بر اساس خود مروگر و سیستم عامل نیز دستوراتش و دسترسی هایش متفاوت باشد
 ---
 
-14. Task queue
+### 13. Task queue
+
+#### استفاده از «microtask» در جاوا اسکریپت با «queueMicrotask()».
+
+توضیح:  microtask  یک short function است که پس از خروج تابع یا برنامه ای که آن را ایجاد کرده است اجرا می شود و تنها در صورتی که  JavaScript execution stack  خالی باشد، اما قبل از بازگرداندن کنترل به حلقه رویداد که توسط  user agent  برای محیط اجرای اسکریپت اجرا می شود.
+
+یا این حلقه رویداد اصلی مرورگر باشد یا حلقه رویداد که یک web worker را هدایت می‌کند. این اجازه می دهد تا تابع داده شده بدون خطر تداخل در اجرای اسکریپت دیگر اجرا شود، اما همچنین تضمین می کند که microtask قبل از اینکه  user agent فرصت واکنش به اقدامات انجام شده توسط microtask را داشته باشد، اجرا شود.
+
+دو مورد MutationObserver و promises هر دو microtask queue برای اجرای کال بک های خودشان هستند.
+
+هر یک  task از کد جاوا اسکریپتی که توسط مکانیسم‌های استاندارد اجرا شود، مانند شروع اولیه اجرای یک برنامه، اجرای یک تماس مجدد رویداد، یا یک interval یا  timeout. همه اینها در task queue قرار می گیرند.
+
+- یک برنامه یا زیربرنامه جدید جاوا اسکریپت (مانند از یک کنسول یا با اجرای کد در عنصر <script>) مستقیماً اجرا می شود.
+
+- یک رویداد فعال می شود و تابع callback رویداد را به task queue اضافه می کند.
+
+- یک بازه زمانی یا بازه زمانی ایجاد شده با setTimeout() یا setInterval() می رسد که باعث می شود پاسخ تماس مربوطه به task queue اضافه شود.
+
+در ظاهر هر دو شبی به هم هستند ولی دوتا تفاوت کلیدی دارند:
+  
+- در زمان چک کردن جاوااسکریپت چک می کند آیا Task ای وجود دارد یا خیر این مسئولیت با event loop می باشد. اگر وجود نداشته باشد تمامی microtasks را اجرا می کند. میکروتسک های همان then هستند. چندین بار در هر تکرار event loop، از جمله پس از رسیدگی به رویدادها و سایر تماس‌ها، پردازش می‌شود.
+  
+- اگر به واسطه `queueMicrotask()` بیاییم میکروتسک های بیشتری به صف اجاد کنیم event loop آن هارا در Task بعدی اجرا می کند. بخاطر اینکه event loop فراخوانی میکرو تسک ها را تا زمانی انجام می دهد تا چیزی در استک باقی نماند حتی اگر تعداد بیشتری اضافه شود
+ 
+> دلیل اصلی استفاده از "Microtasks" این است که: برای اطمینان از ترتیب منظم وظایف، حتی زمانی که نتایج یا داده ها به طور همزمان در دسترس هستند، اما همزمان خطر تاخیرهای قابل تشخیص توسط کاربر را در عملیات کاهش می دهند.
+
+```js
+const tom = () => console.log('Tom');
+
+const jerry = () => console.log('Jerry');
+
+const cartoon = () => {
+  console.log('Cartoon');
+
+  setTimeout(tom, 5000);
+
+  new Promise((resolve, reject) =>
+    resolve('should it be right after Tom, before Jerry?')
+  ).then(resolve => console.log(resolve))
+
+  jerry();
+}
+
+cartoon();
+// Cartoon
+// Jerry
+// should it be right after Tom, before Jerry?
+//Tom
+```
+  
+#### اطلاعات بیشتر:
+
+- https://blog.greenroots.info/task-queue-and-job-queue-deep-dive-into-javascript-event-loop-model
+- https://developer.mozilla.org/en-US/docs/Web/API/Window
+- https://developer.mozilla.org/en-US/docs/Web/API/Worker
+- https://developer.mozilla.org/en-US/docs/Glossary/User_agent
+
+---
+
 15. Call stack
 16. Async/await
 17. Generators
