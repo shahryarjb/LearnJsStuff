@@ -15,6 +15,7 @@
 ### 7. [Subject: Prototype and prototype chain](#7-prototype-and-prototype-chain)
 ### 8. [Subject: Inheritance and the prototype chain](#8-class-inheritance-and-the-prototype-chain)
 ### 9. [Subject: DOM](#9-dom)
+### 10. [Subject: bind/call/apply](#10-bindcallapply)
 ---
 ---
 
@@ -418,7 +419,62 @@ Object.getPrototypeOf(regexp) === RegExp.prototype; // true
 
 ---
 
-11. bind/call/apply
+### 10. bind/call/apply
+
+متد `bind()` هنگام فراخوانی یک تابع جدید درست می کند و value که به اون دادیم رو به this می دهد. به کد زیر نگاه کنید در حقیقت ما داریم از تابع pokemonName یک نسخه جدید می سازیم و متغیر pokemon رو به عنوان value به this می دهیم. این خیلی مهم هست که در حقیقت ما یک کپی از تابع pokemonName داریم. درست است در اولین نسخه روی ویژگی های pokemon نبود ولی بعد از باند شدن حال می تواند بهPika , Chu دست رسی داشته باشد.      
+```js
+var pokemon = {
+    firstname: 'Pika',
+    lastname: 'Chu ',
+    getPokeName: function() {
+        var fullname = this.firstname + ' ' + this.lastname;
+        return fullname;
+    }
+};
+
+var pokemonName = function() {
+    console.log(this.getPokeName() + 'I choose you!');
+};
+
+var logPokemon = pokemonName.bind(pokemon); // creates new object and binds pokemon. 'this' of pokemon === pokemon now
+
+logPokemon(); // 'Pika Chu I choose you!'
+```
+
+اطلاعات بیشتر: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind
+
+
+متد call() یک تابع با مقدار «this» داده شده و آرگومان های ارائه شده به صورت جداگانه فراخوانی می کند. معنی آن این است که ما می‌توانیم هر تابعی را فراخوانی کنیم و به صراحت مشخص کنیم که در تابع فراخوانی به چه چیزی ارجاع شود. ممکن است در نگاه اول شبی به bind باشد ولی فرق آن ها چیست
+
+- پارامترهای اضافی را نیز می پذیرد
+- تابعی را که فراخوانی شده بود بلافاصله اجرا می کند.
+- متد call() از تابعی که فراخوانی می شود کپی نمی کند.
+
+
+> متد `call()` و `apply()` دقیقاً به همین منظور عمل می‌کنند. تنها تفاوت بین نحوه کار آنها این است که `call()` انتظار دارد که همه پارامترها به صورت جداگانه ارسال شوند، در حالی که `apply()` انتظار دارد آرایه ای از تمام پارامترهای ما وجود داشته باشد. مثال:
+
+
+
+```js
+var pokemon = {
+    firstname: 'Pika',
+    lastname: 'Chu ',
+    getPokeName: function() {
+        var fullname = this.firstname + ' ' + this.lastname;
+        return fullname;
+    }
+};
+
+var pokemonName = function(snack, hobby) {
+    console.log(this.getPokeName() + ' loves ' + snack + ' and ' + hobby);
+};
+
+pokemonName.call(pokemon,'sushi', 'algorithms'); // Pika Chu  loves sushi and algorithms
+pokemonName.apply(pokemon,['sushi', 'algorithms']); // Pika Chu  loves sushi and algorithms
+```
+
+---
+
 12. Promise
 13. WebAPI
 14. Task queue
