@@ -17,6 +17,7 @@
 ### 9. [Subject: DOM](#9-dom)
 ### 10. [Subject: bind/call/apply](#10-bindcallapply)
 ### 11. [Subject: Promise](#11-promise)
+### 12. [Subject: WebAPI](#12-webapi)
 ---
 ---
 
@@ -520,7 +521,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 ---
 
-13. WebAPI
+### 12. WebAPI
+
+وب API در جاوا اسکریپت استفاده می شوند که یک سری اینترفیس و امکانات بر اساس نیاز است. ولی این دلیل نمی شود که فقط در js استفاده می شوند. این موارد در خود browser درست شده است مثلا نمایش لوکیشن کاربر یا نمایش دوربین که می تواند بر اساس خود مروگر و سیستم عامل نیز دستوراتش و دسترسی هایش متفاوت باشد
+---
+
 14. Task queue
 15. Call stack
 16. Async/await
