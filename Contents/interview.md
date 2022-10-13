@@ -25,6 +25,7 @@
 ### 17. [Subject: Generators](#17-generators)
 ### 18. [Subject: Page rendering cycle](#1-page-rendering-cycle)
 ### 19. [Subject: http/https/https2](#2-httphttpshttps2)
+### 20. [Subject: Micro Frontend](#3-micro-frontend)
 ---
 ---
 
@@ -749,13 +750,19 @@ for (num of items) {
  نسخهٔ HTTP/2 امکان استفاده از Server Push را فراهم می‌سازد
  
  ---
+### 3. Micro Frontend
+
+تعریف micro frontends: ایده micro frontends این است که مفاهیم میکروسرویس‌ها را به دنیای frontend گسترش دهد. ایده اصلی micro frontends این است که frontend خود را به مجموعه‌ای از اپلیکیشن‌های frontend که به طور مستقل و با loosely coupled (حداقل وابستگی) قابل‌اجرا هستند، تقسیم می‌کند (micro frontends  نامیده می‌شوند). سپس این micro frontendها برای ایجاد یک اپلیکیشن frontend واحد، با هم ادغام شده و باندل می‌شوند (شکل 2 را ببینید). این مجموعه micro frontends در پاراگراف Integration Approaches Micro Front Ends موردبحث قرار می‌گیرد. شما می‌توانید یک micro frontend در هر پیج نشان دهید و آن را با هایپر لینک‌ها کانکت کنید. 
+
+
+---
 
 3. CORS
 4. Local storage/Session storage
 5. Cookie
 6. JWT
 7. XHR
-8. Micro Frontend
+
 9. REST/GraphQL/Socket connection
 10. Browser Concepts
 11. Debugging Application
