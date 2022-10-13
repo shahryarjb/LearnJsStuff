@@ -22,7 +22,7 @@
 ### 14. [Subject: Web Workers API](#14-web-workers-api)
 ### 15. [Subject: Call stack](#15-call-stack)
 ### 16. [Subject: Async/await](#16-asyncawait)
-### 17. [Subject: Generator](#17-generator)
+### 17. [Subject: Generators](#17-generators)
 ---
 ---
 
