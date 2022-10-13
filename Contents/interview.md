@@ -16,6 +16,7 @@
 ### 8. [Subject: Inheritance and the prototype chain](#8-class-inheritance-and-the-prototype-chain)
 ### 9. [Subject: DOM](#9-dom)
 ### 10. [Subject: bind/call/apply](#10-bindcallapply)
+### 11. [Subject: Promise](#11-promise)
 ---
 ---
 
@@ -475,7 +476,50 @@ pokemonName.apply(pokemon,['sushi', 'algorithms']); // Pika Chu  loves sushi and
 
 ---
 
-12. Promise
+### 11. Promise
+
+شی Promise نشان دهنده تکمیل (یا شکست) نهایی یک عملیات ناهمزمان و مقدار حاصل از آن است. توضیح کامل تر این است که Promise یک پروکسی برای مقداری است که هنگام ایجاد Promise لزوماً شناخته نشده است. به شما این امکان را می‌دهد تا کنترل‌کننده‌ها را با ارزش موفقیت نهایی یا دلیل شکست یک اقدام ناهمزمان مرتبط کنید. این به روش‌های ناهمزمان اجازه می‌دهد مانند روش‌های همزمان مقادیری را برگردانند: به جای اینکه بلافاصله مقدار نهایی را برگرداند، روش ناهمزمان یک Promise برای ارائه مقدار در نقطه‌ای در آینده برمی‌گرداند.
+
+#### حالت های پرامیس به شرح زیر می باشد:
+
+- در انتظار: حالت اولیه، نه انجام شده و نه رد شده است.
+- تکمیل شده: به این معنی که عملیات با موفقیت انجام شد.
+- رد شد: یعنی عملیات شکست خورد.
+![promises](https://user-images.githubusercontent.com/8413604/195540117-01ecc60c-8100-46cb-a444-545086403e61.png)
+
+به کد زیر توجه کنید:
+```js
+new Promise((resolveOuter) => {
+  resolveOuter(
+    new Promise((resolveInner) => {
+      setTimeout(resolveInner, 1000);
+    })
+  );
+});
+```
+این promise قبلاً در زمانی که ایجاد می شود حل شده است (زیرا resolveOuter به صورت همزمان فراخوانی می شود)، اما با یک promise دیگر حل می شود و بنابراین تا 1 ثانیه بعد، زمانی که promise درونی محقق شود، محقق نمی شود. در عمل «resolution» اغلب در پشت صحنه انجام می شود و قابل مشاهده نیست و تنها تحقق یا رد آن است.
+
+پرامیس متد های خوبی دارد یکی از مواردی که ممکن است به کار شما بیاید متد `Promise.all(iterable)` می باشد که منتظر می شود تا تمام پرامیس هایی که در یک لیست به آن دادید انجام شوند
+
+```js
+const promise1 = Promise.resolve(3);
+const promise2 = 42;
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'foo');
+});
+
+Promise.all([promise1, promise2, promise3]).then((values) => {
+  console.log(values);
+});
+// expected output: Array [3, 42, "foo"]
+```
+
+لیست متد های استاتیک را می توانید در زیر ببنید
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods
+
+
+---
+
 13. WebAPI
 14. Task queue
 15. Call stack
