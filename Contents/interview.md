@@ -19,6 +19,9 @@
 ### 11. [Subject: Promise](#11-promise)
 ### 12. [Subject: WebAPI](#12-webapi)
 ### 13. [Subject: Task queue](#13-task-queue)
+### 14. [Subject: Web Workers API](#14-web-workers-api)
+### 15. [Subject: Call stack](#15-call-stack)
+### 16. [Subject: Async/await](#16-asyncawait)
 ---
 ---
 
@@ -640,7 +643,9 @@ greeting();
 - تابع greeting() را از استک حذف می کند 
 ---
 
-16. Async/await
+### 16. Async/await
+
+---
 17. Generators
 
 ### 𝗕𝗮𝘀𝗶𝗰 𝗪𝗲𝗯 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
