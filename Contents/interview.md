@@ -542,8 +542,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 هر یک  task از کد جاوا اسکریپتی که توسط مکانیسم‌های استاندارد اجرا شود، مانند شروع اولیه اجرای یک برنامه، اجرای یک تماس مجدد رویداد، یا یک interval یا  timeout. همه اینها در task queue قرار می گیرند.
 
 
-یک برنامه یا زیربرنامه جدید جاوا اسکریپت (مانند از یک کنسول یا با اجرای کد در عنصر <script>) مستقیماً اجرا می شود.
-  
+یک برنامه یا زیربرنامه جدید جاوا اسکریپت (مانند از یک کنسول یا با اجرای کد در عنصر `<script>`) مستقیماً اجرا می شود.  
 یک رویداد فعال می شود و تابع callback رویداد را به task queue اضافه می کند.
 
 یک بازه زمانی یا بازه زمانی ایجاد شده با setTimeout() یا setInterval() می رسد که باعث می شود پاسخ تماس مربوطه به task queue اضافه شود.
@@ -593,7 +592,19 @@ cartoon();
 - https://developer.mozilla.org/en-US/docs/Glossary/User_agent
 
 ---
+### 14. Web Workers API
 
+این API کمک می کند تا شما یک اسکریپتی را در بکگراند thread اجرا کنید. این عمل کمک می کند تا شما یک کار پرهزینه یا طولانی را در ترد دیگر در بکگراند انجام بدهید و عملیات نمایش UI را مثلا مسدود نکنید.
+
+اطلاعات بیشتر
+https://developer.mozilla.org/en-US/docs/Web/API/Worker
+
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
+
+برخی از متداول ترین توابعی که از این پروسه استفاده می کنند مثل Promis و fetch  هست
+
+---
+  
 15. Call stack
 16. Async/await
 17. Generators
