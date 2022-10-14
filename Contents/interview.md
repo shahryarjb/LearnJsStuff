@@ -782,52 +782,122 @@ for (num of items) {
 * داده های توی localStorage هرگز منقضی نمی شن در صورتی که sessionStorage با پایان یافتن session صفحه خاتمه پیدا میکنه.
 
 ---
-5. Cookie
-6. JWT
-7. XHR
+### 6. Cookie
 
-9. REST/GraphQL/Socket connection
-10. Browser Concepts
-11. Debugging Application
-12. Chrome Dev Tool Features 
+---
+
+### 7. JWT
+
+---
+
+### 8. XHR
+
+---
+
+### 10. REST/GraphQL/Socket connection
+
+---
+
+### 11. Browser Concepts
+
+---
+### 12. Debugging Application
+
+
+---
+---
 
 ### 𝗔𝗱𝘃𝗮𝗻𝗰𝗲𝗱 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀:
-1. OOPs concept 
-2. Design Patterns
-a. Singleton 
-b. Provider
-c. Prototype
-d. Observer 
-e. Module
-f. HOC
 
-3. Understanding V8 in depth 
-a. JIT
-b. Interpreter
-c. Execution
-d. Compiler
-4. Currying 
+### 1. OOPs concept 
 
-### 𝗕𝗮𝘀𝗶𝗰 𝗥𝗲𝗮𝗰𝘁𝗝𝗦 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀 (bonus): - 
-1. Introduction JSX
-2. React Component
-3. Component State and Props
-4. Adding Style (CSS)
-5. Functional and Class components
-6. React Lifecycle Methods
-7. Virtual DOM
-8. React Hooks
-9. Custom Hooks
-10. Context API
-11. Synthetic Events
-12. Routing
-13. Data Flow (Redux/Flux)
-14. Server-Side Rendering
-15. Unit Testing
-16. Jest & React Testing library 
-17. Mocking Data
-18. Understanding Webpack (Bundler)
-19. Babel, env, prettier, linter 
+---
+
+### 2. Design Patterns:
+    -  Singleton 
+    
+    -  Provider
+    
+    -  Prototype
+    
+    -  Observer 
+    
+    -  Module
+    
+    -  HOC
+
+---
+
+### 3. Understanding V8 in depth 
+    -  JIT
+    
+    -  Interpreter
+    
+    -  Execution
+    
+    -  Compiler
+
+---
+### 4. Currying 
+
+### 𝗕𝗮𝘀𝗶𝗰 𝗥𝗲𝗮𝗰𝘁𝗝𝗦 𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀 (bonus):
+### 1. Introduction JSX
+
+---
+### 2. React Component
+
+---
+### 3. Component State and Props
+
+---
+### 4. Adding Style (CSS)
+
+---
+### 5. Functional and Class components
+
+---
+### 6. React Lifecycle Methods
+
+---
+### 7. Virtual DOM
+
+---
+### 8. React Hooks
+
+---
+
+### 9. Custom Hooks
+
+---
+### 10. Context API
+
+---
+### 11. Synthetic Events
+
+---
+### 12. Routing
+
+---
+### 13. Data Flow (Redux/Flux)
+
+---
+### 14. Server-Side Rendering
+
+---
+### 15. Unit Testing
+
+---
+### 16. Jest & React Testing library 
+
+---
+### 17. Mocking Data
+
+---
+### 18. Understanding Webpack (Bundler)
+
+---
+### 19. Babel, env, prettier, linter 
+
 
 
 ---
