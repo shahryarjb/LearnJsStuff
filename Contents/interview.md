@@ -761,6 +761,8 @@ for (num of items) {
 
 ### 4. CORS
 
+اجازه نداریم به یک Origin (مثلا http://google.com یا http://localhost:3000) غیر از مال خودمون ریکوئست بفرستیم. مگر اینکه سرور به ما اجازه داده باشه. در واقع میتونیم ریکوئست بفرستیم ولی به response دسترسی نداریم. cors مخفف Cross-Origin Resource Sharing هست
+
 ---
 
 ### 5. Local storage/Session storage
