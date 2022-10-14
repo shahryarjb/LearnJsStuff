@@ -794,14 +794,14 @@ for (num of items) {
 
 ---
 
-### 10. REST/GraphQL/Socket connection
+### 9. REST/GraphQL/Socket connection
 
 ---
 
-### 11. Browser Concepts
+### 10. Browser Concepts
 
 ---
-### 12. Debugging Application
+### 11. Debugging Application
 
 
 ---
