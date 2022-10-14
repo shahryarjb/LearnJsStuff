@@ -28,6 +28,10 @@
 ### 20. [Subject: Micro Frontend](#3-micro-frontend)
 ### 21. [Subject: CORS](#4-cors)
 ### 22. [Subject: Local storage/Session storage](#5-local-storagesession-storage)
+### 23. [Subject: Cookie](#6-cookie)
+### 24. [Subject: JWT](#7-jwt)
+### 25. [Subject: XHR](#8-xhr)
+### 26. [Subject: REST/GraphQL/Socket connection](#9-restgraphqlsocket-connection)
 ---
 ---
 
@@ -825,15 +829,6 @@ for (num of items) {
 
 
 ![Websocket_connection](https://user-images.githubusercontent.com/8413604/195889777-3844ea42-d984-4eaf-aa7e-3c0f12c944a0.png)
-
-
----
-
-### 10. Browser Concepts
-
----
-### 11. Debugging Application
-
 
 ---
 ---
