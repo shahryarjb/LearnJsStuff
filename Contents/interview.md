@@ -26,6 +26,8 @@
 ### 18. [Subject: Page rendering cycle](#1-page-rendering-cycle)
 ### 19. [Subject: http/https/https2](#2-httphttpshttps2)
 ### 20. [Subject: Micro Frontend](#3-micro-frontend)
+### 21. [Subject: CORS](#4-cors)
+### 22. [Subject: Local storage/Session storage](#5-local-storagesession-storage)
 ---
 ---
 
@@ -757,8 +759,27 @@ for (num of items) {
 
 ---
 
-3. CORS
-4. Local storage/Session storage
+### 4. CORS
+
+---
+
+### 5. Local storage/Session storage
+
+هر دو مورد بالا وب API هستند برای ذخیره سازی داده های موفقت. راحتی کار نسبت به کوکی و ... دارند ولی یک سری تفاوت ها نیز دارند از جمله اینکه Local استورج منقضی نمی شود ولی در Session داده ها یک تایم به خصوصی دارند. سشن استورج در موارد زیر پاک می شود
+
+- تب مرورگر بسته بشه.
+- صفحه مرورگر بسته بشه.
+- باز کردن یک tab جدید باعث ایجاد یک جلسه sessionStorage دیگر می شود حتی اگر tab از همان منشا باشد.
+
+> بنابراین به راحتی می توان گفت که localStorage بین برگه هایی با همان منبع به اشتراک گذاشته می شود در حالی که sessionStorage به اشتراک گذاشته نمی شود. محدودیت ذخیره سازی بزرگتر از یک کوکی (حداکثر 5 مگابایت) هستش.
+
+#### تفاوت های localStorage و sessionStorage
+
+* در localStorage بین tab های مرورگر به اشتراک گذاشته میشه ولی sessionStorage نه!
+* توی باز و بسته کردن مرورگر اطلاعات در localStorage می ماند ولی در sessionStorage نه!
+* داده های توی localStorage هرگز منقضی نمی شن در صورتی که sessionStorage با پایان یافتن session صفحه خاتمه پیدا میکنه.
+
+---
 5. Cookie
 6. JWT
 7. XHR
