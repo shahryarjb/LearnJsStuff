@@ -6,6 +6,7 @@
 در دو لینک زیر یک سری سوالات دیگر می باشد از جاوااسکریپت و ری اکت
 1. JavaScript: https://js.mariotek.ir/
 2. ReactJS: https://react.sayjeyhi.com/
+3. JavaScript: http://js.basic.sayjeyhi.com/HTML/?page=1
 
 
 ### سرفصل ها
