@@ -148,3 +148,40 @@ const UserType = new GraphQLObjectType({
 
 ![Screen Shot 2022-10-20 at 20 02 28](https://user-images.githubusercontent.com/8413604/197006574-41b56120-8152-4a56-8595-5c49db116781.png)
 
+---
+
+### حل مشکل اینیشال شدن اولیه
+یکی از مشکلاتی که در ادامه پیچیده تر شدن کد ها باهاش مواجه می شید ارور اینیشال نشدن مثلا کمپانی تایپ هست. فرض کنیم می خوایم اطلاعات یک شرکت با کارمنداشو بیاریم
+
+```js
+  name: 'Company',
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`).then((res) => res.data);
+      },
+    },
+  },
+});
+```
+چون شرکت اسکیماش بالای اسکیمای کاربران هست شما مطمئنن در `type: new GraphQLList(UserType)` خطا می گیرید و می گه که UserType معرفی نشده است. برای حل این مشکل کافیه یک ارو فانکشن در فیلدز استفاده کنیم مثل کد زیر 
+```js
+const CompanyType = new GraphQLObjectType({
+  name: 'Company',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`).then((res) => res.data);
+      },
+    },
+  }),
+});
+```
