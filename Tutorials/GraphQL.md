@@ -8,7 +8,7 @@
 - express-graphql
 - graphql
 - lodash اختیاری می باشد
-
+- json-server اختیاری برای ساخت ای پی آی فیک جی سان
 ---
 
 ### شروع اولیه 
