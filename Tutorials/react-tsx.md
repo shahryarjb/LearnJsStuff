@@ -3,6 +3,7 @@
 ### ساخت یگ پروژه ری اکت
 ```
 npx create-react-app app_name --template typescript
+npx create-react-app sample --template cra-template-pwa-typescript
 ```
 
 ### معرفی یک متغییر به عنوان ری اکت
