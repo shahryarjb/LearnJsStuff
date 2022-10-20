@@ -81,3 +81,66 @@ module.exports =  new GraphQLSchema({
 
 ### محیط گرافیکی
 با کد های بالا ما در حقیقت در آدرس `http://localhost:4000/graphql` می آییم یک حالت گرافیکی ایجاد می کنیم که امکان ساخت کواری دستی وجود دارد و همینطور می توان خروجی اون رو به صورت آنلاین در همون بخش دید. و بخش های دیگه ای هم زیر مجموعه داکیومنت در سمت راست بالا هست. که اطلاعات خوبی را از اسکیما های مربوطه ارائه می دهد
+
+---
+### ساخت رلیشن در schema
+فرض کنیم هر کاربر در یک شرکت کار می کند و ما سه کاربر داریم و دوتا اسم شرکت دوتاشون در یک شرکت و یکی هم در شرکت دیگر اینجاست که وقتی می خواهیم کاربر شماره یک را صدا بزنیم می خواهیم اطلاعات شرکت هم بیاورد
+
+کواری که کاربر ایجاد می کند به شرح زیر می باشد:
+```
+{
+  user(id: "40") {
+    firstName,
+    company {
+      id,
+      name
+      description
+    }
+  }
+}
+```
+و خورجی مورد درخواستش می شود چنین چیزی:
+```js
+{
+  "data": {
+    "user": {
+      "firstName": "Alex",
+      "company": {
+        "id": "2",
+        "name": "Google",
+        "description": "search"
+      }
+    }
+  }
+}
+```
+
+خوب برای این کار باید schema که ساختیم را کمی تغیر بدهیم برای اینکار یک schema برای شرکت می سازیم به صورت زیر:
+```js
+const CompanyType = new GraphQLObjectType({
+  name: 'Company',
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+  },
+});
+```
+و بعد از اون باید در اسکیما user بیاییم آن را اد کنیم تا بشود همراه اطلاعات یک کاربر اطلاعات شرکت آن را نیز آورد
+```js
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  fields: {
+    id: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    age: { type: GraphQLInt },
+    company: {
+      type: CompanyType,
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`).then((res) => res.data);
+      },
+    },
+  },
+});
+```
+همانطور که می بنید ما یک آبجکت company در این بخش باز کردیم که تایپ آن بر اساس همان اسکیمایی هست که بالاتر برای شرکت ساختیم و مثل RootQuery تابع resolve دارد که همان تابعی هست که کمک می کند به ما تا از دیتابیس یا api یا هرچیز دیگری اطلاعات را بگیریم و به کاربر نشان بدهیم 
