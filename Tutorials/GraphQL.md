@@ -87,7 +87,7 @@ module.exports =  new GraphQLSchema({
 فرض کنیم هر کاربر در یک شرکت کار می کند و ما سه کاربر داریم و دوتا اسم شرکت دوتاشون در یک شرکت و یکی هم در شرکت دیگر اینجاست که وقتی می خواهیم کاربر شماره یک را صدا بزنیم می خواهیم اطلاعات شرکت هم بیاورد
 
 کواری که کاربر ایجاد می کند به شرح زیر می باشد:
-```
+```graphql
 {
   user(id: "40") {
     firstName,
@@ -189,7 +189,7 @@ const CompanyType = new GraphQLObjectType({
 ---
 ### استفاده از query تو در تو
 در قسمت graphql می تونیم یک کوری به این صورت بسازیم
-```
+```graphql
 {
   company(id: "2") {
     id
@@ -208,7 +208,7 @@ const CompanyType = new GraphQLObjectType({
 
 حال فرض کنیم دوبار بخواهیم company را بیاریم اونجاست که به صورت زیر باید عمل کنیم. دلیل آن این هست که نمی توان در یک آبجکت بیاییم اسک تکراری داشته باشیم
 
-```
+```graphql
 {
   apple: company(id: "1") {
     id
@@ -250,7 +250,7 @@ const CompanyType = new GraphQLObjectType({
 ### استفاده از fragment
 فرض کنید یک سری فیلد دارید قرار هست چندین بار تکرار شود اونجاست که می توانید از fragment استفاده کنید به عنوان مثال برای کمپانی که دوباره قرار هست لود شود می آییم یک فرگمنت می سازیم به صورت زیر آخر query
 
-```
+```graphql
 fragment companyDetails on Company {
   id
   name
@@ -258,7 +258,7 @@ fragment companyDetails on Company {
 }
 ```
 حالا هرجا فیلد های شرکت یا کمپانی بود می آییم `...companyDetails` قرار می دهیم به صورت مثال
-```
+```graphql
 {
   apple: company(id: "1") {
     ...companyDetails
