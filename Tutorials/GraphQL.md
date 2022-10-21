@@ -185,3 +185,64 @@ const CompanyType = new GraphQLObjectType({
   }),
 });
 ```
+
+---
+### استفاده از query تو در تو
+در قسمت graphql می تونیم یک کوری به این صورت بسازیم
+```
+{
+  company(id: "2") {
+    id
+    name
+    description
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+}
+```
+
+حال فرض کنیم دوبار بخواهیم company را بیاریم اونجاست که به صورت زیر باید عمل کنیم. دلیل آن این هست که نمی توان در یک آبجکت بیاییم اسک تکراری داشته باشیم
+
+```
+{
+  apple: company(id: "1") {
+    id
+    name
+    description
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+  google: company(id: "2") {
+    id
+    name
+    description
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+}
+```
+اگر توجه کرده باشید قبل از compony اومدیم یک اسم قرار دادیم و این اسم می تواند دلخواه باشد حالا خروجی آن می شود
+```js
+{
+  "data": {
+    "apple": {
+      "id": "1",
+      "name": "Apple",
+      "description": "iphone",
+      ...
+```
