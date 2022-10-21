@@ -282,3 +282,16 @@ fragment companyDetails on Company {
   }
 }
 ```
+---
+### ایجاد شرط برای ارسال اجباری یک سری داده ها
+لازم به ذکر است ما کلاس اینترفیکس های زیادی را تا به حال فراخوانی کردیم که `GraphQLNonNull` برای اینکه داده ای اجباری باشد استفاده می شود به کد زیر توجه کنید دو فیلد اسم و سن حتما باید به وسیله کاربر ارسال شود
+```js
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        companyId: { type: GraphQLString },
+      },
+```
+
+> تمامی متند هایی که استفاده کردیم یا کلاس اینترفیکس ها به شرح زیر می باشد
+> `const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLNonNull } = graphql;`
