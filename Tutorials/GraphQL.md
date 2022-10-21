@@ -246,3 +246,39 @@ const CompanyType = new GraphQLObjectType({
       "description": "iphone",
       ...
 ```
+---
+### استفاده از fragment
+فرض کنید یک سری فیلد دارید قرار هست چندین بار تکرار شود اونجاست که می توانید از fragment استفاده کنید به عنوان مثال برای کمپانی که دوباره قرار هست لود شود می آییم یک فرگمنت می سازیم به صورت زیر آخر query
+
+```
+fragment companyDetails on Company {
+  id
+  name
+  description
+}
+```
+حالا هرجا فیلد های شرکت یا کمپانی بود می آییم `...companyDetails` قرار می دهیم به صورت مثال
+```
+{
+  apple: company(id: "1") {
+    ...companyDetails
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+  google: company(id: "2") {
+    ...companyDetails
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+}
+```
