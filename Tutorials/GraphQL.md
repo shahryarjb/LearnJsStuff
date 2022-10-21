@@ -295,3 +295,61 @@ fragment companyDetails on Company {
 
 > تمامی متند هایی که استفاده کردیم یا کلاس اینترفیکس ها به شرح زیر می باشد
 > `const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLNonNull } = graphql;`
+
+---
+### ارسال داده mutation
+اگر به یاد داشته باشید در فایل schema ما یک بخشی داشتیم که در آخر اکسپورت می کردیم که یکی از پارامتر های اون query بود که ما rootQuery رو بهش می دادیم این کد یک تگ دیگه ای داره به نام mutation که باعث می شه ما بتونیم و قادر باشیم اطلاعاتی رو از کاربر بگیریم مثل اضافه کردن کاربر نه فقط کواری زدن
+```js
+module.exports = new GraphQLSchema({
+  query: RootQuery,
+  mutation: mutation,
+});
+```
+مثل روت کواری ما اینجا یک تابعی رو هم باید به اسم mutation بسازیم که می تونه اسم دیگه ای هم بگیره 
+```js
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        companyId: { type: GraphQLString },
+      },
+      resolve(parentValue, { firstName, age }) {
+        return axios
+          .post(`http://localhost:3000/users`, {
+            firstName,
+            age,
+          })
+          .then((resp) => resp.data);
+      },
+    },
+  },
+});
+```
+همانطور که می بنید در فیلد یک آبجکت با اسم دلخواه درست کردیم addUser و داخلش از نوع user که بالاتر تعریف کردیم قرار دادیم و از کاربر نیز آرگیومنت گرفتیم که دوتا از مواردش هم ضروری می باشد و در آخر با axios یا fetch اون رو به سمت سرور یا دیتابیس می فرستیم.
+حالا در بخش کلاینت یوزر باید به این صورت query بزنه
+
+```graphql
+mutation {
+  addUser(firstName: "Shahryar", age: 30) {
+    id
+    firstName
+    age
+  }
+}
+```
+اگر توجه کرده باشید کمی با کواری زدن فرق داره و باید حتما mutation رو ذکر کنیم بعد جایی که نیاز داریم اطلاعات رو بفرستم و داخل آجکت می تونم بگیم بعد از ذخیره داده که چه اطلاعاتی رو بهمون نشون بده . ریسپانس بعد از ذخیره شدن
+```json
+{
+  "data": {
+    "addUser": {
+      "id": "2CstPPJ",
+      "firstName": "Shahryar",
+      "age": 30
+    }
+  }
+}
+```
