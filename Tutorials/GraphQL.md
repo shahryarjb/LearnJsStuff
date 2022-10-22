@@ -655,3 +655,8 @@ new ApolloClient({
   },
 });
 ```
+
+
+استراتژی های مربوط به کش و اطلاعات بیشتر
+
+https://www.apollographql.com/docs/react/data/queries#supported-fetch-policies
