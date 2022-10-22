@@ -781,3 +781,7 @@ const [addTodo, { data, loading, error }] = useMutation(ADD_TODO, {
 
 
 برای اطلاعات بیشتر و تغییر مستقیم در کش می توانید اینجا کلیک کنید https://www.apollographql.com/docs/react/data/mutations#the-update-function
+
+
+
+> خود این کتابخانه یک صفحه ای رو برای بست پرکتیس گذاشته که می تونید ببنیدش https://www.apollographql.com/docs/react/data/operation-best-practices
