@@ -540,3 +540,51 @@ function DogPhoto({ breed }) {
   );
 }
 ```
+
+> لازم به ذکر است شما می توانید همیشه ریفچ کنید
+
+```js
+<button
+  onClick={() =>
+    refetch({
+      breed: 'dalmatian', // Always refetches a dalmatian instead of original breed
+    })
+  }
+>
+  Refetch!
+</button>
+```
+
+---
+### اطلاع رسانی مجدد
+خوب مورد loading قبلا به این صورت بود که داشت لود می شد برامون یک بولین بر می گردوند حال فرض کنیم می خواهیم ریفچ کنیم در کامپوننت چطور باید عمل کند؟ در اینجا نیاز هست که مورد جدید لود بشه به نام `import { NetworkStatus } from '@apollo/client';` حالا می تونیم در هوک مذکور یک تغییر کوچیک بدیم
+
+```js
+import { NetworkStatus } from '@apollo/client';
+
+function DogPhoto({ breed }) {
+  const { loading, error, data, refetch, networkStatus } = useQuery(
+    GET_DOG_PHOTO,
+    {
+      variables: { breed },
+      notifyOnNetworkStatusChange: true,
+    }
+  );
+
+  if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <div>
+      <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />
+      <button onClick={() => refetch({ breed: 'new_dog_breed' })}>
+        Refetch!
+      </button>
+    </div>
+  );
+}
+```
+
+توضیحات بیشتر:
+https://www.apollographql.com/docs/react/data/queries#inspecting-loading-states
