@@ -660,3 +660,7 @@ new ApolloClient({
 استراتژی های مربوط به کش و اطلاعات بیشتر
 
 https://www.apollographql.com/docs/react/data/queries#supported-fetch-policies
+
+
+لازم به ذکر است نمی شود کامل کل این هوک را کاور کرد و شما می توانید در لینک زیر کلیه آپشن هارا ببنید
+https://www.apollographql.com/docs/react/data/queries
