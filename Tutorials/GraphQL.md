@@ -355,4 +355,23 @@ mutation {
 ```
 
 ### اتصال در کلاینت ساید به ری اکت
-متاسفانه این بخش از آموزش قدیمی هست و افزونه های به کاربردی شده به https://www.apollographql.com/docs/react/get-started انتقال پیدا کردند
+متاسفانه این بخش از آموزش قدیمی هست و افزونه های به کاربردی شده به https://www.apollographql.com/docs/react/get-started انتقال پیدا کردند ولی ساختار کلی تغییر زیادی نکرده است در اسناد و ویدیو آماده است که می تونید کامپوننت پرووایدر آپالو رو استفاده کنید
+
+در فایل index.js
+```js
+import React from 'react';
+import * as ReactDOM from 'react-dom/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import App from './App';
+
+const client = new ApolloClient({});
+
+// Supported in React 18+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+);
+```
