@@ -375,3 +375,68 @@ root.render(
   </ApolloProvider>,
 );
 ```
+
+---
+### استفاده از کوری به وسیله هوک مربوط به این کتابخانه
+مثلا در فایل app.js اگر به شرح زیر می باشد 
+```js
+// Import everything needed to use the `useQuery` hook
+import { useQuery, gql } from '@apollo/client';
+
+export default function App() {
+  return (
+    <div>
+      <h2>My first Apollo app 🚀</h2>
+    </div>
+  );
+}
+```
+ما اومدیم usequery رو که برای خود این کتابخانه هست با gql اضافه کردیم حالا وقت آن هست که بیاییم در یک متغیر کواری خودمون رو قرار بدیم
+
+```js
+const GET_LOCATIONS = gql`
+  query GetLocations {
+    locations {
+      id
+      name
+      description
+      photo
+    }
+  }
+`;
+```
+
+حالا بیاییم یک کامپوننت کوچک در app.js بسازیم به شرح زیر 
+```js
+function DisplayLocations() {
+  const { loading, error, data } = useQuery(GET_LOCATIONS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return data.locations.map(({ id, name, description, photo }) => (
+    <div key={id}>
+      <h3>{name}</h3>
+      <img width="400" height="250" alt="location-reference" src={`${photo}`} />
+      <br />
+      <b>About this location:</b>
+      <p>{description}</p>
+      <br />
+    </div>
+  ));
+}
+```
+
+بعد زمان آن است که اینطور آن را لود کنیم
+```js
+export default function App() {
+  return (
+    <div>
+      <h2>My first Apollo app 🚀</h2>
+      <br/>
+      <DisplayLocations />
+    </div>
+  );
+}
+```
+همانطور که می بنید به راحتی برای شما مواردی از جمله loading و error و data آماده شده است تا به راحتی از آن ها استفاده کنید 
