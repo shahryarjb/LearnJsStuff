@@ -440,3 +440,103 @@ export default function App() {
 }
 ```
 همانطور که می بنید به راحتی برای شما مواردی از جمله loading و error و data آماده شده است تا به راحتی از آن ها استفاده کنید 
+
+به کواری های زیر توجه کنید:
+```js
+import { gql, useQuery } from '@apollo/client';
+
+const GET_DOGS = gql`
+  query GetDogs {
+    dogs {
+      id
+      breed
+    }
+  }
+`;
+```
+
+حال می توانید کامپوننت آن را به صورت زیر بسازید
+```js
+function Dogs({ onDogSelected }) {
+  const { loading, error, data } = useQuery(GET_DOGS);
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
+  return (
+    <select name='dog' onChange={onDogSelected}>
+      {data.dogs.map((dog) => (
+        <option key={dog.id} value={dog.breed}>
+          {dog.breed}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+---
+### کش
+مثل اینکه آپلود به صورت دیفالت می یاد اطلاعات از سرور به صورت لوکالی ذخیره می شه برای کش تا درخواست بعدی سریع تر باشه. در کد زیر می بنید که متغیر تعریف شده برای دریافت از کاربر و در هوک هم اون تعریف شده
+```js
+const GET_DOG_PHOTO = gql`
+  query Dog($breed: String!) {
+    dog(breed: $breed) {
+      id
+      displayImage
+    }
+  }
+`;
+
+function DogPhoto({ breed }) {
+  const { loading, error, data } = useQuery(GET_DOG_PHOTO, {
+    variables: { breed },
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />
+  );
+}
+```
+---
+### به روز رسانی کش
+خوب برخی مواقع نیاز هست شما مطمئن شوید که اطلاعات سرور و کش شما به روز می باشد که می توانید اینتروال تعریف کنید که هر چند لحظه به روز شود
+```js
+function DogPhoto({ breed }) {
+  const { loading, error, data } = useQuery(GET_DOG_PHOTO, {
+    variables: { breed },
+    pollInterval: 500,
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />
+  );
+}
+```
+
+مورد بعدی ریفچ کردن هست که اطلاعات رو دوباره بگیره و بر اساس یک متغیر هست و اگر متغیر تعریف نشود باز از اطلاعات قبلی دریافت می کند
+```js
+function DogPhoto({ breed }) {
+  const { loading, error, data, refetch } = useQuery(GET_DOG_PHOTO, {
+    variables: { breed },
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <div>
+      <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />
+      <button onClick={() => refetch({ breed: 'new_dog_breed' })}>
+        Refetch new breed!
+      </button>
+    </div>
+  );
+}
+```
