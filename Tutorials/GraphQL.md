@@ -588,3 +588,70 @@ function DogPhoto({ breed }) {
 
 توضیحات بیشتر:
 https://www.apollographql.com/docs/react/data/queries#inspecting-loading-states
+
+---
+### استفاده از useLazyQuery
+این کتابخانه یک هوک دیگری دارد برای اینکه مستقیم اگزکیوت نشه و در صورتی که دکمه ای زده شد بالا بیایید که به شرح زیر است. تفاوت زیادی در نوشتن با هوک قبلی ندارد
+```js
+import React from 'react';
+import { useLazyQuery } from '@apollo/client';
+
+function DelayedQuery() {
+  const [getDog, { loading, error, data }] = useLazyQuery(GET_DOG_PHOTO);
+
+  if (loading) return <p>Loading ...</p>;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <div>
+      {data?.dog && <img src={data.dog.displayImage} />}
+      <button onClick={() => getDog({ variables: { breed: 'bulldog' } })}>
+        Click me!
+      </button>
+    </div>
+  );
+}
+```
+
+---
+### تغییر fetch policy
+همانطور که در بالا اشاره کردیم پالیسی این کتاخانه cache-first  پس اگر می خواهید این پالیسی تغییر بکند می توانید به صورت زیر عمل کنید
+
+```js
+const { loading, error, data } = useQuery(GET_DOGS, {
+  fetchPolicy: 'network-only', // Doesn't check cache before making a network request
+});
+```
+
+حالا فرض کنید مورد بالا رو زدید و اطلاعات گرفتید حالا می خواهید بگویید در آینده پاسخ هایی که می یاد چطور هندل کنیم می تونید به صورت زیر بزنید اول می ره از شبکه می گیره بعد از کش
+
+```js
+const { loading, error, data } = useQuery(GET_DOGS, {
+  fetchPolicy: 'network-only', // Used for first execution
+  nextFetchPolicy: 'cache-first', // Used for subsequent executions
+});
+```
+
+لازم به ذکر است می توانید کانفیگ را در شروع نیز قرار بدهید
+
+این مورد اولیه ای هست در موقعی که می خواهید پرووایدر تعریف کنید می گذارید
+```js
+const client = new ApolloClient({
+  uri: 'https://flyby-gateway.herokuapp.com/',
+  cache: new InMemoryCache(),
+});
+```
+
+می توانید تغییرات زیر نیز شامل حالش شود
+
+```js
+new ApolloClient({
+  link,
+  client,
+  defaultOptions: {
+    watchQuery: {
+      nextFetchPolicy: 'cache-only',
+    },
+  },
+});
+```
