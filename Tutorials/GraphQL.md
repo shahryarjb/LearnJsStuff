@@ -664,3 +664,120 @@ https://www.apollographql.com/docs/react/data/queries#supported-fetch-policies
 
 لازم به ذکر است نمی شود کامل کل این هوک را کاور کرد و شما می توانید در لینک زیر کلیه آپشن هارا ببنید
 https://www.apollographql.com/docs/react/data/queries
+
+---
+### ارسال داده Mutation
+
+برخلاف هوک مربوط به query نمی آید همون اول اگزکیوت شود و به صورت زیر نوشته می شود
+```js
+import { gql, useMutation } from '@apollo/client';
+
+// Define mutation
+const INCREMENT_COUNTER = gql`
+  # Increments a back-end counter and gets its resulting value
+  mutation IncrementCounter {
+    currentValue
+  }
+`;
+
+function MyComponent() {
+  // Pass mutation to useMutation
+  const [mutateFunction, { data, loading, error }] = useMutation(INCREMENT_COUNTER);
+}
+```
+
+برای مثال بیاییم یک تودولیست اضافه کنیم
+```js
+import { gql, useMutation } from '@apollo/client';
+
+const ADD_TODO = gql`
+  mutation AddTodo($type: String!) {
+    addTodo(type: $type) {
+      id
+      type
+    }
+  }
+`;
+```
+
+بعد از اینکه خود پروسه graphql رو درست کردیم حالا زمان آن هست که بیاییم کامپوننت todolist را بسازیم
+```js
+function AddTodo() {
+  let input;
+  const [addTodo, { data, loading, error }] = useMutation(ADD_TODO);
+
+  if (loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
+
+  return (
+    <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          addTodo({ variables: { type: input.value } });
+          input.value = '';
+        }}
+      >
+        <input
+          ref={node => {
+            input = node;
+          }}
+        />
+        <button type="submit">Add Todo</button>
+      </form>
+    </div>
+  );
+}
+```
+
+همانطور که می بنید addTodo در حقیقت همون setter ما هست که برعکس مواردی مثل useState هست و متغیری که بالا تعریف کرده در خود graphql حالا اینجا در قطعه کد زیر در event مربوط به onSubmit اومده ارسالش کرده
+```js
+<form
+  onSubmit={e => {
+    e.preventDefault();
+    addTodo({ variables: { type: input.value } });
+    input.value = '';
+  }}
+>
+```
+
+
+لازم به ذکر است که شما می توانید آپشن های بیشتری در موقع فراخوانی هوک اضافه کنید
+```js
+const [addTodo, { data, loading, error }] = useMutation(ADD_TODO, {
+  variables: {
+    type: "placeholder",
+    someOtherVariable: 1234,
+  },
+});
+```
+
+از جمله امکانات دوست داشتنی اون می تونیم به معرفی مستقیم یک متغیر اشاره کنیم مثل زیر
+```js
+addTodo({
+  variables: {
+    type: input.value,
+  },
+});
+```
+
+---
+### ریست کردن Mutation
+فرض مثال داده ای رو با هوک Mutation کردید و ارور داد یا می خواهید اون رو ریست کنید می تونید از هوک اون رو اجرا کنید
+```js
+const [login, { data, loading, error, reset }] = useMutation(LOGIN_MUTATION);
+```
+
+این بخش هم مثل کواری زدن می باشد و شما می توانید اطلاعات برگشتی از سمت سرور رو بیایید و ریپلیس کنید در مواردی که تو لوکال ذخیره شده است
+
+```js
+const [addTodo, { data, loading, error }] = useMutation(ADD_TODO, {
+  refetchQueries: [
+    {query: GET_POST}, // DocumentNode object parsed with gql
+    'GetComments' // Query name
+  ],
+});
+```
+
+
+برای اطلاعات بیشتر و تغییر مستقیم در کش می توانید اینجا کلیک کنید https://www.apollographql.com/docs/react/data/mutations#the-update-function
