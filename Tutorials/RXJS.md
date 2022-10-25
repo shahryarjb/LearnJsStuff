@@ -101,3 +101,8 @@ Subscription 2 Ben
 Subscription 1 Charlie
 Subscription 2 Charlie
 ```
+
+
+---
+### بخش های اصلی observer
+در این بخش همانطور که در بالا دیدید ما کامل بک next برای ناتفیکیشن اطلاعات را دارا بودیم و دو مورد دیگر نیز وجود دارد از جمله complete و همینطور error که از اسم های آن نیز کاربردشان مشخص می باشد
