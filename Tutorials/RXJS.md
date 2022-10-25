@@ -57,3 +57,47 @@ setTimeout(() => {
 }, 3000);
 ```
 همانطور که می بنید آن ساسکرایب کردیم بعد از ۳ ثانیه!! و در کد بالا آخرین اسم بعد از ۴ ثانیه می یاد پس دو اسم نمایش داده می شود و آخری اسکیپ می شود. این برای مصرف حافظه نیز بسیار مناسب می باشد 
+
+
+---
+### استفاده چند باره از subscribe 
+فکر کنید می خواهید به صورت مالتی تایم کد رو اجرا کنید. این کد به صورت ای سینک اجرا می شود و هر کدام زودتر نتیجه بدهد نمایش می یابد پس منتظر نمی ماند یا مثل promis نیست
+
+به کد زیر نگاه کنید:
+
+```ts
+import { Observable } from 'rxjs';
+
+const observable$ = new Observable<string>((subscriber) => {
+  console.log('Observable executed');
+  subscriber.next('Alice');
+  setTimeout(() => subscriber.next('Ben'), 2000);
+  setTimeout(() => subscriber.next('Charlie'), 4000);
+});
+
+console.log('Subscription 1 starts');
+observable$.subscribe({
+  next: (value: string) => console.log('Subscription 1', value),
+});
+
+setTimeout(() => {
+  console.log('Subscription 2 starts');
+  observable$.subscribe({
+    next: (value: string) => console.log('Subscription 2', value),
+  });
+}, 1000);
+```
+
+نتیجه را ببنید:
+```
+Subscription 1 starts
+Observable executed
+Subscription 1 Alice
+Subscription 2 starts
+Observable executed
+Subscription 2 Alice
+Subscription 1 Ben
+Subscription 2 Ben
+Subscription 1 Charlie
+Subscription 2 Charlie
+```
