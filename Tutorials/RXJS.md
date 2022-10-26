@@ -197,3 +197,35 @@ Charlie
 Failure
 Teardown
 ```
+---
+### استفاده از setInterval و همینطور درک unsubscribe
+
+به کد زیر توجه کنید چندین نکته بسیار مهم دارد. این کد یک اینتروال ساده می باشد که عدد قبلی را + یک می کند و در بعد از ۷ ثانیه تایم اوت نیز unsubscribe می شود یعنی دیگر هیچ چیزی چاپ نمی شود 
+
+```ts
+const interval$ = new Observable<number>((subscriber) => {
+  let counter = 1;
+  const intervalId = setInterval(() => {
+    console.log('Emitted', counter);
+    subscriber.next(counter++);
+  }, 2000);
+
+  return () => {
+    clearInterval(intervalId);
+  };
+});
+
+const subscription = interval$.subscribe((value) => console.log(value));
+
+setTimeout(() => {
+  console.log('Unsubcribe');
+  subscription.unsubscribe();
+}, 7000);
+```
+ولی فرض کنید شما کلینر زیر را قرار ندهید فکر می کنید چه اتفاقی می افتد؟
+```js
+ return () => {
+  clearInterval(intervalId);
+};
+```
+جواب این هست که درست هست یگر اطلاعاتی ارسال نمی شود چون دیگر عضو این پروسه نیستید ولی بخاطر ساید افکت باقی مانده هر ۲ ثانیه `console.log('Emitted', counter);` اجرا می شود به همین منظور ما محبوریم کل اینتروال رو قرار بدهیم در یک متغییر و بعد از کامپلیت شدن یا آن ساسکرایب آن را کلیر کنیم.
