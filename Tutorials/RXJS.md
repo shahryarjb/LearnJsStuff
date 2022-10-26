@@ -106,3 +106,49 @@ Subscription 2 Charlie
 ---
 ### بخش های اصلی observer
 در این بخش همانطور که در بالا دیدید ما کامل بک next برای ناتفیکیشن اطلاعات را دارا بودیم و دو مورد دیگر نیز وجود دارد از جمله complete و همینطور error که از اسم های آن نیز کاربردشان مشخص می باشد
+
+---
+### نمونه کد برای نمایش کامپلیت و داده و همینطور کلینر
+```ts
+const observable$ = new Observable<string>((subscriber) => {
+  console.log('Observable executed');
+  subscriber.next('Alice');
+  subscriber.next('Ben');
+  setTimeout(() => {
+    subscriber.next('Charlie');
+    subscriber.complete();
+  }, 2000);
+
+  return () => {
+    console.log('Teardown');
+  };
+});
+
+console.log('Before subscribe');
+
+observable$.subscribe({
+  next: (value: any) => console.log(value),
+  complete: () => console.log('Completed'),
+});
+
+console.log('After subscribe');
+```
+
+به کد بالا توجه کنید نتیجه آن می شود
+```
+Before subscribe
+Observable executed
+Alice
+Ben
+After subscribe
+Charlie
+Completed
+Teardown
+```
+همانطور که می بنید بخش 
+```js
+return () => {
+  console.log('Teardown');
+};
+```
+دقیقا بعد از کامپلیت اجرا شده است
