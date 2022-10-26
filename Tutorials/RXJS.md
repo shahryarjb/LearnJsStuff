@@ -152,3 +152,48 @@ return () => {
 };
 ```
 دقیقا بعد از کامپلیت اجرا شده است
+
+---
+### نمایش خطا به همراه کلینر
+در بالا دیدیم که کلینر وقتی ریترن می شد دقیقا بعد از کامپلیت اجرا می شد و همین داستان برای ارور نیز کاربرد دارد به کد زیر توجه کنید
+
+```ts
+const observable$ = new Observable<string>((subscriber) => {
+  console.log('Observable executed');
+  subscriber.next('Alice');
+  subscriber.next('Ben');
+  setTimeout(() => {
+    subscriber.next('Charlie');
+  }, 2000);
+
+  setTimeout(() => {
+    subscriber.error(new Error('Failure'));
+  }, 4000);
+
+  return () => {
+    console.log('Teardown');
+  };
+});
+
+console.log('Before subscribe');
+
+observable$.subscribe({
+  next: (value: any) => console.log(value),
+  complete: () => console.log('Completed'),
+  error: (err) => console.log(err.message),
+});
+
+console.log('After subscribe');
+```
+نتیجه آن می شود
+
+```
+Before subscribe
+Observable executed
+Alice
+Ben
+After subscribe
+Charlie
+Failure
+Teardown
+```
