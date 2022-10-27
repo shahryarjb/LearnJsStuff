@@ -347,3 +347,29 @@ observableFromPromise$.subscribe({
 });
 // Error Rejected!
 ```
+
+---
+### استفاده از fromEvent برای event ها
+این فانکشن یا متد از این کتابخانه می تواند موارد زیر را ساپورت کنه
+1. DOM EventTarget
+2. Node.js EventEmitter
+3. Jquery Events
+
+در کد های بالا اگر می خواستیم یک event رو بگیریم باید به این صورت عمل می کردیم
+```ts
+const triggerButton = document.querySelector('button#trigger');
+const triggerClick$ = new Observable((subscriber) => {
+  triggerButton?.addEventListener('click', (event) => {
+    subscriber.next(event);
+  });
+});
+
+triggerClick$.subscribe(
+  (event) => console.log(event)
+)
+```
+ولی fromEvent اون رو خلاصه می کنهو نیاز به کد کمتری هست که در زیر می تونید ببنیدش
+```ts
+const triggerButton = document.querySelector('button#trigger');
+fromEvent(triggerButton!, 'click').subscribe((event) => console.log(event));
+```
