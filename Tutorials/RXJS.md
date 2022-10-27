@@ -386,3 +386,25 @@ setTimeout(() => {
 }, 5000);
 ```
 کد اون به همین سادگی می شود!
+
+---
+### موارد مربوط به timer و interval
+
+```
+timer(2000).subscribe({
+  next: (value) => console.log(value),
+  complete: () => console.log('Completed'),
+});
+
+interval(2000).subscribe({
+  next: (value) => console.log(value),
+  complete: () => console.log('Completed'),
+});
+```
+همانطور می ببنید کاملا شبی به هم هستند و لازم به ذکر هست برای یاداوری مجدد که همه این موارد می تواند با Observable انجام شود
+
+امکانات این دو فانکشن بیشتر از این موارد هست که به صورت مثال دو کد زیر یک کار را می کنند
+```
+timer(0, 1000).subscribe(n => console.log('timer', n));
+interval(1000).subscribe(n => console.log('interval', n));
+```
