@@ -267,3 +267,47 @@ setTimeout(() => {
 }, 5000);
 ```
 حال شما فرض کنید روی دکمه ای کلیک می کنید و پیش فرض ذهنی شما این هست که باید بعد از ۵ ثانیه در اولین بار sub2 هم چاپ شود ولی فقط متن Subscription 2 starts چاپ می گردد حال اگر یک بار دیگه کلیک کنید می بنید پشت هم هر سری sub1و sub2 بدون معطیلی اجرا می شود و دیگر منتظر تایم اوت نمی ماند این روال باید به عنوان نکته مهم در ذهنتون بمونه 
+
+---
+### استفاده از متد of
+کتابخانه rxjs یک سری متد های بسیار خوبی دارد که کار مارا راحت تر می کند به عنوان مثال وقتی می خواهیم سه اسم و همینطور status کامپلیت را چاپ کنیم در گذشته یا مواردی که بالا ذکر شد به صورت زیر عمل می کنیم
+
+```ts
+const names$ = new Observable<string>((subscriber) => {
+  subscriber.next('Alice');
+  subscriber.next('Ben');
+  subscriber.next('Charlie');
+  subscriber.complete();
+});
+
+names$.subscribe({
+  next: (value: any) => console.log(value),
+  complete: () => console.log('It is completed'),
+});
+```
+همانطور می بنید بیشتر برای باز شدن ذهن هست که چطور عمل می کند ولی در پروژه های بزرگ تر شما مجبور می شدید این مورد رو بیایید خودتون یک تابع بنویسید تا داینامیک تر بشه و همینطور قالب استفاده مجدد باشه
+
+در آن زمان یک چنین چیزی درست می کردید
+```ts
+ourOwnOf('Alice', 'Ben', 'Charlie').subscribe({
+  next: (value: any) => console.log(value),
+  complete: () => console.log('It is completed'),
+});
+
+function ourOwnOf(...args: string[]): Observable<string> {
+  return new Observable<string>((subscriber) => {
+    for (let i = 0; i < args.length; i++) {
+      subscriber.next(args[i]);
+    }
+    subscriber.complete();
+  });
+}
+```
+تابع ourOwnOf به ما کمک می کنه تا کد های بهتر و همینطور شفاف تری داشته باشیم و بر اساس هر تگرار مجبور نباشیم کلشو درست کنیم ولی rxjs خودش یک متد داره به نام of  که می تونید ازش استفاده کنید. فقط کافیه به این صورت عمل کنید
+```ts
+of('Alice', 'Ben', 'Charlie').subscribe({
+  next: (value: any) => console.log(value),
+  complete: () => console.log('It is completed'),
+});
+```
+دیگر نیاز به ساخت چیز دیگه ای نیست
