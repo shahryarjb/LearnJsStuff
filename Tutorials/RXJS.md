@@ -373,3 +373,16 @@ triggerClick$.subscribe(
 const triggerButton = document.querySelector('button#trigger');
 fromEvent(triggerButton!, 'click').subscribe((event) => console.log(event));
 ```
+
+یک مثال خوب در این زمینه می خوام بزنم که قدرت rxjs رو در سادگی تمام در دکمه ها متوجه شوید. مثلا فرض کنید یک دکمه دارید و این دکمه رو می خواهید بعد از ۵ ثانیه دیگه روش زدن کار نکنه و اطلاعاتی نفرسته می تونید به این صورت عمل کنید
+
+```ts
+const triggerButton = document.querySelector('button#trigger');
+
+const subscription = fromEvent(triggerButton!, 'click').subscribe((event) => console.log(event));
+
+setTimeout(() => {
+  subscription.unsubscribe();
+}, 5000);
+```
+کد اون به همین سادگی می شود!
