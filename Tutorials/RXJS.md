@@ -311,3 +311,38 @@ of('Alice', 'Ben', 'Charlie').subscribe({
 });
 ```
 دیگر نیاز به ساخت چیز دیگه ای نیست
+
+---
+### استفاده از from
+دیگر امکان این کتابخانه from می باشد این مورد برای مواردی که یک لیست هستند یا پرامیس می باشند استفاده می شود مخصوصا برای ارسال request ها بسیار خوب عمل می کنه به نظر من قیافه تو در توی پرامیس رو خلاصه سازی هم می کنه
+
+```ts
+import { from } from 'rxjs';
+const somePromis = new Promise((resolve, reject) => {
+  resolve('Resolved!');
+});
+
+const observableFromPromise$ = from(somePromis);
+
+observableFromPromise$.subscribe({
+  next: (value) => console.log(value),
+  complete: () => console.log('Completed'),
+});
+// Resolved!
+// Completed
+```
+ما در بالا از کانستراکتور پرامیس برای شبی سازی استفاده کردیم و ریزالو رو برگردوندیم و شما می تونید خروجی اونرو ببنید.
+نکته جالب اینجاست که اگر حالا reject رو تنظیم کنیم که برگرده دیگه کامپلیت اجرا نمی شه
+```ts
+const somePromis = new Promise((resolve, reject) => {
+  reject('Rejected!');
+});
+
+const observableFromPromise$ = from(somePromis);
+
+observableFromPromise$.subscribe({
+  next: (value) => console.log(value),
+  error: err => console.log('Error', err),
+  complete: () => console.log('Completed'),
+});
+```
