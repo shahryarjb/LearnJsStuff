@@ -229,3 +229,18 @@ setTimeout(() => {
 };
 ```
 جواب این هست که درست هست یگر اطلاعاتی ارسال نمی شود چون دیگر عضو این پروسه نیستید ولی بخاطر ساید افکت باقی مانده هر ۲ ثانیه `console.log('Emitted', counter);` اجرا می شود به همین منظور ما محبوریم کل اینتروال رو قرار بدهیم در یک متغییر و بعد از کامپلیت شدن یا آن ساسکرایب آن را کلیر کنیم.
+
+---
+### ارسال دستور همزمان http request
+در این قطعه کد از متد ajax خود کتابخانه rxjs استفاده کردیم
+```ts
+import { ajax } from 'rxjs/ajax';
+const ajax$ = ajax<any>('https://random-data-api.com/api/name/random_name');
+
+ajax$.subscribe((data) => console.log('Sub 1 =>', data.response.first_name));
+
+ajax$.subscribe((data) => console.log('Sub 2 =>', data.response.first_name));
+
+ajax$.subscribe((data) => console.log('Sub 3 =>', data.response.first_name));
+```
+هیچکدام منتظر قبلی نمی ماند و درخواست ارسال می شود و جواب هرکدام آمد نمایش داده می شود
