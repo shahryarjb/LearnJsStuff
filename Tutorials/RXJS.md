@@ -244,3 +244,26 @@ ajax$.subscribe((data) => console.log('Sub 2 =>', data.response.first_name));
 ajax$.subscribe((data) => console.log('Sub 3 =>', data.response.first_name));
 ```
 هیچکدام منتظر قبلی نمی ماند و درخواست ارسال می شود و جواب هرکدام آمد نمایش داده می شود
+
+---
+### درک بهتر آبزرور
+به کد زیر توجه کنید ما بر اساس یک کلیک و ساخت یک لیسنر اومدیم یک داده ای رو ارسال کردیم و آبزرو ما یک بار در بیرون تایم اوت و یک بار در داخل تایم اوت قرار گرفته است
+```ts
+import { Observable } from 'rxjs';
+
+const helloButton = document.querySelector('button#hello');
+
+const helloClick$ = new Observable((subscriber) => {
+  helloButton?.addEventListener('click', (event) => {
+    subscriber.next(event);
+  });
+});
+
+helloClick$.subscribe((event) => console.log('Sub 1:', event));
+
+setTimeout(() => {
+  console.log('Subscription 2 starts');
+  helloClick$.subscribe((event) => console.log('Sub 2:', event));
+}, 5000);
+```
+حال شما فرض کنید روی دکمه ای کلیک می کنید و پیش فرض ذهنی شما این هست که باید بعد از ۵ ثانیه در اولین بار sub2 هم چاپ شود ولی فقط متن Subscription 2 starts چاپ می گردد حال اگر یک بار دیگه کلیک کنید می بنید پشت هم هر سری sub1و sub2 بدون معطیلی اجرا می شود و دیگر منتظر تایم اوت نمی ماند این روال باید به عنوان نکته مهم در ذهنتون بمونه 
