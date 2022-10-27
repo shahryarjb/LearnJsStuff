@@ -345,4 +345,5 @@ observableFromPromise$.subscribe({
   error: err => console.log('Error', err),
   complete: () => console.log('Completed'),
 });
+// Error Rejected!
 ```
