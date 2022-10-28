@@ -429,3 +429,36 @@ forkJoin([randomName$, randomNation$, randomFood$]).subscribe(
     )
 );
 ```
+
+حال شکل کامل ترش با مدیریت خطا به شرح زیر می باشد
+```ts
+forkJoin([randomName$, randomNation$, randomFood$]).subscribe({
+  next: ([nameAjax, nationAjax, foodAjax]) =>
+    console.log(
+      `${nameAjax.response.first_name} if from ${nationAjax.response.capital} and likes to eat ${foodAjax.response.dish}`
+    ),
+  error: (err) => console.log('Error:', err),
+});
+```
+همانطور که می بنید در اون ارور هندلینگ نیز آماده است لازم به ذکر است مهم نیست درخواست ها چقدر طول بکشند وقتی یکی از درخواست ها ارور بدهد وارد ارور هندلینگ می شود بخاطر اینکه این متد منتظر کامپلیت شدن همه موارد می ماند و بعد از اون ریسپانس بر می گردونه به قطعه کد زیر توجه کنید که مجازی سازی کردیم از یک درخواست و همینطور انتظار پاسخگوییش و در آخر در یکی از این موارد خطا قرار دادیم
+```ts
+const a$ = new Observable((subscriber) => {
+  setTimeout(() => {
+    subscriber.next('A');
+    subscriber.complete();
+  }, 3000);
+});
+
+const b$ = new Observable((subscriber) => {
+  setTimeout(() => {
+    subscriber.error('Failure');
+  }, 5000);
+});
+
+forkJoin([a$, b$]).subscribe({
+  next: (value) => console.log(value),
+  error: (err) => console.log('Error:', err),
+});
+// Error: Failure
+```
+
