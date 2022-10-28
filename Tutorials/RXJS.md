@@ -477,3 +477,33 @@ forkJoin([a$, b$]).subscribe({
 // A teardown
 // B teardown
 ```
+
+
+---
+### استفاده از combineLatest
+همانطور که از نامش مشخصه کامباین می کنه یا می چسبونه و این تابع براش مهم هست که از هر سورسی که توش هست حداقل یک بار اجرا شده باشه یا ولیویی وجود داشته باشه. با یک مثال این موضوع رو شفاف تر می کنم فکر کنید شما دوتا event دارید که با fromEvent ساخته شده است. یکی عدد دما رو می گیرید و یکی دیگر می آیید نوع دما رو می گیرید و بعد از اینکه هر دو وارد شد محاسبه می کنید. پس اگر یکی از این موارد ارسال بشه کد کامل نمی شه و باید هر دو ارسال بشند به صورت مثال 
+
+```ts
+const temperatureInput = document.getElementById('temperature-input');
+const conversionDropdown = document.getElementById('conversion-dropdown');
+const resultText = document.getElementById('result-text');
+
+const temperatureInputEvent$ = fromEvent(temperatureInput!, 'input');
+const conversionInputEvent$ = fromEvent(conversionDropdown!, 'input');
+
+combineLatest([temperatureInputEvent$, conversionInputEvent$]).subscribe(
+  ([temperatureInputEvent, conversionInputEvent]: [temperatureInputEvent: any, conversionInputEvent: any]) => {
+    const temperature = Number(temperatureInputEvent.target['value']);
+    const conversion = conversionInputEvent.target['value'];
+
+    let result: number;
+    if (conversion === 'f-to-c') {
+      result = ((temperature - 32) * 5) / 9;
+    } else if (conversion === 'c-to-f') {
+      result = (temperature * 9) / 5 + 32;
+    }
+
+    resultText!.innerText = String(result!);
+  }
+);
+```
