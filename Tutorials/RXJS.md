@@ -408,3 +408,24 @@ interval(2000).subscribe({
 timer(0, 1000).subscribe(n => console.log('timer', n));
 interval(1000).subscribe(n => console.log('interval', n));
 ```
+
+---
+### استفاده از forkJoin
+این تابع سازنده کمک می کند تا چندین درخواست مثل http ریکواست رو ارسال کنیم و بعد منتظر اون باشیم تا تمامشون تمام کار بشند و بعد بتونیم به همشون عضو یا ساسکراب بشیم. در کد زیر ما سه درخواست ajax می فرستیم که همزمان ارسال می شند و در تابع forkJoin منتظر می مونیم تا همشون کامپلیت بشند بعد ازشون استفاده می کنیم. 
+
+```ts
+const randomName$ = ajax<any>('https://random-data-api.com/api/name/random_name');
+
+const randomNation$ = ajax<any>(
+  'https://random-data-api.com/api/nation/random_nation'
+);
+
+const randomFood$ = ajax<any>('https://random-data-api.com/api/food/random_food');
+
+forkJoin([randomName$, randomNation$, randomFood$]).subscribe(
+  ([nameAjax, nationAjax, foodAjax]) =>
+    console.log(
+      `${nameAjax.response.first_name} if from ${nationAjax.response.capital} and likes to eat ${foodAjax.response.dish}`
+    )
+);
+```
