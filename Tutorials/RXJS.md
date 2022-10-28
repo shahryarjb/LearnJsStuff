@@ -447,18 +447,33 @@ const a$ = new Observable((subscriber) => {
     subscriber.next('A');
     subscriber.complete();
   }, 3000);
+
+  return () => {
+    console.log('A teardown')
+  }
 });
 
 const b$ = new Observable((subscriber) => {
   setTimeout(() => {
     subscriber.error('Failure');
   }, 5000);
+
+  return () => {
+    console.log('B teardown')
+  }
 });
 
 forkJoin([a$, b$]).subscribe({
   next: (value) => console.log(value),
   error: (err) => console.log('Error:', err),
 });
+// A teardown
 // Error: Failure
+// B teardown
 ```
-
+به خروجی بالا توجه کنید اولین پروسه کامل اجرا می شه و همینطور در ریترن کلینر هم اجرا می شه و در پروسه دوم ارور کامل بر می گرده و همینطور کلینر اون اجرا می شه حالا فرض کنید اولین پروسه با ۵ ثانیه تایم اوت بیاد و دومی با ۳ ثانیه جواب به چه صورت می شود؟
+```
+// Error: Failure
+// A teardown
+// B teardown
+```
