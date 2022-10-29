@@ -577,3 +577,18 @@ forkJoin([randomFirstName$, randomCapital$, randomDish$]).subscribe(
     )
 );
 ```
+---
+### استفاده از pipe اپوریتور و tap
+تا اونجا که متوجه شدم tap اوپریتور برای دیباگ بسیار خوب هست و می توان بین عملیات های مربوط به map و فیلتر قرار داد و همینطور در داخلش خودش next و ارور کامپلیت نیز دارد
+
+```ts
+of(1, 7, 3, 6, 2)
+  .pipe(
+    map((value) => value * 2),
+    filter((value) => value > 5),
+    tap({
+      next: (value) => console.log('Spy:', value),
+    })
+  )
+  .subscribe((value) => console.log('Output', value));
+```
