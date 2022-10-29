@@ -507,3 +507,44 @@ combineLatest([temperatureInputEvent$, conversionInputEvent$]).subscribe(
   }
 );
 ```
+
+---
+### استفاده از pipe اپوریتور و filter
+اپریتور pipe در حقیقت می یاد یک نسخه دیگه از خود داده هایی Observable شده می سازد و به ما یک سری امکانات می دهد تا روی آن ها پردازش کنیم به کد زیر توجه کنید ما حدود ۵ محتوا از یک وب سایت خبری را ارسال می کنیم 
+```ts
+interface NewsItem {
+  category: 'Business' | 'Sports';
+  content: string;
+}
+
+const newsFeed$ = new Observable<NewsItem>((subscriber) => {
+  setTimeout(() => {
+    subscriber.next({ category: 'Business', content: 'A' });
+  }, 1000);
+  setTimeout(() => {
+    subscriber.next({ category: 'Sports', content: 'B' });
+  }, 3000);
+  setTimeout(() => {
+    subscriber.next({ category: 'Business', content: 'C' });
+  }, 4000);
+  setTimeout(() => {
+    subscriber.next({ category: 'Sports', content: 'D' });
+  }, 6000);
+  setTimeout(() => {
+    subscriber.next({ category: 'Business', content: 'E' });
+  }, 7000);
+});
+```
+
+حال می خواهیم فقط مطالبی در مجموعه ورزشی می باشد فیلتر شود نمایش بیابد 
+```ts
+const sportsNewsFeed$ = newsFeed$.pipe(
+  filter(item => item.category === 'Sports')
+)
+```
+تا اینجا ما pipe را قرار دادیم و حال می توانیم به آن عضو یا ساسکرایب شویم
+```ts
+sportsNewsFeed$.subscribe((item) => console.log(item));
+// {category: 'Sports', content: 'B'}
+// {category: 'Sports', content: 'D'}
+```
