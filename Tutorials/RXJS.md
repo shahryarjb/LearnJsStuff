@@ -645,3 +645,8 @@ failingHttpRequest$.pipe(catchError((error) => EMPTY)).subscribe({
 });
 ```
 استفاده کنیم ولی وقتی EMPTY اجرا می شود باید به این نکته توجه کرد که complete نیز اجرا می شود 
+
+
+---
+
+### استفاده از Flattening در pipe
