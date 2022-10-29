@@ -592,3 +592,22 @@ of(1, 7, 3, 6, 2)
   )
   .subscribe((value) => console.log('Output', value));
 ```
+
+یک سری مثال می تونید در اینجا ببنید
+https://www.learnrxjs.io/learn-rxjs/operators/utility/do
+که در این بخش هم داره از حالت دیباگری ازش استفاده می کنه.
+---
+### استفاده از pipe و debounceTime
+فکر کنید یک event دارید مثل event های کشیدنی
+```html
+ <input id="slider" class="form-control" type="range" min="0" max="100" />
+```
+این یک اسلایدر هست و شما می خواهید کاربر شما وقتی آن را می کشد به سمت عقب و جلو بعد از ۲ ثانیه که ولش کرد اطلاعاتش ارسال بشه و فشار کمتری به سرور و ... بیاد
+```ts
+const sliderInput = document.querySelector('input#slider');
+
+fromEvent(sliderInput!, 'input').pipe(
+  debounceTime(2000),
+  map((event: any) => event.target['value'])
+).subscribe(value => console.log(value))
+```
