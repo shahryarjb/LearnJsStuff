@@ -674,3 +674,43 @@ source$
 // B
 // 2
 ```
+
+---
+### ارور هندلینگ در concatMap
+نکته بسیار مهم در این پروسه این هست که اگر ارور بدهد چه اتفاقی می افتد. اگر کدی به ساختار زیر داشته باشیم. در زمانی که url موجود نباشد ارور بگیرید catchError آن را به complete می فرستد.
+```ts
+fromEvent(fetchButton!, 'click')
+  .pipe(
+    map(() => endpointInput.value),
+    concatMap((value) =>
+      ajax(`https://random-data-api.com/api/${value}/random_${value}`)
+    ),
+    catchError(() => EMPTY)
+  )
+  .subscribe({
+    next: (value) => console.log(value),
+    error: (err) => console.log('Error:', err),
+    complete: () => console.log('Completed')
+  });
+```
+
+حال بیاییم یک pipe در خود ajax درست کنیم جایی که ارور می دهد نه خود کل پروسه concatMap اگر به این صورت عمل کنیم فرض بر اینکه ارور هم بدهد یوزر می تواند دوباره اجرا کند. چون در concatMap ما به complete نمی ریم ولی در دیگر موارد ارجاع داده می شود
+```ts
+const endpointInput: any = document.querySelector('input#endpoint');
+const fetchButton = document.querySelector('button#fetch');
+
+fromEvent(fetchButton!, 'click')
+  .pipe(
+    map(() => endpointInput.value),
+    concatMap((value) =>
+      ajax(`https://random-data-api.com/api/${value}/random_${value}`).pipe(
+        catchError(() => EMPTY)
+      )
+    )
+  )
+  .subscribe({
+    next: (value) => console.log(value),
+    error: (err) => console.log('Error:', err),
+    complete: () => console.log('Completed'),
+  });
+```  
