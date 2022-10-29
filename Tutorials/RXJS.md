@@ -649,4 +649,28 @@ failingHttpRequest$.pipe(catchError((error) => EMPTY)).subscribe({
 
 ---
 
-### استفاده از Flattening در pipe
+### استفاده از Flattening در pipe و concatMap
+این متد اطلاعات پروسه اول آبزرور رو می گیره و بعد می تونه چیزی بهش اضافه کنه یعنی یک ابزرور دیگه و بفرسته به سمته ساسکرایب
+```ts
+const source$ = new Observable((subscriber) => {
+  setTimeout(() => {
+    subscriber.next('A');
+  }, 2000);
+  setTimeout(() => {
+    subscriber.next('B');
+  }, 5000);
+});
+
+console.log('App has started');
+source$
+  .pipe(concatMap((value) => of(value, 2)))
+  .subscribe((value) => console.log(value));
+
+// after 2 sec
+// A
+// 2
+
+// after 5 sec
+// B
+// 2
+```
