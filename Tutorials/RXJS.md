@@ -594,8 +594,11 @@ of(1, 7, 3, 6, 2)
 ```
 
 یک سری مثال می تونید در اینجا ببنید
+
 https://www.learnrxjs.io/learn-rxjs/operators/utility/do
+
 که در این بخش هم داره از حالت دیباگری ازش استفاده می کنه.
+
 ---
 ### استفاده از pipe و debounceTime
 فکر کنید یک event دارید مثل event های کشیدنی
@@ -610,4 +613,25 @@ fromEvent(sliderInput!, 'input').pipe(
   debounceTime(2000),
   map((event: any) => event.target['value'])
 ).subscribe(value => console.log(value))
+```
+
+---
+
+### استفاده از catchError در pipe اوپرتور
+فرض کنید یک کدی داریم که ۳ ثانیه طول می کشد تا لود شود و بعد از اون یک اروری می دهد چطور اون رو در pipe بگیریم در قطعه کد زیر به وسیله catchError این کارو می کنیم لازم به ذکر هست خروجی ارور باید یک فانکشن باشد. در اینجا ما یک آبزرو با of درست می کنیم که در ساسکرایب نمایش داده می شود
+```ts
+const failingHttpRequest$ = new Observable(subscriber => {
+  setTimeout(() => {
+    subscriber.error(new Error('Timeout'))
+  }, 3000);
+})
+
+console.log('App started')
+
+failingHttpRequest$.pipe(
+  catchError(error => of('Fallback value'))
+).subscribe(
+  value => console.log(value)
+)
+// Fallback value'
 ```
