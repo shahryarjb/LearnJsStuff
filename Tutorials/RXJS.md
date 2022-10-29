@@ -548,3 +548,32 @@ sportsNewsFeed$.subscribe((item) => console.log(item));
 // {category: 'Sports', content: 'B'}
 // {category: 'Sports', content: 'D'}
 ```
+---
+### استفاده از pipe اپوریتور و map
+اگر به مثال forkJoin توجه کنید می بنید که داخل آن مجبور هستیم خیلی از موارد را صدا بزنیم تا به داده مورد نظر خودمان برسیم و وقتی این اطلاعات شرط های بیشتری می خواهید برای هر کدام از ریکواست ها این کد ها پیچیده تر نیز می شود حالا قبل از هر تغییری می آییم از map استفاده می کنیم و کد بالا تغییر پیدا می کند به کد زیر
+```ts
+const randomFirstName$ = ajax<any>(
+  'https://random-data-api.com/api/name/random_name'
+).pipe(
+  map(ajaxResponse => ajaxResponse.response.first_name)
+);
+
+const randomCapital$ = ajax<any>(
+  'https://random-data-api.com/api/nation/random_nation'
+).pipe(
+  map(ajaxResponse => ajaxResponse.response.capital)
+);
+
+const randomDish$ = ajax<any>(
+  'https://random-data-api.com/api/food/random_food'
+).pipe(
+  map(ajaxResponse => ajaxResponse.response.dish)
+);
+
+forkJoin([randomFirstName$, randomCapital$, randomDish$]).subscribe(
+  ([firstName, capital, dish]) =>
+    console.log(
+      `${firstName} if from ${capital} and likes to eat ${dish}`
+    )
+);
+```
