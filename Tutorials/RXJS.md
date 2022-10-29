@@ -635,3 +635,13 @@ failingHttpRequest$.pipe(
 )
 // Fallback value'
 ```
+
+در مثال بالا ما اومدیم یک فال بکی رو برگشت دادیم ولی می خواهیم هیچ اروری نیاید به همین منظور می تونیم از EMPTY 
+
+```ts
+failingHttpRequest$.pipe(catchError((error) => EMPTY)).subscribe({
+  next: (value) => console.log(value),
+  complete: () => console.log('Completed'),
+});
+```
+استفاده کنیم ولی وقتی EMPTY اجرا می شود باید به این نکته توجه کرد که complete نیز اجرا می شود 
