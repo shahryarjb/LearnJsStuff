@@ -725,3 +725,52 @@ fromEvent(fetchButton!, 'click')
 ### استفاده از mergeMap
 این گزینه می تواند مشکل بزرگی در مموری شما شود چون وقتی ۱۰۰۰ عدد کانکارنت درخواست ارسال می کند همه آن ها ممکن است همزمان اجرا شوند و همینطور باید مطمئن شوید که کامپلیت شده اند
 
+
+---
+### ارسال ریکواست با Subject
+سابجکت کمک می کنه تا ارسال چندتایی یا مالتی داشته باشیم.
+```ts
+const emitButton = document.querySelector('button#emit');
+const inputElement: any = document.querySelector('#value-input');
+const subscribeButton = document.querySelector('button#subscribe');
+
+const value$ = new Subject<string>();
+
+fromEvent(emitButton!, 'click')
+  .pipe(map(() => inputElement.value))
+  .subscribe(value$);
+
+fromEvent(subscribeButton!, 'click').subscribe(() => {
+  console.log('New Subsciption');
+  value$.subscribe((value) => console.log(value));
+});
+```
+به نمونه کد بالا توجه کنید تا زمانی که دکمه ساسکرایب زده نشود یعنی دومین fromEvent اجرا نشه اولین کلیک هم اجرا نمی شه. و حالا فرض کنید که دوباره دومین ایونت اجرا بشه اون موقع هست که دوباره ساسکرایب شده به subject و دوتا دوتا اجرا می کنه
+
+به کد زیر توجه کنید ما می خواهیم یک فرم لاگین بسازیم وقتی لاگین شد دکمه لاگاوت بیاد وقتی لاگاوت کرد برعکس اگر از subject استفاده کنیم نمی تواند ولی اولیه را در خودش نگهدارد پس باید از BehaviorSubject اسفاده کنیم
+
+```ts
+const isLoggedIn$ = new BehaviorSubject<boolean>(false);
+
+fromEvent(loginButton, 'click').subscribe(() => isLoggedIn$.next(true));
+
+fromEvent(logoutButton, 'click').subscribe(() => isLoggedIn$.next(false));
+
+// Nvaigation bar
+isLoggedIn$.subscribe(
+  (isLoggedIn) => (loggedInSpan.innerText = isLoggedIn.toString())
+);
+
+// Buttons
+isLoggedIn$.subscribe((isLoggedIn) => {
+  logoutButton.style.display = isLoggedIn ? 'block' : 'none';
+  loginButton.style.display = !isLoggedIn ? 'block' : 'none';
+});
+
+fromEvent(printStateButton, 'click')
+  .pipe(withLatestFrom(isLoggedIn$))
+  .subscribe(([event, isLoggedIn]) =>
+    console.log('User is logged in:', isLoggedIn)
+  );
+```
+در اینجا یکی از هلپر های خود rxjs استفاده کردیم به نام withLatestFrom که آخرین state رو بر می گرداند. به کد بالا توجه کنید ما دوبار `isLoggedIn$` رو صدا زدیم یک بار اومدیم متنی رو جازگین کردیم و یک بار دیگه اومدیم ازش استفاده کردیم به دکمه ای استایل بدیم که نشون بده یا نده
