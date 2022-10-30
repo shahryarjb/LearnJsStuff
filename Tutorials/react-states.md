@@ -21,3 +21,26 @@ const ClientHomePage = () => {
 };
 ```
 برای تغییر state می توانید از تابع یا کال بک setFoods مثل یک تابع معمولی استفاده کنید مثلا اون رو تبدیل کنید به یک لیست خالی `([])setFoods`
+
+---
+### ساخت لوکال state با useRef
+هوک useRef مثل useState عمل نمی کند و بیشتر برای فرم و فیلد های یک فرم استفاده می شود ولی برخی مواقع برای ذخیره تک کلمه یا مواردی مثل boolian باشد می تواند مورد استفاده قرار بگیرد و برخی مواقع بر خلاق useState جلوی re-render شدن کامپوننت را می گیرد و راه کم هزینه تری می باشد
+```tsx
+const ClientHomePage = () => {
+	const loadingRef = useRef(true);
+
+	useEffect(() => {
+		console.log("ClientHomePage - useEffect rerender");
+		loadingRef.current = false;
+	}, []);
+
+	if (loadingRef.current) {
+		return <h1>Loading...</h1>;
+	}
+};
+
+export default ClientHomePage;
+```
+
+---
+### استفاده از useContext برای ساخت state گلوبال
