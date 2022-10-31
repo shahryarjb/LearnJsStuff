@@ -8,6 +8,27 @@
 5. Popeable Operators
 6. Subject
 
+### توابع و کلاس هایی که استفاده کردیم
+- of
+- Observable
+- from
+- fromEvent
+- timer
+- interval
+- forkJoin
+- combineLatest
+- observable
+- filter
+- map
+- tap
+- debounceTime
+- catchError
+- EMPTY
+- concatMap
+- Subject
+- BehaviorSubject
+- withLatestFrom
+
 بر اساس نظر شخصی من نسبت به متد ها فانکشن هایی این کتابخانه نه فقط برای آبزرو کردن بلکه برای استریم کردن و همینطور ساختاری بهتر درست شده است که خوب دور هدف اصلی خودش می گرده.
 
 ---
