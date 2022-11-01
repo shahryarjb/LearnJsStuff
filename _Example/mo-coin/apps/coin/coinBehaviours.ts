@@ -13,10 +13,10 @@ export interface CoinType {
 }
 
 export interface CoinRequestType {
-  vs_currency: string;
   page: number;
-  per_page: number;
-  price_change_percentage: string;
+  currency: string;
+  price_change?: string;
+  per_page?: number
 }
 
 export interface CoinSuccessfulResponseType {}
