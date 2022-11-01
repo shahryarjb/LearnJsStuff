@@ -18,7 +18,3 @@ export interface CoinRequestType {
   price_change?: string;
   per_page?: number
 }
-
-export interface CoinSuccessfulResponseType {}
-
-export interface CoinUnsuccessfulResponseType {}

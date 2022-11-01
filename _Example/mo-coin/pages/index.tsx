@@ -1,22 +1,28 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { getCoins } from '../apps/coin/coins';
+import { getCoins } from '../apps/coin/coinsQuery';
 import { useQuery } from '@tanstack/react-query';
-
-type UseQuery = {
-  isLoading: boolean;
-  error: object;
-};
+import { CoinType } from '../apps/coin/coinBehaviours';
 
 const Home: NextPage = (): JSX.Element => {
   const [page, setPage] = useState<number>(1);
 
-  const fetchDara = async ({ queryKey }: { queryKey: number[] }) => {
+  const fetchDara = async ({
+    queryKey,
+  }: {
+    queryKey: number[];
+  }): Promise<any> => {
     const req = await getCoins({ page: queryKey[0], currency: 'usd' });
     return req;
   };
 
-  const { isLoading, error, data } = useQuery([page], fetchDara);
+  const { isLoading, error, data } = useQuery(
+    [page],
+    fetchDara,
+    {
+      keepPreviousData: true,
+    }
+  );
 
   if (isLoading) return <h1>'Loading...'</h1>;
 
@@ -25,12 +31,11 @@ const Home: NextPage = (): JSX.Element => {
   }
 
   return (
-    <h1
-      className="text-3xl font-bold underline"
-      onClick={() => console.log(data)}
-    >
-      Hello world!
-    </h1>
+    <>
+      {data.map((item: CoinType) => (
+        <h3 key={item.symbol}>{item.name}</h3>
+      ))}
+    </>
   );
 };
 

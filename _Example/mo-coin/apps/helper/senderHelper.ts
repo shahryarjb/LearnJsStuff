@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { CoinType } from '../coin/coinBehaviours';
 
 /* Creating a new middleware of axios. */
 export const run = axios.create();
