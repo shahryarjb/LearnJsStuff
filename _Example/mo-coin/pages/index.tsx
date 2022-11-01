@@ -1,20 +1,34 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { getCoins } from '../apps/coin/coins';
+import { useQuery } from '@tanstack/react-query';
 
-const Home: NextPage = () => {
-  const fetchDara = async () => {
-    const req = await getCoins({page: 1, currency: 'usd'});
-    console.log(req.data)
+type UseQuery = {
+  isLoading: boolean;
+  error: object;
+};
+
+const Home: NextPage = (): JSX.Element => {
+  const [page, setPage] = useState<number>(1);
+
+  const fetchDara = async ({ queryKey }: { queryKey: number[] }) => {
+    const req = await getCoins({ page: queryKey[0], currency: 'usd' });
+    return req;
   };
 
-  useEffect(() => {
-    fetchDara()
-  }, []);
+  const { isLoading, error, data } = useQuery([page], fetchDara);
+
+  if (isLoading) return <h1>'Loading...'</h1>;
+
+  if (error instanceof Error) {
+    return <h1>'An error has occurred: ' + {error.message}</h1>;
+  }
 
   return (
-    <h1 className="text-3xl font-bold underline" onClick={() => fetchDara()}>
+    <h1
+      className="text-3xl font-bold underline"
+      onClick={() => console.log(data)}
+    >
       Hello world!
     </h1>
   );

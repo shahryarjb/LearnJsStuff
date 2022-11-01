@@ -5,10 +5,13 @@ export const run = axios.create();
 run.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    config.headers = {
+      Accept: 'application/json'
+    }
     return config;
   },
   function (error) {
-    // Do something with request error
+    // TODO: it should send log to server
     return Promise.reject(error);
   }
 );
@@ -20,8 +23,7 @@ run.interceptors.response.use(
     return response;
   },
   function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+    console.log('This is response error', error.message)
     return Promise.reject(error);
   }
 );
