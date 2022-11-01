@@ -1,28 +1,29 @@
 import axios from 'axios';
 
+/* Creating a new middleware of axios. */
 export const run = axios.create();
 
+/* Intercepting the request and response. */
 run.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
+    // TODO: Prepare another config for post or custom API of a server
     config.headers = {
       Accept: 'application/json'
     }
     return config;
   },
   function (error) {
-    // TODO: it should send log to server
+    // TODO: it should send the error log to server
     return Promise.reject(error);
   }
 );
 
 run.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response;
+    return response.data;
   },
   function (error) {
+    // TODO: it should send the error log to server
     console.log('This is response error', error.message)
     return Promise.reject(error);
   }
