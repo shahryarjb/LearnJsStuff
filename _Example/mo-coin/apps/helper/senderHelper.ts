@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { CoinType } from '../coin/coinBehaviours';
+
+// If you want to see something manually for this use case, please see this code: 
+// https://github.com/mishka-group/mishka-cms-front/blob/32194cc289db72cdec44ddb37b2e1ade8b710c82/apps/mishka_content/helper/contentHelper.ts
 
 /* Creating a new middleware of axios. */
 export const run = axios.create();
@@ -25,7 +27,7 @@ run.interceptors.response.use(
   },
   function (error) {
     // TODO: it should send the error log to server
-    console.log('This is response error', error.message)
+    console.log('This is response error', error)
     return Promise.reject(error);
   }
 );
