@@ -33,7 +33,7 @@ const HeaderPartial: NextPage = () => {
 				<div className="input-group relative flex flex-wrap items-stretch w-full mb-4">
 					<input
 						type="search"
-						className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-300 bg-transparent bg-clip-padding border border-solid border-gray-300 rounded-l transition ease-in-out m-0 focus:text-black dark:focus:text-gray-200 focus:bg-transparent dark:focus:text-white dark:focus:border-white focus:outline-none"
+						className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-black dark:text-gray-300 bg-transparent bg-clip-padding border border-solid border-gray-300 rounded-l transition ease-in-out m-0 focus:text-black dark:focus:text-gray-200 focus:bg-transparent dark:focus:text-white dark:focus:border-white focus:outline-none"
 						placeholder="Search a Coin"
 						aria-label="Search"
 						aria-describedby="button-addon3"
