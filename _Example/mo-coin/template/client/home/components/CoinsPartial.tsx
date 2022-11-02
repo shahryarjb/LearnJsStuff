@@ -34,7 +34,7 @@ const CoinsPartial: NextPage<{
           </div>
         </div>
       </div>
-      <p className="text-center my-4">
+      <p className="text-center mt-1">
         <LightButtonComponent
           title="Next"
           isActive={false}

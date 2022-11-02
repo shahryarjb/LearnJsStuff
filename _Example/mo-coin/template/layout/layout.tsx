@@ -14,7 +14,7 @@ const Layout: NextPage<Children> = ({ children }): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <AlertComponent text="It should be like dynamic error" type="danger" />
-      <div className="container mb-8">{children}</div>
+      <div className="container mt-8 mb-3">{children}</div>
       <CrightComponent />
     </>
   );
