@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { getCoins } from '../apps/coin/coinsQuery';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, QueryClient } from '@tanstack/react-query';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
 
@@ -27,7 +27,6 @@ const Home: NextPage = (): JSX.Element => {
   // Prefetch the next page!
   useEffect(() => {
     if (data) {
-      console.log('hey1');
       queryClient.prefetchQuery(['coins', page + 1], () =>
         fetchCoins(page + 1)
       );
@@ -41,9 +40,31 @@ const Home: NextPage = (): JSX.Element => {
   }
 
   const paginationHandler = (action: 'pervious' | 'next') => {
-    action === 'next'
-      ? setPage((perv) => perv + 1)
-      : setPage((perv) => perv - 1);
+    // TODO: check we can convert it as a hook or not
+    const newCloneOfQueryClient: any = Object.assign({}, queryClient);
+    const getCacheFromNextPage = newCloneOfQueryClient.queryCache.queries;
+    const filteredCachedNextPage = getCacheFromNextPage.find(
+      (item: any) => item.queryKey[1] === page + 1
+    );
+
+    if (action === 'pervious' && page > 1) {
+      setPage((perv) => perv - 1);
+    }
+
+    if (
+      action === 'next' &&
+      filteredCachedNextPage &&
+      !isFetching &&
+      !isLoading &&
+      filteredCachedNextPage.state &&
+      filteredCachedNextPage.state.data.length > 0
+    ) {
+      setPage((perv) => perv + 1);
+    }
+
+    document
+      .querySelector('#logo')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   return (
