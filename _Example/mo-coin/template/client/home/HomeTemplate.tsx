@@ -3,11 +3,23 @@ import CoinsPartial from './components/CoinsPartial';
 import HeaderPartial from './components/HeaderPartial';
 import { CoinType } from '../../../apps/coin/coinBehaviours';
 
-const HomeTemplate: NextPage<{ coins: CoinType[] }> = ({ coins }) => {
+interface HomeTemplateType {
+  coins: CoinType[]
+  pagination: (action: 'pervious' | 'next') => void
+  page: number
+}
+
+const HomeTemplate: NextPage<HomeTemplateType> = ({
+  coins,
+  pagination,
+  page
+}) => {
   return (
     <>
       <HeaderPartial />
-      <CoinsPartial coins={coins}/>
+      <CoinsPartial coins={coins} />
+      <p><button onClick={() => pagination('next')}>+ - {page}</button></p>
+      <p><button onClick={() => pagination('pervious')}>+ - {page}</button></p>
     </>
   );
 };
