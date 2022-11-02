@@ -12,6 +12,7 @@ const HeaderPartial: NextPage = () => {
           alt="Mishka Group"
           width={130}
           height={130}
+          priority={true}
         />
       </div>
 

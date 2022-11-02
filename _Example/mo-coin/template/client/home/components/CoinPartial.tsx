@@ -8,8 +8,14 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
       <td className="p-2">1</td>
       <td className="p-2">
         <div className="flex items-center">
-          <div id="coin-icon" className="mr-3">
-            <Image src={coin.image} alt={coin.name} width={30} height={30} />
+          <div id="coin-icon" className="mr-3 h-30 w-30">
+            <Image
+              src={coin.image}
+              alt={coin.name}
+              width={30}
+              height={30}
+              className="object-cover h-30 w-30"
+            />
           </div>
           <div id="coin-name">
             <h6 className="">{coin.name}</h6>
@@ -38,7 +44,9 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
             />
           </svg>
         </span>
-        <span className="inline-block">{coin.price_change_percentage_7d_in_currency.toFixed(3)}</span>
+        <span className="inline-block">
+          {coin.price_change_percentage_7d_in_currency.toFixed(3)}
+        </span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2 text-rose-800">
@@ -58,7 +66,9 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
             />
           </svg>
         </span>
-        <span className="inline-block">{coin.price_change_percentage_7d_in_currency.toFixed(3)}</span>
+        <span className="inline-block">
+          {coin.price_change_percentage_7d_in_currency.toFixed(3)}
+        </span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2">
@@ -71,7 +81,9 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
       </td>
       <td className="p-2">
         <span className="inline-block">{coin.circulating_supply}</span>
-        <span className="inline-block ml-1 text-gray-500">{coin.symbol.toUpperCase()}</span>
+        <span className="inline-block ml-1 text-gray-500">
+          {coin.symbol.toUpperCase()}
+        </span>
       </td>
     </tr>
   );
