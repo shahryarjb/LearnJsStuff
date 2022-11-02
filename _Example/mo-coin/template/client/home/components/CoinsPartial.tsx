@@ -1,8 +1,12 @@
 import type { NextPage } from 'next';
 import CoinPartial from './CoinPartial';
 import { CoinType } from '../../../../apps/coin/coinBehaviours';
+import LightButtonComponent from '../../../layout/UI/LightButtonComponent';
 
-const CoinsPartial: NextPage<{ coins: CoinType[] }> = ({ coins }) => {
+const CoinsPartial: NextPage<{
+  coins: CoinType[];
+  pagination: (action: 'previous' | 'next') => void;
+}> = ({ coins, pagination }) => {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -23,10 +27,14 @@ const CoinsPartial: NextPage<{ coins: CoinType[] }> = ({ coins }) => {
               </thead>
               <tbody className="text-white">
                 {coins.map((item: CoinType) => (
-                  <CoinPartial key={item.id} {...item}/>
+                  <CoinPartial key={item.id} {...item} />
                 ))}
               </tbody>
             </table>
+            <p className='text-center'>
+              <LightButtonComponent title="Next" isActive={false} callBack={() => pagination('next')}/>
+              <LightButtonComponent title="Previous" isActive={false} callBack={() => pagination('previous')}/>
+            </p>
           </div>
         </div>
       </div>

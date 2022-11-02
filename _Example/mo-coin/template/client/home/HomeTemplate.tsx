@@ -5,21 +5,18 @@ import { CoinType } from '../../../apps/coin/coinBehaviours';
 
 interface HomeTemplateType {
   coins: CoinType[]
-  pagination: (action: 'pervious' | 'next') => void
+  pagination: (action: 'previous' | 'next') => void
   page: number
 }
 
 const HomeTemplate: NextPage<HomeTemplateType> = ({
   coins,
-  pagination,
-  page
+  pagination
 }) => {
   return (
     <>
       <HeaderPartial />
-      <CoinsPartial coins={coins} />
-      <p><button onClick={() => pagination('next')}>+ - {page}</button></p>
-      <p><button onClick={() => pagination('pervious')}>+ - {page}</button></p>
+      <CoinsPartial coins={coins} pagination={pagination}/>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { getCoins } from '../apps/coin/coinsQuery';
-import { useQuery, useQueryClient, QueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
 
@@ -39,7 +39,7 @@ const Home: NextPage = (): JSX.Element => {
     return <h1>'An error has occurred: ' + {error.message}</h1>;
   }
 
-  const paginationHandler = (action: 'pervious' | 'next') => {
+  const paginationHandler = (action: 'previous' | 'next') => {
     // TODO: check we can convert it as a hook or not
     const newCloneOfQueryClient: any = Object.assign({}, queryClient);
     const getCacheFromNextPage = newCloneOfQueryClient.queryCache.queries;
@@ -47,7 +47,7 @@ const Home: NextPage = (): JSX.Element => {
       (item: any) => item.queryKey[1] === page + 1
     );
 
-    if (action === 'pervious' && page > 1) {
+    if (action === 'previous' && page > 1) {
       setPage((perv) => perv - 1);
     }
 
