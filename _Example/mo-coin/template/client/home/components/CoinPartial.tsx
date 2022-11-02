@@ -38,7 +38,7 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
             />
           </svg>
         </span>
-        <span className="inline-block">{coin.price_change_percentage_7d_in_currency}</span>
+        <span className="inline-block">{coin.price_change_percentage_7d_in_currency.toFixed(3)}</span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2 text-rose-800">
@@ -58,7 +58,7 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
             />
           </svg>
         </span>
-        <span className="inline-block">{coin.price_change_percentage_7d_in_currency}</span>
+        <span className="inline-block">{coin.price_change_percentage_7d_in_currency.toFixed(3)}</span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2">
