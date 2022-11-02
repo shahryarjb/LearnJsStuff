@@ -1,12 +1,13 @@
 import type { NextPage } from 'next';
 import CoinsPartial from './components/CoinsPartial';
 import HeaderPartial from './components/HeaderPartial';
+import { CoinType } from '../../../apps/coin/coinBehaviours';
 
-const HomeTemplate: NextPage = () => {
+const HomeTemplate: NextPage<{ coins: CoinType[] }> = ({ coins }) => {
   return (
     <>
       <HeaderPartial />
-      <CoinsPartial />
+      <CoinsPartial coins={coins}/>
     </>
   );
 };

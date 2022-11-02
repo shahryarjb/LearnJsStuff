@@ -1,29 +1,25 @@
 import type { NextPage } from 'next';
-import Image from "next/image";
+import Image from 'next/image';
+import { CoinType } from '../../../../apps/coin/coinBehaviours';
 
-const CoinPartial: NextPage = () => {
+const CoinPartial: NextPage<CoinType> = (coin) => {
   return (
     <tr className="border-b dark:border-gray-700">
       <td className="p-2">1</td>
       <td className="p-2">
         <div className="flex items-center">
           <div id="coin-icon" className="mr-3">
-            <Image
-              src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png"
-              alt="Bitcoin"
-              width={30}
-              height={30}
-            />
+            <Image src={coin.image} alt={coin.name} width={30} height={30} />
           </div>
           <div id="coin-name">
-            <h6 className="">Etherium</h6>
-            <span className="text-gray-500 text-xs">ETH</span>
+            <h6 className="">{coin.name}</h6>
+            <span className="text-gray-500 text-xs">{coin.symbol}</span>
           </div>
         </div>
       </td>
       <td className="p-2">
         <span>$</span>
-        <span>938475,4</span>
+        <span>{coin.current_price}</span>
       </td>
       <td className="p-2 text-green-600">
         <span className="inline-block mr-1 text-xs">
@@ -42,7 +38,7 @@ const CoinPartial: NextPage = () => {
             />
           </svg>
         </span>
-        <span className="inline-block">0.48</span>
+        <span className="inline-block">{coin.price_change_percentage_7d_in_currency}</span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2 text-rose-800">
@@ -62,20 +58,20 @@ const CoinPartial: NextPage = () => {
             />
           </svg>
         </span>
-        <span className="inline-block">0.48</span>
+        <span className="inline-block">{coin.price_change_percentage_7d_in_currency}</span>
         <span className="inline-block ml-1">%</span>
       </td>
       <td className="p-2">
         <span>$</span>
-        <span>938475,4</span>
+        <span>{coin.market_cap}</span>
       </td>
       <td className="p-2">
         <span>$</span>
-        <span>938475,4</span>
+        <span>{coin.total_volume}</span>
       </td>
       <td className="p-2">
-        <span className="inline-block">8493480239</span>
-        <span className="inline-block ml-1 text-gray-500">BTC</span>
+        <span className="inline-block">{coin.circulating_supply}</span>
+        <span className="inline-block ml-1 text-gray-500">{coin.symbol.toUpperCase()}</span>
       </td>
     </tr>
   );

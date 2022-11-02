@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 import { getCoins } from '../apps/coin/coinsQuery';
 import { useQuery } from '@tanstack/react-query';
-import { CoinType } from '../apps/coin/coinBehaviours';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
 
@@ -22,23 +21,13 @@ const Home: NextPage = (): JSX.Element => {
     keepPreviousData: true,
   });
 
-  // if (isLoading) return <LoadingComponent />;
+  if (isLoading) return <LoadingComponent />;
 
-  // if (error instanceof Error) {
-  //   return <h1>'An error has occurred: ' + {error.message}</h1>;
-  // }
+  if (error instanceof Error) {
+    return <h1>'An error has occurred: ' + {error.message}</h1>;
+  }
 
-  return (
-    // <>
-    //   {data.map((item: CoinType) => (
-    //     <h3 key={item.symbol}>{item.name}</h3>
-    //   ))}
-    // </>
-    
-    <>
-      <HomeTemplate />
-    </>
-  );
+  return <HomeTemplate coins={data}/>;
 };
 
 export default Home;
