@@ -8,13 +8,16 @@ const CoinPartial: NextPage<CoinType> = (coin) => {
       <td className="p-2">1</td>
       <td className="p-2">
         <div className="flex items-center">
-          <div id="coin-icon" className="mr-3 h-30 w-30">
+          <div id="coin-icon" className="mr-3 h-30 w-30" style={{width: '30px', height: '30px', position: 'relative'}}>
             <Image
               src={coin.image}
               alt={coin.name}
-              width={30}
-              height={30}
+              // width={30}
+              // height={30}
               className="object-cover h-30 w-30"
+              fill={true}
+              sizes="(max-width: 30px)"
+              priority={true}
             />
           </div>
           <div id="coin-name">
