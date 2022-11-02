@@ -14,6 +14,7 @@ const HomeTemplate: NextPage<HomeTemplateType> = ({
   pagination,
   page
 }) => {
+  console.log('This is Coins', coins)
   return (
     <>
       <HeaderPartial />

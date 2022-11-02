@@ -9,29 +9,28 @@ const Home: NextPage = (): JSX.Element => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState<number>(1);
 
-  const fetchCoins = async ({
-    queryKey,
-  }: {
-    queryKey: [string, number];
-  }): Promise<any> => {
-    const req = await getCoins({ page: queryKey[1], currency: 'usd' });
+  const fetchCoins = async (page: number = 1): Promise<any> => {
+    const req = await getCoins({ page: page, currency: 'usd' });
     return req;
   };
 
   const { isLoading, error, data, isFetching } = useQuery(
     ['coins', page],
-    fetchCoins,
+    () => fetchCoins(page),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
-      staleTime: 5000,
+      staleTime: 50000,
     }
   );
 
   // Prefetch the next page!
   useEffect(() => {
-    if (data?.hasMore) {
-      queryClient.prefetchQuery(['coins', page + 1], () => fetchCoins);
+    if (data) {
+      console.log('hey1');
+      queryClient.prefetchQuery(['coins', page + 1], () =>
+        fetchCoins(page + 1)
+      );
     }
   }, [data, page, queryClient]);
 
