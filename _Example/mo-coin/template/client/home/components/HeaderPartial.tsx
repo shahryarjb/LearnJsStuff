@@ -17,10 +17,10 @@ const HeaderPartial: NextPage = () => {
       </div>
 
       <div className="btn-wrapper text-center mb-5">
-        <LightButtonComponent title="24H" isActive={false} />
-        <LightButtonComponent title="7D" isActive={false} />
-        <LightButtonComponent title="14D" isActive={true} />
-        <LightButtonComponent title="14D" isActive={false} />
+        <LightButtonComponent title="24H" isActive={false} callBack={() => {}}/>
+        <LightButtonComponent title="7D" isActive={false} callBack={() => {}} />
+        <LightButtonComponent title="14D" isActive={true} callBack={() => {}} />
+        <LightButtonComponent title="14D" isActive={false} callBack={() => {}} />
       </div>
     </>
   );

@@ -31,13 +31,21 @@ const CoinsPartial: NextPage<{
                 ))}
               </tbody>
             </table>
-            <p className='text-center'>
-              <LightButtonComponent title="Next" isActive={false} callBack={() => pagination('next')}/>
-              <LightButtonComponent title="Previous" isActive={false} callBack={() => pagination('previous')}/>
-            </p>
           </div>
         </div>
       </div>
+      <p className="text-center my-4">
+        <LightButtonComponent
+          title="Next"
+          isActive={false}
+          callBack={() => pagination('next')}
+        />
+        <LightButtonComponent
+          title="Previous"
+          isActive={false}
+          callBack={() => pagination('previous')}
+        />
+      </p>
     </div>
   );
 };
