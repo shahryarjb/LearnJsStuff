@@ -2,13 +2,13 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LightButtonComponent from "../../../layout/UI/LightButtonComponent";
 
-const HeaderPartial: NextPage = () => {
+const HeaderPartial: NextPage<{supportedCoins: () => void, resetData: () => void}> = ({supportedCoins, resetData}) => {
 	return (
 		<>
 			<div className="my-7" id="logo">
 				<Image
 					className="dark:bg-white p-4 mx-auto border-[1px] border-black rounded-full dark:shadow-lg dark:shadow-black/60"
-					src="/../public/logo.png"
+					src="/logo.png"
 					alt="Mishka Group"
 					width={130}
 					height={130}
@@ -20,12 +20,12 @@ const HeaderPartial: NextPage = () => {
 				<LightButtonComponent
 					title="Supported Coins"
 					isActive={false}
-					callBack={() => {}}
+					callBack={() => supportedCoins()}
 				/>
 				<LightButtonComponent
 					title="Reset data"
 					isActive={false}
-					callBack={() => {}}
+					callBack={() => resetData()}
 				/>
 			</div>
 

@@ -10,7 +10,7 @@ type Children = {
 };
 
 const Layout: NextPage<Children> = ({ children }): JSX.Element => {
-  const [colorTheme, setTheme, DarkMode] = useDarkMode();
+  const [colorTheme, DarkMode] = useDarkMode();
 
   const DarkModeComponent = () => {return DarkMode}
 

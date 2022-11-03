@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
-import { getCoins } from '../apps/coin/coinsQuery';
+import { useState, useEffect, useRef } from 'react';
+import { getCoins, filteredCoins } from '../apps/coin/coinsQuery';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
@@ -8,13 +8,23 @@ import HomeTemplate from '../template/client/home/HomeTemplate';
 const Home: NextPage = (): JSX.Element => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState<number>(1);
+  const filteredDataSelection = useRef(false);
 
+  /**
+   * It fetches coins from the API, based on user selection filter.
+   * @param {number} [page=1] - number = 1
+   * @returns a promise.
+   */
   const fetchCoins = async (page: number = 1): Promise<any> => {
-    const req = await getCoins({ page: page, currency: 'usd' });
+    console.log(page)
+    const req = filteredDataSelection.current
+      ? await filteredCoins({ page: page, currency: 'usd' })
+      : await getCoins({ page: page, currency: 'usd' });
     return req;
   };
 
-  const { isLoading, error, data, isFetching } = useQuery(
+  /* A hook from react-query. It is a hook that is used to fetch data from the server. */
+  const { isLoading, error, data, isFetching, refetch } = useQuery(
     ['coins', page],
     () => fetchCoins(page),
     {
@@ -39,6 +49,12 @@ const Home: NextPage = (): JSX.Element => {
     return <h1>'An error has occurred: ' + {error.message}</h1>;
   }
 
+  /**
+   * The user can navigate to the previous page or the next page with the assistance of this feature. 
+   * It is important to note that whenever the user requests to go on to the next page, 
+   * a check is performed to see whether or not the cache has been cleared.
+   * @param {'previous' | 'next'} action - 'previous' | 'next'
+   */
   const paginationHandler = (action: 'previous' | 'next') => {
     // TODO: check we can convert it as a hook or not
     const newCloneOfQueryClient: any = Object.assign({}, queryClient);
@@ -51,6 +67,7 @@ const Home: NextPage = (): JSX.Element => {
       setPage((perv) => perv - 1);
     }
 
+
     if (
       action === 'next' &&
       filteredCachedNextPage &&
@@ -59,6 +76,7 @@ const Home: NextPage = (): JSX.Element => {
       filteredCachedNextPage.state &&
       filteredCachedNextPage.state.data.length > 0
     ) {
+      console.log('paginationHandler', action, page)
       setPage((perv) => perv + 1);
     }
 
@@ -67,8 +85,25 @@ const Home: NextPage = (): JSX.Element => {
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
+  const supportedCoinsHandler = () => {
+    filteredDataSelection.current = true;
+    refetch();
+  };
+
+  const resetDataHandler = () => {
+    filteredDataSelection.current = false;
+    setPage(1)
+    refetch();
+  };
+
   return (
-    <HomeTemplate coins={data} pagination={paginationHandler} page={page} />
+    <HomeTemplate
+      coins={data}
+      pagination={paginationHandler}
+      page={page}
+      supportedCoins={supportedCoinsHandler}
+      resetData={resetDataHandler}
+    />
   );
 };
 

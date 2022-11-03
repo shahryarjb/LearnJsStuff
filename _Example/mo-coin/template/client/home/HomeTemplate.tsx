@@ -8,12 +8,19 @@ interface HomeTemplateType {
   coins: CoinType[];
   pagination: (action: 'previous' | 'next') => void;
   page: number;
+  supportedCoins: () => void;
+  resetData: () => void;
 }
 
-const HomeTemplate: NextPage<HomeTemplateType> = ({ coins, pagination }) => {
+const HomeTemplate: NextPage<HomeTemplateType> = ({
+  coins,
+  pagination,
+  supportedCoins,
+  resetData,
+}) => {
   return (
     <>
-      <HeaderPartial />
+      <HeaderPartial supportedCoins={supportedCoins} resetData={resetData} />
       <CoinsPartial coins={coins} pagination={pagination} />
     </>
   );

@@ -17,4 +17,5 @@ export interface CoinRequestType {
   currency: string;
   price_change?: string;
   per_page?: number
+  filter?: any
 }

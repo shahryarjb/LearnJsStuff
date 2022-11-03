@@ -14,7 +14,6 @@ function changeRootElementClass(add: UserSelectedMode) {
 
 export const useDarkMode = (): [
   UserSelectedMode,
-  Dispatch<SetStateAction<UserSelectedMode>>,
   JSX.Element
 ] => {
   const [theme, setTheme] = useState<UserSelectedMode>('dark');
@@ -76,5 +75,5 @@ export const useDarkMode = (): [
     );
   };
 
-  return [colorTheme, setTheme, DarkMode()];
+  return [colorTheme, DarkMode()];
 };

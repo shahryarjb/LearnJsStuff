@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// If you want to see something manually for this use case, please see this code: 
+// If you want to see something manually for this use case, please see this code:
 // https://github.com/mishka-group/mishka-cms-front/blob/32194cc289db72cdec44ddb37b2e1ade8b710c82/apps/mishka_content/helper/contentHelper.ts
 
 /* Creating a new middleware of axios. */
@@ -11,8 +11,9 @@ run.interceptors.request.use(
   function (config) {
     // TODO: Prepare another config for post or custom API of a server
     config.headers = {
-      Accept: 'application/json'
-    }
+      Accept: 'application/json',
+    };
+
     return config;
   },
   function (error) {
@@ -23,11 +24,20 @@ run.interceptors.request.use(
 
 run.interceptors.response.use(
   function (response) {
+    if (
+      response.config.params.hasOwnProperty('filter') &&
+      response.config.params.filter.length > 1
+    ) {
+      const resp = response.data.filter((item: any) => {
+        return response.config.params.filter.includes(item.symbol);
+      });
+      return resp;
+    }
     return response.data;
   },
   function (error) {
     // TODO: it should send the error log to server
-    console.log('This is response error', error)
+    console.log('This is response error', error);
     return Promise.reject(error);
   }
 );

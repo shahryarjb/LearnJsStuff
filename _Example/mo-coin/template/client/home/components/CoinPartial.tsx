@@ -5,7 +5,6 @@ import { CoinType } from '../../../../apps/coin/coinBehaviours';
 const CoinPartial: NextPage<CoinType> = (coin) => {
   return (
     <tr className="border-b dark:border-gray-700">
-      <td className="p-2">1</td>
       <td className="p-2">
         <div className="flex items-center">
           <div id="coin-icon" className="mr-3">

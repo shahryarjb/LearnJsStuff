@@ -15,7 +15,6 @@ const CoinsPartial: NextPage<{
             <table className="min-w-full text-sm text-black dark:text-gray-400">
               <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 <tr className="text-left">
-                  <th className="p-2">#</th>
                   <th className="p-2">COINS</th>
                   <th className="p-2">PRICE</th>
                   <th className="p-2">24H</th>
