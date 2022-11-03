@@ -1,0 +1,21 @@
+{
+  "name": "rxjs-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "lite-server",
+    "build": "./node_modules/.bin/esbuild src/index.ts --bundle --outfile=dist/index.js",
+    "build1": "./build.js --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.11.5",
+    "lite-server": "^2.6.1",
+    "rxjs": "^7.5.7"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.12"
+  }
+}

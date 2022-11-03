@@ -55,7 +55,9 @@ const Home: NextPage = (): JSX.Element => {
    * @param {'previous' | 'next'} action - 'previous' | 'next'
    */
   const paginationHandler = (action: 'previous' | 'next') => {
-    // TODO: check we can convert it as a hook or not
+    // TODO: Convert it as a hook
+    // TODO: This code is not stable, it needs to be improved and separated, especially the next page part conditions
+    // TODO: This part circumvents the pagination by pre-cache items because the API does not rerun the whole page
     const newCloneOfQueryClient: any = Object.assign({}, queryClient);
     const getCacheFromNextPage = newCloneOfQueryClient.queryCache.queries;
     const filteredCachedNextPage = getCacheFromNextPage.find(
