@@ -4,12 +4,12 @@ type UserSelectedMode = 'dark' | 'light';
 
 function changeRootElementClass(add: UserSelectedMode) {
   const root = window.document.documentElement;
-    root.className = ""
-    root.classList.add(add);
+  root.className = '';
+  root.classList.add(add);
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', add);
-    }
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('theme', add);
+  }
 }
 
 export const useDarkMode = (): [
@@ -23,16 +23,18 @@ export const useDarkMode = (): [
 
   useEffect(() => {
     const defaultColor =
-      typeof window !== 'undefined' ? localStorage.theme : 'dark';
+      typeof window !== 'undefined' && typeof localStorage.theme !== 'undefined'
+        ? localStorage.theme
+        : 'dark';
 
     setTheme(defaultColor);
-    changeRootElementClass(defaultColor)
+    changeRootElementClass(defaultColor);
   }, []);
 
   const changeThemHandler = () => {
-    changeRootElementClass(colorTheme)
-    setTheme(colorTheme)
-  }
+    changeRootElementClass(colorTheme);
+    setTheme(colorTheme);
+  };
 
   const DarkMode = () => {
     return (
