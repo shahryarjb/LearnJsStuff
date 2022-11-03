@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
+// TODO: The ReactQueryDevtools component should be considered as a developer tools and can be deleted in production mode
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -13,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>

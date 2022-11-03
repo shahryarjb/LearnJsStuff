@@ -3,8 +3,11 @@ import Head from 'next/head';
 import AlertComponent from './UI/AlertComponent';
 import CrightComponent from './UI/CrightComponent';
 import { useDarkMode } from './Hook/useDarkMode';
-import { useEffect } from 'react';
 
+/**
+ * Children is a type that has a property called children that is a JSX.Element.
+ * @property children - The children of the component.
+ */
 type Children = {
   children: JSX.Element;
 };
@@ -12,7 +15,9 @@ type Children = {
 const Layout: NextPage<Children> = ({ children }): JSX.Element => {
   const [colorTheme, DarkMode] = useDarkMode();
 
-  const DarkModeComponent = () => {return DarkMode}
+  const DarkModeComponent = () => {
+    return DarkMode;
+  };
 
   return (
     <>

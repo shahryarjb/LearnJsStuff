@@ -16,7 +16,6 @@ const Home: NextPage = (): JSX.Element => {
    * @returns a promise.
    */
   const fetchCoins = async (page: number = 1): Promise<any> => {
-    console.log(page)
     const req = filteredDataSelection.current
       ? await filteredCoins({ page: page, currency: 'usd' })
       : await getCoins({ page: page, currency: 'usd' });
@@ -43,15 +42,15 @@ const Home: NextPage = (): JSX.Element => {
     }
   }, [data, page, queryClient]);
 
-  if (isLoading) return <LoadingComponent />;
+  if (isLoading || isFetching) return <LoadingComponent />;
 
   if (error instanceof Error) {
     return <h1>'An error has occurred: ' + {error.message}</h1>;
   }
 
   /**
-   * The user can navigate to the previous page or the next page with the assistance of this feature. 
-   * It is important to note that whenever the user requests to go on to the next page, 
+   * The user can navigate to the previous page or the next page with the assistance of this feature.
+   * It is important to note that whenever the user requests to go on to the next page,
    * a check is performed to see whether or not the cache has been cleared.
    * @param {'previous' | 'next'} action - 'previous' | 'next'
    */
@@ -67,7 +66,6 @@ const Home: NextPage = (): JSX.Element => {
       setPage((perv) => perv - 1);
     }
 
-
     if (
       action === 'next' &&
       filteredCachedNextPage &&
@@ -76,7 +74,6 @@ const Home: NextPage = (): JSX.Element => {
       filteredCachedNextPage.state &&
       filteredCachedNextPage.state.data.length > 0
     ) {
-      console.log('paginationHandler', action, page)
       setPage((perv) => perv + 1);
     }
 
@@ -85,14 +82,24 @@ const Home: NextPage = (): JSX.Element => {
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
+  /**
+   * "When the user clicks the button, the filteredDataSelection state is set to true, and the refetch
+   * function is called."
+   *
+   * The refetch function is a function that is passed to the component as a prop. It is a function
+   * that is called when the component needs to be re-rendered
+   */
   const supportedCoinsHandler = () => {
     filteredDataSelection.current = true;
     refetch();
   };
 
+  /**
+   * It resets the page to 1 and refetches the data
+   */
   const resetDataHandler = () => {
     filteredDataSelection.current = false;
-    setPage(1)
+    setPage(1);
     refetch();
   };
 

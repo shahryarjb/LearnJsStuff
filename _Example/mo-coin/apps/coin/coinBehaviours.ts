@@ -1,3 +1,6 @@
+// TODO: This file can be a place to cover functions and Typescript interfaces as Behaviours
+
+/* Defining the interface for the CoinType object. */
 export interface CoinType {
   id: string;
   symbol: string;
@@ -12,10 +15,11 @@ export interface CoinType {
   circulating_supply: number;
 }
 
+/* Defining the interface for the CoinRequestType object. */
 export interface CoinRequestType {
   page: number;
   currency: string;
   price_change?: string;
-  per_page?: number
-  filter?: any
+  per_page?: number;
+  filter?: any;
 }

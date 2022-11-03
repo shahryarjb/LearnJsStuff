@@ -1,5 +1,12 @@
 import type { NextPage } from 'next';
 
+/**
+ * AlertType is an object with a text property that is a string and a type property that is either
+ * 'success', 'warning', or 'danger'.
+ * @property {string} text - The text to display in the alert.
+ * @property {'success' | 'warning' | 'danger'} type - This is the type of alert. It can be success,
+ * warning, or danger.
+ */
 type AlertType = {
   text: string;
   type: 'success' | 'warning' | 'danger';

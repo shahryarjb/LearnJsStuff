@@ -1,4 +1,6 @@
-const LoadingComponent = () => {
+import type { NextPage } from 'next';
+
+const LoadingComponent: NextPage = () => {
   return (
     <div className="flex justify-center items-center mt-10">
       <div role="status">

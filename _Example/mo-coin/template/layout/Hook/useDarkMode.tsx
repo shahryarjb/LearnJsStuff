@@ -1,7 +1,12 @@
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 
 type UserSelectedMode = 'dark' | 'light';
 
+/**
+ * It takes a string, removes all classes from the root element, adds the string as a class to the root
+ * element, and then saves the string to local storage
+ * @param {UserSelectedMode} add - UserSelectedMode - This is the theme that the user has selected.
+ */
 function changeRootElementClass(add: UserSelectedMode) {
   const root = window.document.documentElement;
   root.className = '';
@@ -12,10 +17,7 @@ function changeRootElementClass(add: UserSelectedMode) {
   }
 }
 
-export const useDarkMode = (): [
-  UserSelectedMode,
-  JSX.Element
-] => {
+export const useDarkMode = (): [UserSelectedMode, JSX.Element] => {
   const [theme, setTheme] = useState<UserSelectedMode>('dark');
 
   const colorTheme = theme === 'dark' ? 'light' : 'dark';
@@ -30,6 +32,10 @@ export const useDarkMode = (): [
     changeRootElementClass(defaultColor);
   }, []);
 
+  /**
+   * When the user clicks the button, change the root element's class to the current theme, and then
+   * set the theme to the next theme in the array.
+   */
   const changeThemHandler = () => {
     changeRootElementClass(colorTheme);
     setTheme(colorTheme);

@@ -1,5 +1,16 @@
 import type { NextPage } from 'next';
 
+/**
+ * BtnProps is an object with three properties: title, isActive, and callBack.
+ * 
+ * title is a string
+ * isActive is a boolean
+ * callBack is a function
+ * @property {string} title - The text that will be displayed on the button
+ * @property {boolean} isActive - This is a boolean value that determines whether the button is active
+ * or not.
+ * @property {any} callBack - This is the function that will be called when the button is clicked.
+ */
 type BtnProps = {
   title: string
   isActive: boolean

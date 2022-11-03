@@ -24,6 +24,7 @@ run.interceptors.request.use(
 
 run.interceptors.response.use(
   function (response) {
+    // we filter the data base on user requested coins
     if (
       response.config.params.hasOwnProperty('filter') &&
       response.config.params.filter.length > 1
@@ -37,7 +38,6 @@ run.interceptors.response.use(
   },
   function (error) {
     // TODO: it should send the error log to server
-    console.log('This is response error', error);
     return Promise.reject(error);
   }
 );
