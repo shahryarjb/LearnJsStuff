@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import CoinsPartial from './components/CoinsPartial';
 import HeaderPartial from './components/HeaderPartial';
 import { CoinType } from '../../../apps/coin/coinBehaviours';
-import useDarkMode from '../../layout/Hook/useDarkMode';
+import { useDarkMode } from '../../layout/Hook/useDarkMode';
 
 interface HomeTemplateType {
   coins: CoinType[];

@@ -1,12 +1,12 @@
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
-const useDarkMode = () => {
+export const useDarkMode = (): ['dark' | 'light', Dispatch<SetStateAction<"dark" | "light">>] => {
   const defaultColor: 'dark' | 'light' =
     'localStorage' in window && localStorage.theme
       ? localStorage.theme
       : 'dark';
 
-  const [theme, setTheme] = useState<'dark' | 'light'>(defaultColor);
+  const [theme, setTheme] = useState(defaultColor);
 
   const colorTheme = theme === 'dark' ? 'light' : 'dark';
 
@@ -16,12 +16,10 @@ const useDarkMode = () => {
     root.classList.remove(colorTheme);
     root.classList.add(theme);
 
-    if (typeof window !== 'undefined') {
+    if ('localStorage' in window) {
       localStorage.setItem('theme', theme);
     }
   }, [theme]);
 
   return [colorTheme, setTheme];
 };
-
-export default useDarkMode;
