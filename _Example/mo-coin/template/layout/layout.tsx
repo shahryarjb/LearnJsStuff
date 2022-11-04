@@ -4,7 +4,7 @@ import AlertComponent from './UI/AlertComponent';
 import CrightComponent from './UI/CrightComponent';
 import { useDarkMode } from './Hook/useDarkMode';
 import { useAppSelector, useAppDispatch } from '../../apps/state/hooks';
-import { save, clean, selectError } from '../../apps/state/general/errorSlice';
+import { clean, selectError } from '../../apps/state/general/errorSlice';
 
 /**
  * Children is a type that has a property called children that is a JSX.Element.
