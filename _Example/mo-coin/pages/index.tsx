@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
 import { useAppDispatch } from '../apps/state/hooks';
-import { save } from '../apps/state/general/errorSlice';
+import { save, clean } from '../apps/state/general/errorSlice';
 
 const Home: NextPage = (): JSX.Element => {
   const queryClient = useQueryClient();
@@ -50,7 +50,10 @@ const Home: NextPage = (): JSX.Element => {
   /* A check to see if there is an error. If there is an error, it is dispatched to the redux store. */
   if (error instanceof Error) {
     dispatch(save({ text: error.message, type: 'danger' }));
+    // TODO: in this part we can put some UI button to reload or sth.
     return <></>;
+  } else {
+    dispatch(clean())
   }
 
   /**
