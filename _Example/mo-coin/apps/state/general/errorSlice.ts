@@ -16,7 +16,9 @@ export const errorReducer = createSlice({
       state.text = action.payload.text;
       state.type = action.payload.type;
     },
-    clean: (state) => {},
+    clean: (state) => {
+      return initialState
+    },
   },
 });
 

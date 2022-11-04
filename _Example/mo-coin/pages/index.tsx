@@ -4,11 +4,14 @@ import { getCoins, filteredCoins } from '../apps/coin/coinsQuery';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingComponent from '../template/layout/UI/LoadingComponent';
 import HomeTemplate from '../template/client/home/HomeTemplate';
+import { useAppDispatch } from '../apps/state/hooks';
+import { save, selectError } from '../apps/state/general/errorSlice';
 
 const Home: NextPage = (): JSX.Element => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState<number>(1);
   const filteredDataSelection = useRef(false);
+  const dispatch = useAppDispatch();
 
   /**
    * It fetches coins from the API, based on user selection filter.
@@ -45,7 +48,8 @@ const Home: NextPage = (): JSX.Element => {
   if (isLoading || isFetching) return <LoadingComponent />;
 
   if (error instanceof Error) {
-    return <h1>'An error has occurred: ' + {error.message}</h1>;
+    dispatch(save({text: error.message, type: "danger"}))
+    return <></>
   }
 
   /**
