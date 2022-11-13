@@ -68,3 +68,37 @@ export * from '@testing-library/react';
 // Overwrite the render method
 export { render };
 ```
+
+---
+
+### نمونه تست
+باید توجه داشته باشید که در ری اکت کنار کامپوننت ها می آیند با همان اسمشان و فقط با اضافه کردن یک test یا spec تست نویسی را شروع می کنند ولی در nextjs تمام موارد به یک فولدری به نام `__test__` انتقال پیدا می کند و بازم یا spec یا test قرار می گیرد
+
+چند نمونه تست معمول:
+```tsx
+test('Displays reservation and purchase more button when reservations exist', async () => {
+  render(<UserReservations userId={1} />);
+
+  const purchaseButton = await screen.findByRole('button', {
+    name: /Purchase more tickets/i,
+  });
+
+  expect(purchaseButton).toBeInTheDocument();
+});
+
+test('Displays no reservations and purchase button when no reservations exist', async () => {
+  render(<UserReservations userId={0} />);
+
+  const purchaseButton = await screen.findByRole('button', {
+    name: /purchase tickets/i,
+  });
+
+  expect(purchaseButton).toBeInTheDocument();
+
+  const ticketsHeading = screen.queryByRole('heading', {
+    name: /your tickets/i,
+  });
+
+  expect(ticketsHeading).not.toBeInTheDocument();
+});
+```
