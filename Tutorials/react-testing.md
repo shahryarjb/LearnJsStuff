@@ -102,3 +102,69 @@ test('Displays no reservations and purchase button when no reservations exist', 
   expect(ticketsHeading).not.toBeInTheDocument();
 });
 ```
+
+---
+### ماک کردن درخواست های http و گراف کیو ال
+چه در nextjs و چه در React کتابخانه https://mswjs.io/ بسیار کاربردی و خوش کانغیگ هست در کل مراحل کانفیگ آن با چند کپی پست انجام می شود
+
+اول اون رو به صورت دولپر نصب می کنید
+```
+npm install msw --save-dev
+```
+
+بعد می آیید یک مسیر می سازید `src/mocks` و داخل اون `handlers.js` و در داخل این فایل هم خط های زیر رو کپی می کنید
+
+```js
+import { rest } from 'msw'
+export const handlers = [
+  // Handles a POST /login request
+  rest.post('/login', null),
+  // Handles a GET /user request
+  rest.get('/user', null),
+]
+```
+همانطور که می بنید داخل handlers ما دوتا مسیر رو ماک کردیم که شما باید بر اساس نیازتون اینکارو بکنید مثلا در یک پروژه دیگری من اینطور ماک کردم
+```js
+import { fakeUserReservations } from '@/__tests__/__mocks__/fakeData/userReservations';
+
+export const handlers = [
+  rest.get(`http://localhost:3000/api/shows/:showId`, async (req, res, ctx) => {
+    const { fakeShows } = await readFakeData();
+    const { showId } = req.params;
+
+    return res(ctx.json({ show: fakeShows[Number(showId)] }));
+  }),
+  rest.get(
+    `http://localhost:3000/api/users/:userId/reservations`,
+    (req, res, ctx) => {
+      return res(ctx.json({ userReservations: fakeUserReservations }));
+    }
+  ),
+];
+```
+اطلاعات بیشتر و چطور ماک کردن در لینک زیر
+https://mswjs.io/docs/getting-started/mocks/rest-api
+
+حالا بیایید بریم سر موضوع اینکه چطور تست هارو اجرا کنیم
+
+یک فایل در مسیر `src/mocks/server.js` می سازید و کد های زیر رو کپی می کنید در داخل اون
+```js
+// src/mocks/server.js
+import { setupServer } from 'msw/node'
+import { handlers } from './handlers'
+// This configures a request mocking server with the given request handlers.
+export const server = setupServer(...handlers)
+```
+
+حالا آخرین مرحله این هست که در حقیقت هر تست این اجرا شود و همینطور استپ شود یا به روالی ریست گردد پس در مسیر پروژه ای که jest رو کانفیگ کردید بگردید و فایل `src/setupTests.js` رو پیدا کنید و به این صورت عمل کنید
+```js
+// src/setupTests.js
+import { server } from './mocks/server.js'
+// Establish API mocking before all tests.
+beforeAll(() => server.listen())
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers())
+// Clean up after the tests are finished.
+afterAll(() => server.close())
+```
