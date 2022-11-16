@@ -170,3 +170,43 @@ afterEach(() => server.resetHandlers())
 // Clean up after the tests are finished.
 afterAll(() => server.close())
 ```
+
+---
+### ساخت پلاگین در سایپرس
+این کتابخانه یا فریم ورک مربوط به تست یک فایلی در مسیر می سازد `cypress.config.ts` در این فایل شما می توانید یک سری پلاگین بسازید که در فایل های دیگر تست اون هارو صدا کنید به عنوان مثال ما یک ریست کننده فایل json درست می کنیم که مثل دیتابیس در هر تست اولش پاکش کند
+
+```js
+import { defineConfig } from 'cypress'
+const { resetDB } = require('./__tests__/__mocks__/db/utils/reset-db');
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+      on('task', {
+        'db:reset': () => resetDB().then(() => null),
+      });
+    },
+  },
+
+  "component": {
+    "devServer": {
+      "framework": "next",
+      "bundler": "webpack"
+    }
+  }
+})
+```
+اگر توجه کنید ما یک تسک تعریف کردیم به نام db:reset که کد زیر هست
+```js
+on('task', {
+    'db:reset': () => resetDB().then(() => null),
+});
+```
+حالا در تست می تونیم به این صورت عمل کنیم
+
+```js
+it('resets the db', () => {
+  cy.task('db:reset');
+});
+```
