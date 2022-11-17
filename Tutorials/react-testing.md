@@ -210,3 +210,29 @@ it('resets the db', () => {
   cy.task('db:reset');
 });
 ```
+
+---
+
+### ساخت env برای کانفیگ فایل cypress
+به فایل `cypress.config.ts` مراجعه کنید و بعد از آن یک آبجکت از نوع env به defineConfig اضافه کنید به صورت مثال شما برای تعریف می تونید اینجوری عمل کنید
+
+```js
+export default defineConfig({
+  env: {
+    secret: process.env.REVALIDATION_SECRET
+  },
+  e2e: {
+    setupNodeEvents(on, config) {
+        on('task', {
+          'db:reset': () => resetDB().then(() => null),
+          addBand: (newBand) => addBand(newBand).then(() => null),
+        })
+    },
+  },
+  ...
+```
+
+حال می توانید به این متغییر secret به این صورت دست پیدا کنید در هر فایل تست
+```js
+const secret = Cypress.env('secret');
+```
