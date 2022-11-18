@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            sans: ['ui-sans-serif', 'system-ui'],
+            serif: ['Tapestry', 'Georgia'],
+            mono: ['ui-monospace', 'SFMono-Regular'],
+            display: ['Oswald'],
+            body: ['"Open Sans'],
+          },
+        },
+      };
+    </script>
+    <title>Typography</title>
+  </head>
+  <body>
+    <!-- Font Family -->
+    <div class="font-sans">Tailwind is awesome</div>
+    <div class="font-serif">Tailwind is awesome</div>
+    <div class="font-mono">Tailwind is awesome</div>
+    <div class="font-tahoma">Tailwind is awesome</div>
+
+    <!-- Font Size -->
+    <div class="text-xs">Tailwind is awesome</div>
+    <div class="text-sm">Tailwind is awesome</div>
+    <div class="text-base">Tailwind is awesome</div>
+    <div class="text-lg">Tailwind is awesome</div>
+    <div class="text-xl">Tailwind is awesome</div>
+    <div class="text-2xl">Tailwind is awesome</div>
+    <div class="text-3xl">Tailwind is awesome</div>
+    <!-- Font Weight -->
+    <div class="font-light">Tailwind is awesome</div>
+    <div class="font-normal">Tailwind is awesome</div>
+    <div class="font-medium">Tailwind is awesome</div>
+    <div class="font-semibold">Tailwind is awesome</div>
+    <div class="font-bold">Tailwind is awesome</div>
+
+    <!-- Letter Spacing -->
+    <div class="tracking-tight">Tailwind is awesome</div>
+    <div class="tracking-normal">Tailwind is awesome</div>
+    <div class="tracking-wide">Tailwind is awesome</div>
+
+    <!-- Text Alignment -->
+    <div class="text-left">Tailwind is awesome</div>
+    <div class="text-center">Tailwind is awesome</div>
+    <div class="text-right">Tailwind is awesome</div>
+
+    <!-- Text Decoration and Decoration Style -->
+    <div class="underline decoration-4 decoration-blue-400">Tailwind is awesome</div>
+    <div class="underline decoration-dotted decoration-blue-400">Tailwind is awesome</div>
+    <div class="underline decoration-dashed decoration-blue-400">Tailwind is awesome</div>
+    <div class="underline decoration-wavy decoration-blue-400">Tailwind is awesome</div>
+    <div class="underline decoration-double decoration-blue-400">Tailwind is awesome</div>
+
+    <!-- Decoration Offset -->
+    <div class="underline decoration-4 decoration-blue-400 underline-offset-8">Tailwind is awesome</div>
+
+    <div class="my-4"></div>
+    <!-- Text Transform -->
+    <p class="normal-case">Tailwind is awesome</p>
+    <p class="uppercase">Tailwind is awesome</p>
+    <p class="lowercase">Tailwind is awesome</p>
+    <p class="capitalize">Tailwind is awesome</p>
+  </body>
+</html>
+
+<!-- Font Family
+  font-sans	
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  font-serif	
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  font-mono	
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+-->
+
+<!-- 
+  Font Size
+  text-xs	    font-size: 0.75rem; /* 12px */
+  text-sm	    font-size: 0.875rem; /* 14px */
+  text-base	  font-size: 1rem; /* 16px */
+  text-lg	    font-size: 1.125rem; /* 18px */
+  text-xl	    font-size: 1.25rem; /* 20px */
+  text-2xl	  font-size: 1.5rem; /* 24px */
+  text-3xl	  font-size: 1.875rem; /* 30px */
+  text-4xl	  font-size: 2.25rem; /* 36px */
+  text-5xl	  font-size: 3rem; /* 48px */
+  text-6xl	  font-size: 3.75rem; /* 60px */
+  text-7xl	  font-size: 4.5rem; /* 72px */
+  text-8xl	  font-size: 6rem; /* 96px */
+  text-9xl	  font-size: 8rem; /* 128px */ 
+-->
+
+<!-- Font Weight
+  font-thin	      font-weight: 100;
+  font-extralight	font-weight: 200;
+  font-light	    font-weight: 300;
+  font-normal	    font-weight: 400;
+  font-medium	    font-weight: 500;
+  font-semibold	  font-weight: 600;
+  font-bold	      font-weight: 700;
+  font-extrabold	font-weight: 800;
+  font-black	    font-weight: 900;
+-->
+
+<!-- Letter Spacing
+  tracking-tighter	letter-spacing: -0.05em;
+  tracking-tight	  letter-spacing: -0.025em;
+  tracking-normal	  letter-spacing: 0em;
+  tracking-wide	    letter-spacing: 0.025em;
+  tracking-wider	  letter-spacing: 0.05em;
+  tracking-widest	  letter-spacing: 0.1em;
+-->
+
+<!-- Text Alignment
+  text-left	    text-align: left;
+  text-center	  text-align: center;
+  text-right	  text-align: right;
+  text-justify	text-align: justify;
+ -->
+
+<!-- Text Decoration
+  decoration-auto	      text-decoration-thickness: auto;
+  decoration-from-font	text-decoration-thickness: from-font;
+  decoration-0	        text-decoration-thickness: 0px;
+  decoration-1	        text-decoration-thickness: 1px;
+  decoration-2	        text-decoration-thickness: 2px;
+  decoration-4	        text-decoration-thickness: 4px;
+  decoration-8	        text-decoration-thickness: 8px;
+-->
+
+<!-- Text Transform
+  uppercase	  text-transform: uppercase;
+  lowercase	  text-transform: lowercase;
+  capitalize	text-transform: capitalize;
+  normal-case	text-transform: none;
+-->
