@@ -1,14 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
+    <style>
+      .toggle-checkbox:checked {
+        right: 0;
+        border-color: #68d391;
+      }
+
+      .toggle-checkbox:checked + .toggle-label {
+        background: #68d391;
+      }
+    </style>
     <title>Dark Mode</title>
   </head>
   <body>
     <!-- By default, you can have your project use whatever mode your OS is using. You can use "dark:{class}". You can also set your config to use a class instead of using your OS mode -->
+    <div
+      class="container mx-auto mt-10 bg-white dark:bg-slate-900 rounded-xl px-6 py-8 shadow-xl"
+    >
+      <h3 class="text-slate-900 dark:text-white font-medium tracking-tight">
+        Lorem ipsum dolor sit.
+      </h3>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi ea optio
+        provident excepturi quam placeat! Quos fugit totam, consequatur non illo
+        minus natus earum quae excepturi molestias, magnam repellat quam?
+      </p>
+    </div>
+
+    <div
+      class="relative inline-block w-10 mr-2 ml-6 mt-6 align-middle select-none transition duration-200 ease-in"
+    >
+      <input
+        type="checkbox"
+        name="toggle"
+        id="toggle"
+        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+      />
+      <label
+        for="toggle"
+        class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+      ></label>
+    </div>
+    <script>
+      document.getElementById('toggle').addEventListener('change', () => {
+        if (this.checked) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      });
+    </script>
   </body>
 </html>
 
