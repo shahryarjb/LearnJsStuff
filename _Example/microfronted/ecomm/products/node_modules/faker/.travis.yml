@@ -1,0 +1,6 @@
+# Run on new travis container (docker) based infrastructure
+sudo: false
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
