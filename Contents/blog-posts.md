@@ -26,4 +26,5 @@ https://www.smashingmagazine.com/2022/09/data-loading-patterns-improve-frontend-
 
 ## فینگر پرینت
 https://stackoverflow.blog/2022/11/16/biometric-authentication-for-web-devs/
+
 https://developers.google.com/codelabs/webauthn-reauth
