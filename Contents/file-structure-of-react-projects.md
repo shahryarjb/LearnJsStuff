@@ -62,3 +62,18 @@ src
 |-- types
 |-- views
 ```
+
+در ادامه کتاب مورد بالا رو نقض می کنه و می گه این موارد باعث می شند پروژه شما در اسکیل بالا کثیف می شه و کمی شبی به مدلی که در میشکا استفاده کردیم نزدیک می شه
+
+```
+|-- views
+  |-- products
+      |-- ViewProduct
+          |-- components
+              |-- ProductImage.tsx
+              |-- ProductDetails.tsx
+          |-- views
+              |-- BasicProductDetails.tsx
+              |-- AdvancedProductDetails.tsx
+          |-- ViewProduct.tsx
+```
