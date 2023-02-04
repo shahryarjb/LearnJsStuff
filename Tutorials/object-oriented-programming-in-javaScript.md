@@ -249,3 +249,23 @@ circle['location'] = { x: 1 };
 delete circle.location;
 delete circle['location'];
 ```
+
+----
+
+یک سری کد های ساده برای لوپ کردن آبجکت که می تونید به صورت زیر عمل کنید
+
+```javascript
+for (let key in circle) {
+  if (typeof circle[key] !== 'function') {
+    console.log(key, circle[key]);
+  }
+}
+
+// or
+const keys = Object.keys(circle);
+console.log(keys)
+
+if('radius' in circle) console.log('Circke has a radius.')
+```
+
+---
