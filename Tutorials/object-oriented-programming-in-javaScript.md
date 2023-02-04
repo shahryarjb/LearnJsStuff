@@ -269,3 +269,55 @@ if('radius' in circle) console.log('Circke has a radius.')
 ```
 
 ---
+
+### توضیح در مورد Abstraction
+
+کانسپت Abstraction می گه باید جزئیات رو مخفی کنیم تا موارد ضروری نمایش داده شود به عنوان مثال به کد زیر توجه کنید:
+
+```javascript
+function Circle(radius) {
+  this.radius = radius;
+
+  this.defaultLocation = { x: 0, y: 0 };
+
+  this.computeOptimumLocation = function () {
+    // ...
+  };
+
+  this.draw = function () {
+    this.computeOptimumLocation();
+    
+    console.log('draw');
+  };
+}
+
+const circle = new Circle(10);
+```
+متاسفانه اگر computeOptimumLocation اینجا مستقیم قالب دسترسی باشد و تغییر کند باعث اختلال کامل می شود
+
+یکی از روش های درست کردن کلوژر ایجاد متغیر های لوکال هست که بعد از هر اجرا می میرند یا از بین می رند اینجوری دسترسی به بیرون امکان پذیر نمی باشد تغییرات در کد زیر را ببنید
+
+```javascript
+// Constructor function
+function Circle(radius) {
+  this.radius = radius;
+
+  let defaultLocation = { x: 0, y: 0 };
+
+  let computeOptimumLocation = function (factor) {
+    // ...
+  };
+
+  this.draw = function () {
+    computeOptimumLocation(0.1);
+    // defaultLocation
+    // this.radius
+
+    console.log('draw');
+  };
+}
+
+const circle = new Circle(10);
+circle.draw();
+```
+مواردی که با let درست شدن دیگه قالب دسترسی از بیرون نیستند و مثل تابع پرایوت عمل می کنند
