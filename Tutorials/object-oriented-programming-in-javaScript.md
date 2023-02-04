@@ -321,3 +321,68 @@ const circle = new Circle(10);
 circle.draw();
 ```
 مواردی که با let درست شدن دیگه قالب دسترسی از بیرون نیستند و مثل تابع پرایوت عمل می کنند
+
+
+---
+
+### توضیحات در مورد Getter/Setter
+
+
+مثال های قبلی به معنای واقعی پراویت نبودن بلکه فقط در یک متغیر لوکال قرار گرفتن
+
+یکی از روش های به روز رسانی از بیرون یک پراپرتی که بردیمش داخل متغیر لوکال به شرح زیر هست
+```javascript
+function Circle(radius) {
+  this.radius = radius;
+
+  let defaultLocation = { x: 0, y: 0 };
+
+  this.getDefaultLocation = function () {
+    return defaultLocation;
+  };
+
+  this.draw = function () {
+    console.log('draw');
+  };
+}
+
+const circle = new Circle(10);
+circle.getDefaultLocation();
+circle.draw();
+```
+ولی یک مشکلی هست اگر بخواهیم defaultLocation فقط قابل خوندن باشه چی؟ 
+
+```javascript
+// Constructor function
+function Circle(radius) {
+  this.radius = radius;
+
+  let defaultLocation = { x: 0, y: 0 };
+
+  this.getDefaultLocation = function () {
+    return defaultLocation;
+  };
+
+  this.draw = function () {
+    console.log('draw');
+  };
+
+  Object.defineProperty(this, 'defaultLocation', {
+    get: function () {
+      return defaultLocation;
+    },
+    set: function (value) {
+      // You can set some validation before ...
+      if (!value.x || !value.y) throw new Error('Invalid location.');
+
+      defaultLocation = value;
+    },
+  });
+}
+
+const circle = new Circle(10);
+circle.defaultLocation = 1;
+circle.draw();
+```
+
+همانطور که می بنید ما دو اسپشیال کیبورد get, set رو در متد defineProperty آوردیم که این امکان را می دهد به ما تا بیاییم getter و setter رو فعال کنیم مثلا اگر پراپرتی خواست بیاد براش نشون بده و اگر خواست تغییرش بده که مثلا چندتا ولیدیشن براش تعریف کنیم بعد بیاییم اون رو ست کنیم
