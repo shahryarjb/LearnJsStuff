@@ -108,7 +108,10 @@ setInterval(() => {
 </body>
 ```
 
-<img src="./WebComponents01.png">
+
+    ![WebComponents01](https://user-images.githubusercontent.com/8413604/217352797-fb1fcfbd-24f6-44cf-920c-ad32b8e20048.png)
+
+    
 
 # ساخت expandable element سفارشی
 
@@ -194,4 +197,4 @@ customElements.define('expandable-list', ExpandableList, { extends: 'ul' })
 </body>
 ```
 
-<img src="./WebComponents02.png">
+![WebComponents02](https://user-images.githubusercontent.com/8413604/217352868-9f87f5d6-9527-4dce-a084-b0e456a7fef1.png)
