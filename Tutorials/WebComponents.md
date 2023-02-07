@@ -39,7 +39,7 @@ class TodoItem extends HTMLElement {
         return ['checked']
     }
 
-    // invoked when one of the custom element's attributes is added, removed, or changed
+    //هنگامی که یکی از ویژگی های المنت سفارشی اضافه، حذف یا تغییر کند، فراخوانی می شود
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'checked') this.updateChecked(newValue)
     }
@@ -49,6 +49,7 @@ class TodoItem extends HTMLElement {
     }
 }
 
+ //به مرورگر اطلاع دهید که <todo-item> توسط کلاس جدید ما ارائه می شود
 customElements.define('todo-item', TodoItem)
 
 const item = document.querySelector('todo-item')
@@ -58,30 +59,33 @@ setInterval(() => {
     item.setAttribute('checked', checked)
 }, 500)
 ```
+<div dir=rtl>
+
 ---
-> The HTMLElement interface represents any HTML element. Some elements directly implement this interface, while others implement it via an interface that inherits it.
+> ا HTMLElement اینترفیسی است که نشان دهنده هر المنت HTML است. برخی المنت ها این اینترفیس را بصورت مستقیم پیاده سازی می کنند و برخی دیگر اینترفیسی را پیاده سازی می کنند که از HTMLElement ارث بری کرده اند.
 
 — [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
 
 ---
-> The `<template>` tag in HTML is used to store the HTML code fragments, which can be cloned and inserted in an HTML document. The content of the tag is hidden from clients being stored on the client-side. It is inserted until activated using JavaScript. Use JavaScript to get the content from a template, and add it to the web page.
+> تگ `<template>` در HTML برای ذخیره قطعات کد HTML استفاده می شود که می توان آنها را شبیه سازی کرد و در یک سند HTML درج کرد. محتوای تگ از کاربرانی که در سمت کلاینت هستند پنهان می شود. تا زمانی که با استفاده از جاوا اسکریپت فعال نشود از دید کاربر پنهان می ماند. از جاوا اسکریپت برای دریافت محتوای `template` و اضافه کردن آن به صفحه وب استفاده می شود.
 
 — [geeksforgeeks](https://www.geeksforgeeks.org/html-template-tag/)
 
 ---
-> The slot is the element part of the web component technology which is a placeholder inside a component that you simply can fill together with your own markup, which allows you to make separate DOM trees and represent them together.
+> تگ `slot` بخشی از تکنولوژی Web Component است که یک مکان نگهدار درون یک component است که به سادگی می توانید آن را با نشانه گذاری (markup) شخصی پر کنید، که به شما امکان می دهد درختان DOM جداگانه بسازید و آنها را به نمایش بگذ ارید.
 
 — [geeksforgeeks](https://www.geeksforgeeks.org/html-slot-tag/)
 
 ---
-> Shadow DOM serves for encapsulation. It allows a component to have its very own “shadow” DOM tree, that can’t be accidentally accessed from the main document, may have local style rules, and more.
+> ا `Shadow DOM` برای کپسوله سازی استفاده می کنند. این به یک component اجازه می‌دهد تا درخت “shadow” DOM خودش را داشته باشد، که از داکیومنت اصلی قابل دسترسی نیست، ممکن است قوانین خاص خود برای استایل دهی و... داشته باشد.
 
 — [javascript.info](https://javascript.info/shadow-dom)
 
 ---
-> attributeChangedCallback: Invoked each time one of the custom element's attributes is added, removed, or changed. Which attributes to notice change for is specified in a static get observedAttributes method
+> ا `attributeChangedCallback`: هر بار که یکی از ویژگی های المنت سفارشی اضافه، حذف یا تغییر پیدا کند، فراخوانی می شود. در یک متد `static get observedAttributes` مشخص شده است که برای کدام ویژگی ها باید تغییر اعمال شود
 
 — [MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)
+</div>
 
 ```html
 <!-- index.html -->
@@ -162,7 +166,7 @@ customElements.define('expandable-list', ExpandableList, { extends: 'ul' })
 
 ```
 ---
-> The `HTMLUListElement` interface provides special properties (beyond those defined on the regular `HTMLElement` interface it also has available to it by inheritance) for manipulating unordered list (`<ul>`) elements.
+> ا `HTMLUListElement` ویژگی‌های خاصی را برای دستکاری المنت لیست نامرتب (`<ul>`) فراهم می‌کند (فراتر از آن‌هایی که در اینترفیس معمولی `HTMLElement` تعریف شده است)
 
 — [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLUListElement)
 
