@@ -109,7 +109,11 @@ setInterval(() => {
 ```
 
 
-    ![WebComponents01](https://user-images.githubusercontent.com/8413604/217352797-fb1fcfbd-24f6-44cf-920c-ad32b8e20048.png)
+    
+    
+![WebComponents01](https://user-images.githubusercontent.com/8413604/217352797-fb1fcfbd-24f6-44cf-920c-ad32b8e20048.png)
+    
+    
 
     
 
