@@ -10,6 +10,10 @@
 - Inheritance 
 - Polymorphism
 
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+
+---
+
 
 ### تعریف Encapsulation به زبان ساده
 
@@ -492,6 +496,85 @@ let array = [];
 array.__proto__
 
 Array.prototype
+```
+
+---
+
+### توضیح در مورد فرق Prototype با Instance Members
+
+```javascript
+// Constructor function
+function Circle(radius) {
+  this.radius = radius;
+
+  this.draw = function () {
+    console.log('draw');
+  };
+}
+
+const c1 = new Circle(1);
+const c2 = new Circle(1);
+```
+اگر متغیر های c1, c2 رو چاپ کنید می بنید که یکی هستند ولی خوب رفرنس خودشون رو در مموری دارند و فرض کنید تعداد زیادی از این نوع ساخته می شود که باعث حروم شدن مموری می شود یکی از این موارد saving می تواند Prototypical Inheritance باشد که اول جاوااسکریپت به آن نگاه می کند و اگر چیزی رو نیافت دنبال خود آبجکت می رود.
+
+یکی از این راه ها می تواند مورد زیر باشد که نباید استفاده شود چون منقضی گردیده 
+```javascript
+Circle.prototype === c1.__proto__
+```
+ 
+ ولی برای ساخت متد draw می توانیم به صورت زیر عمل کنیم
+ 
+ ```javascript
+ // Constructor function
+function Circle(radius) {
+  this.radius = radius;
+}
+
+Circle.prototype.draw = function () {
+  console.log('draw');
+};
+```
+همانطور که می بنید ما متد draw رو در خود فانکشن Circle پاک کردیم و دوباره در پروتوتایپ اون ایجاد کردیم. حالا بیاییم یک بار دیگه c1 رو اجرا کنیم وقتی اجرا کردیم می بنیم بله دیگر در خود خروجی draw رو نمی بنیم ولی وقتی روی __proto__ می زنیم می بنیم که draw اومده هست این گزینه در مورد c2 نیز صادق هست. این مورد بخاطر Prototypical Inheritance می باشد.
+
+برای اینکه گیچ کننده نباشد شما می توانید حتی `c1.draw()` را صدا بزنید و مثل قبل کار می کند.
+طبق کد پایین در حقیقت ما دو نوع عضو داریم یکی اینستنس هستت و یکی دیگری پرتوتایپ
+
+```javascript
+function Circle(radius) {
+  // Instance members
+  this.radius = radius;
+}
+
+  // Prototype members
+Circle.prototype.draw = function () {
+  console.log('draw');
+};
+```
+
+این امکان خوب فقط به همین بخش محدود نمی شود بلکه شما می توانید اور رایت کنید مثلا متد `toString` رو می خواهید وقتی صدا زده می شود برای Circle یک کار دیگیری انجام شود
+
+```javascript
+Circle.prototype.toString = function () {
+  return 'Circle with radius ' + this.radius;
+};
+
+c1.toString();
+```
+پس این نکته بسیار مهم هست که همیشه جاوااسکریپت اول به پروتوتایپ نگاه می کند و بعد به سمت خود آبجکت می رود
+
+مورد بعدی چه در پروتوتایپ چه در خود تابع یا کلاس Circle می توانید با this به draw یا مواردی که در فانکشن هست دسترسی داشته باشید هر دو حالتش امکان پذیر می باشد
+
+برای درک بهتر
+```javascript
+function Circle(radius) {
+  // Instance members
+  this.radius = radius;
+
+  this.move = function() {
+    this.draw();
+    console.log('move')
+  }
+}
 ```
 
 ---
