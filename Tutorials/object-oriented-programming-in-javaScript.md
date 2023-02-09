@@ -432,3 +432,33 @@ const circle = new Circle(10);
 circle --> circleBase --> objectBase
 این های راکی یک کلاس می باشد
 
+
+
+---
+
+### توضیح در مورد descriptor
+
+بیاییم کد زیر را در کنسول خود اجرا کنیم
+```javascript
+let person = { name: 'shahryar' };
+
+let objectBase = Object.getPrototypeOf(person);
+let descripter = Object.getOwnPropertyDescriptors(objectBase, 'toString');
+console.log(descripter);
+```
+بعد از اجرا می توانیم ببینیم که یک سری اطلاعات به ما داده می شود از جمله مواردی مثل configurable, enumerble و دیگر موارد.
+
+حال به این مثال توجه کنید:
+
+```javascript
+Object.defineProperty(person, 'name', {
+  writable: false,
+});
+
+person.name = 'Jon'
+console.log(person)
+```
+
+اگر این کد را اجرا کنید می بنید که اسم تغییری نمی کند
+
+---
