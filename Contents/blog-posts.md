@@ -30,3 +30,7 @@ https://stackoverflow.blog/2022/11/16/biometric-authentication-for-web-devs/
 https://developers.google.com/codelabs/webauthn-reauth
 
 https://itnext.io/biometrics-fingerprint-auth-in-your-web-apps-d5599522d0b3
+
+## چیت شیت برای جاوااسکریپت
+
+https://quickref.me/javascript
