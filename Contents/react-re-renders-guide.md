@@ -190,3 +190,26 @@ https://www.developerway.com/posts/react-elements-children-parents
 <img width="1275" alt="part3-passing-as-children" src="https://user-images.githubusercontent.com/8413604/219856787-0b7eba1f-f4eb-465d-a85b-99d62acd8f79.png">
 
 ---
+### جلوگیری از رندرهای مجدد با ترکیب: کامپوننت ها به عنوان props
+
+نویسنده اصلی برای این بخش هم ویدیویی آماده کرده است:
+
+https://www.youtube.com/watch?v=7sgBhmLjVws&t=462s
+
+
+Translation is too long to be saved
+تقریباً مانند الگوی قبلی، با همان رفتار: State را در یک کامپوننت کوچکتر محصور می کند، و کامپوننت های بزرگ به عنوان props به آن منتقل می شوند. props ها تحت تاثیر تغییر state قرار نمی گیرند، بنابراین اجزای سنگین دوباره رندر نمی شوند.
+
+زمانی می‌تواند مفید باشد که چند کامپوننت بزرگ مستقل از state باشد، اما نمی‌توان آن‌ها را در یک child به‌عنوان گروه استخراج کرد.
+
+نمونه کد:
+https://codesandbox.io/s/part-3-4-passing-components-as-props-9h3o5u?file=/src/App.tsx
+
+لینک های بیشتر برای دریافت اطلاعات:
+
+https://www.developerway.com/posts/react-component-as-prop-the-right-way
+https://www.developerway.com/posts/react-elements-children-parents
+
+<img width="1279" alt="part3-passing-as-props" src="https://user-images.githubusercontent.com/8413604/219856978-337e4226-4846-4622-ad26-2fdeb9449c4b.png">
+
+---
