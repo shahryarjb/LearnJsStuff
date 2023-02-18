@@ -369,3 +369,67 @@ https://codesandbox.io/s/part-6-1-random-values-in-keys-z1zhy6?file=/src/App.tsx
 
 ---
 
+### جلوگیری از رندرهای مجدد ناشی از Context
+
+
+#### جلوگیری از رندرهای متنی: به خاطر سپردن ارزش ارائه دهنده
+
+اگر Context Provider در ریشه اصلی برنامه قرار نگرفته باشد و این احتمال وجود دارد که به دلیل تغییرات در اجداد خود بتواند خود را دوباره رندر کند، مقدار آن باید به حافظه سپرده شود.
+
+کد نمونه از سازنده محتوای اصلی:
+
+https://codesandbox.io/s/part-7-1-memoize-context-provider-value-qgn0me?file=/src/App.tsx
+
+<img width="1277" alt="part7-context-provider-memo" src="https://user-images.githubusercontent.com/8413604/219864913-622b94da-9837-4c7f-8ef4-4bc1e4d37ef5.png">
+
+---
+
+#### جلوگیری از رندرهای Context: تقسیم داده ها و API
+
+اگر در Context ترکیبی از داده ها و API (گیرنده و تنظیم کننده) وجود داشته باشد، می توان آنها را به ارائه دهندگان مختلف تحت یک مؤلفه تقسیم کرد. به این ترتیب، مؤلفه‌هایی که فقط از API استفاده می‌کنند، زمانی که داده‌ها تغییر می‌کنند، دوباره ارائه نمی‌شوند.
+
+اطلاعات بیشتر:
+https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context
+
+
+لینک از نمونه کد ارائه شده به وسیله نویسنده محتوای اصلی
+
+https://codesandbox.io/s/part-7-2-split-context-data-and-api-r8lsws?file=/src/App.tsx
+
+<img width="1280" alt="part7-context-split-api" src="https://user-images.githubusercontent.com/8413604/219864987-76eb4bd6-077f-4b49-b14d-8a07e5cc4fd6.png">
+
+
+---
+
+#### جلوگیری از رندرهای Context: تقسیم داده ها به قطعات
+
+اگر Context چند تکه داده مستقل را مدیریت کند، می توان آنها را به ارائه دهندگان کوچکتر تحت همان ارائه دهنده تقسیم کرد. به این ترتیب، فقط مصرف کنندگان قطعه تغییر یافته دوباره رندر می شوند.
+
+اطلاعات بیشتر:
+
+https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context
+
+
+<img width="1277" alt="part7-context-split-data" src="https://user-images.githubusercontent.com/8413604/219865078-f6298289-9091-4fc2-bd7f-a7cb38787504.png">
+
+---
+
+#### جلوگیری از رندرهای مجدد Context: انتخابگرهای زمینه
+
+هیچ راهی برای جلوگیری از رندر شدن مجدد کامپوننتی که از بخشی از مقدار Context استفاده می کند، وجود ندارد، حتی اگر قطعه داده استفاده شده تغییر نکرده باشد، حتی با استفاده از هوک useMemo.
+
+با این حال، انتخابگرهای زمینه را می توان با استفاده از higher order component  و React.memo جعل کرد.
+
+
+اطلاعات بیشتر
+https://www.developerway.com/posts/higher-order-components-in-react-hooks-era
+
+
+نمونه کد ارائه شده از نویسنده اصلی محتوا
+
+https://codesandbox.io/s/part-7-4-context-selector-lc8n5g?file=/src/App.tsx
+
+<img width="1278" alt="part7-context-selectors" src="https://user-images.githubusercontent.com/8413604/219865222-1914033d-9b1f-4e78-8558-e7e131d58637.png">
+
+
+
