@@ -166,3 +166,27 @@ https://www.developerway.com/posts/how-to-write-performant-react-code
 
 
 ---
+
+### جلوگیری از رندرهای مجدد با ترکیب: child به عنوان Props
+
+لینک ویدیو این بخش از نویسنده اصلی این محتوا:
+https://www.youtube.com/watch?v=7sgBhmLjVws&t=272s
+
+
+این را می توان "Wrap State around children" نیز نامید. این پترن شبیه "انتقال State به پایین" است: تغییرات State را در یک کامپوننت کوچکتر محصور می کند. تفاوت در اینجا این است که ئفشفث روی عنصری استفاده می‌شود که بخش کندی از درخت رندر را Wrap می کند بنابراین نمی‌توان آن را به این راحتی استخراج کرد. یک مثال معمولی می‌تواند تماس‌های onScroll یا onMouseMove باشد که به عنصر ریشه یک کامپوننت متصل شده‌اند.
+
+
+در این شرایط، مدیریت State و اجزایی که از آن State استفاده می کنند را می توان به یک کامپوننت کوچکتر استخراج کرد و کامپوننت کند را در child به آن منتقل کرد. از دیدگاه مولفه‌های کوچک‌تر، child ها فقط پشتیبان هستند، بنابراین تحت تأثیر تغییر State قرار نخواهند گرفت و بنابراین دوباره رندر نمی‌شوند.
+
+لینک نمونه از نویسنده اصلی این محتوا:
+
+https://codesandbox.io/s/part-3-3-children-as-props-59icyq?file=/src/App.tsx
+
+
+برای اطلاعات بیشتر:
+
+https://www.developerway.com/posts/react-elements-children-parents
+
+<img width="1275" alt="part3-passing-as-children" src="https://user-images.githubusercontent.com/8413604/219856787-0b7eba1f-f4eb-465d-a85b-99d62acd8f79.png">
+
+---
