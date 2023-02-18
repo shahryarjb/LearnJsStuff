@@ -263,3 +263,59 @@ https://codesandbox.io/s/part-4-2-memo-on-components-in-props-55tebl?file=/src/A
 ---
 
 ### بهبود عملکرد رندر مجدد با useMemo/useCallback
+
+
+#### آنتی پترن: استفاده غیرضروری useMemo/useCallback  در props 
+
+اعمال Memoizing روی props  به خودی خود مانع از render  مجدد یک کامپوننت فرزند نمی شود. اگر یکی از کامپوننت ها والد دوباره رندر شود، بدون در نظر گرفتن ویژگی‌های آن، کامپوننت فرزند را دوباره اجرا می‌کند.
+
+کد نمونه ارائه شده از طرف نویسنده اصلی محتوا:
+
+https://codesandbox.io/s/part-5-1-unnecessary-usememo-lmk8fq?file=/src/App.tsx
+
+<img width="1242" alt="part5-unnecessary-usememo-on-props" src="https://user-images.githubusercontent.com/8413604/219864089-5954093a-b0e1-4c26-aa1a-e76acaf91d9f.png">
+
+
+
+---
+
+#### استفاده ضروری از useMemo/useCallback
+
+اگر کامپوننت فرزند در React.memo wrapp  شده باشد، همه چیزهایی که مقادیر اولیه نیستند باید به حافظه سپرده شوند.
+
+نمونه کد سازنده محتوا اصلی:
+
+https://codesandbox.io/s/part-5-2-usememo-in-props-trx97x?file=/src/App.tsx
+
+<img width="1247" alt="part5-necessary-usememo-props" src="https://user-images.githubusercontent.com/8413604/219864135-c19c2253-ce6e-4807-9d82-5d8570b06617.png">
+
+اگر کامپونتی از مقدار غیر ابتدایی به عنوان وابستگی در هوک هایی مانند useEffect، useMemo، useCallback استفاده می کند، باید آن را به memoized کرد.
+
+
+نمونه کد سازنده محتوای اصلی:
+
+https://codesandbox.io/s/part-5-2-usememo-in-effect-88tbov
+
+<img width="1242" alt="part5-necessary-usememo-dep" src="https://user-images.githubusercontent.com/8413604/219864226-5a28268e-f446-416e-bf2a-6c1b17c401c0.png">
+
+
+---
+
+#### استفاده ازuseMemo برای محاسبات گران قیمت
+
+یکی از موارد استفاده useMemo اجتناب از محاسبات گران قیمت در هر رندر مجدد است.
+
+هوک useMemo هزینه خودش را دارد (کمی حافظه مصرف می کند و رندر اولیه را کمی کندتر می کند)، بنابراین نباید برای هر محاسباتی از آن استفاده کرد. در React، نصب و به‌روزرسانی کامپوننت‌ها در بیشتر موارد در حالت گران‌ترین محاسبه خواهد بود (مگر اینکه واقعاً اعداد اول را محاسبه می‌کنید، که به هر حال نباید در فرانت‌اند انجام دهید).
+
+در نتیجه، مورد استفاده معمول برای useMemo حفظ عناصر React است. معمولاً بخش‌هایی از درخت رندر موجود یا نتایج درخت رندر تولید شده، مانند یک تابع map  که عناصر جدید را برمی‌گرداند.
+
+هزینه عملیات جاوا اسکریپت «خالص» مانند مرتب‌سازی یا فیلتر کردن یک آرایه معمولاً در مقایسه با به‌روزرسانی‌های کامپوننت ها ناچیز است.
+
+نمونه کد سازنده محتوای اصلی
+
+https://codesandbox.io/s/part-5-3-usememo-for-expensive-calculations-trx97x?file=/src/App.tsx
+
+<img width="1277" alt="part5-necessary-usememo-complex" src="https://user-images.githubusercontent.com/8413604/219864377-206b960a-c072-4a74-8bd4-20ddc7e28108.png">
+
+
+
