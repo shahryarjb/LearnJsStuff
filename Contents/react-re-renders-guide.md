@@ -55,3 +55,31 @@
 https://www.youtube.com/watch?v=ARWX1XdghLk&t=244
 
 ---
+
+#### دلیل دوباره رندر شدن: دوباره render شدن والد
+
+اگر والد یک کامپوننت دوباره render شود خود کامپوننت نیز دوباره رندر می گردد. یا اگر از جهت مخالف به این موضوع نگاه کنیم: وقتی یک کامپوننت دوباره رندر می‌شود، همه فرزندان خود را نیز دوباره رندر می‌کند.
+
+> همیشه از درخت «پایین» می‌رود: رندر مجدد یک فرزند باعث رندر مجدد والدین نمی‌شود. در لینک زیر می توانید اطلاعات بیشتری را بدست بیاورید https://www.developerway.com/posts/react-elements-children-parents
+
+
+کد نمونه برای این بخش از نویسنده محتوای اصلی:
+
+https://codesandbox.io/s/part-2-2-re-renders-because-of-parent-b0xvxt?file=/src/App.tsx
+
+<img width="1239" alt="part2-parent-example" src="https://user-images.githubusercontent.com/8413604/219853473-7a7e4f4f-0975-48bc-a8ec-fa414bd9b9d1.png">
+
+
+---
+
+#### دلیل دوباره رندر شدن: تغییر در context
+
+هنگامی که مقدار در Context Provider تغییر می‌کند، همه مؤلفه‌هایی که از این Context استفاده می‌کنند، مجدداً رندر می‌شوند، حتی اگر به طور مستقیم از بخش تغییر یافته داده استفاده نکنند. با حفظ کردن مستقیم نمی توان از این رندرها جلوگیری کرد، اما چند راه حل وجود دارد که می تواند آن را شبیه سازی کنیم که در ادامه به آن ها اشاره می کنیم.
+
+نمونه کد از نویسنده محتوای اصلی
+
+https://codesandbox.io/s/part-2-3-re-render-because-of-context-i75lwh?file=/src/App.tsx
+
+<img width="1237" alt="part2-context-example" src="https://user-images.githubusercontent.com/8413604/219853580-84803515-6a9f-49a6-bc26-40c4e7a74a87.png">
+
+---
