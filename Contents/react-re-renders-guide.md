@@ -146,3 +146,23 @@ https://www.developerway.com/posts/how-to-write-performant-react-code
 ---
 
 ### جلوگیری از رندرهای مجدد با ترکیب: انتقال استیت به پایین
+
+ویدیو از نویسنده محتوای اصلی: https://www.youtube.com/watch?v=7sgBhmLjVws&t=106s
+
+این پترن زمانی می‌تواند مفید باشد که یک کامپوننت بزرگ state را مدیریت کند، و این state فقط در بخش کوچکی از درخت رندر استفاده شود. یک مثال معمولی باز کردن/بستن یک گفتگو با کلیک روی یک دکمه در یک کامپوننت پیچیده است که بخش قابل توجهی از یک صفحه را render می‌کند.
+
+در این حالت، state که یک مودال است، خود گفتگو و دکمه‌ای که به‌روزرسانی را راه‌اندازی می‌کند را کنترل می‌کند، می‌تواند در یک کامپوننت کوچک‌تر محصور شود. در نتیجه، مؤلفه بزرگ‌تر در آن تغییرات state منجر به دوباره رندر شدن نمی‌شود.
+
+کد نمونه از نویسنده اصلی این محتوا:
+
+https://codesandbox.io/s/part-3-2-moving-state-down-vlh4gf?file=/src/App.tsx
+
+برای اطلاعات بیشتر به دو لینک زیر مراجعه کنید:
+
+https://www.developerway.com/posts/react-elements-children-parents
+https://www.developerway.com/posts/how-to-write-performant-react-code
+
+<img width="1279" alt="part3-moving-state-down" src="https://user-images.githubusercontent.com/8413604/219856507-bc9a348c-da85-4adf-b802-bf70d9bc3168.png">
+
+
+---
