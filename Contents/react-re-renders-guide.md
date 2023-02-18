@@ -83,3 +83,33 @@ https://codesandbox.io/s/part-2-3-re-render-because-of-context-i75lwh?file=/src/
 <img width="1237" alt="part2-context-example" src="https://user-images.githubusercontent.com/8413604/219853580-84803515-6a9f-49a6-bc26-40c4e7a74a87.png">
 
 ---
+#### دلیل دوباره رندر شدن: اگر Hook ها تغییر کنند
+
+هر چیزی که در داخل یک Hook اتفاق می افتد، متعلق به کامپوننت است که از آن استفاده می کند. قوانین مشابه در مورد تغییرات Context و State در اینجا اعمال می شود:
+
+- تغییر State در داخل هوک باعث ایجاد یک رندر مجدد غیرقابل پیشگیری از مولفه "میزبان" می شود
+- اگر Hook از Context استفاده کند و مقدار Context تغییر کند، یک رندر مجدد غیرقابل پیشگیری از مؤلفه «میزبان» را آغاز می‌کند.
+
+
+ولی جای نگرانی نیست Hook ها را می توان ایزوله کرد. تک تک Hook ها‌ داخل محیط ایزوله هنوز متعلق به مؤلفه میزبان هستند و قوانین یکسانی برای هر یک از آنها اعمال می‌شود.
+
+نمونه کد از نویسنده:
+
+https://codesandbox.io/s/part-2-4-re-render-because-of-hooks-5kpdrp?file=/src/App.tsx
+
+<img width="1239" alt="part2-hooks-example" src="https://user-images.githubusercontent.com/8413604/219853828-27d3988b-0f90-4c3f-9bf9-2a5f816237a4.png">
+
+---
+
+> دلیل رندر شدن مجدد: Props تغییر می‌کنند
+> هنگام صحبت در مورد رندرهای مجدد کامپوننت هایی memoize نشده اند هست، فرقی نمی‌کند که کامپوننت سازنده تغییر کند یا خیر.
+> برای اینکه props تغییر کند، باید توسط کامپوننت والد به روز شود. این به این معنی است که والدین باید دوباره رندر شوند، که باعث می‌شود مولفه فرزند بدون توجه به ویژگی‌های آن، رندر مجدد را انجام دهد.
+
+نمونه کد از نویسنده اصلی محتوا:
+
+https://codesandbox.io/s/part-2-5-re-render-props-not-relevant-2b8o0p?file=/src/App.tsx
+
+<img width="1236" alt="part2-props-myth" src="https://user-images.githubusercontent.com/8413604/219854031-3c4cc843-0a27-4ff8-a0da-7cde35084974.png">
+
+
+تا اینجا ما صحبت کردیم چه چیز هایی باعث این می شوند که re-render اتفاق بیفتد حالا بیاییم جلوی ان ها را بگیریم
