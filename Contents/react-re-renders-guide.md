@@ -213,3 +213,53 @@ https://www.developerway.com/posts/react-elements-children-parents
 <img width="1279" alt="part3-passing-as-props" src="https://user-images.githubusercontent.com/8413604/219856978-337e4226-4846-4622-ad26-2fdeb9449c4b.png">
 
 ---
+
+### جلوگیری از رندر مجدد با React.memo
+
+برای این بخش هم نویسنده اصلی محتوا یک ویدیو آماده کرده است
+
+https://youtu.be/feEY3Qajrwg
+
+
+
+قرار دادن کامپوننت در React.memo زنجیره پایین‌دستی رندرهای مجدد را که در بالای درخت رندر فعال می‌شوند متوقف می‌کند، مگر اینکه ویژگی‌های این مؤلفه تغییر کرده باشد.
+
+این می تواند هنگام رندر کردن یک مؤلفه بزرگ که به منبع رندرهای مجدد وابسته نیست، مفید باشد. منظور این بخش همان State می باشد
+
+کد نمونه از سازنده این محتوا:
+
+https://codesandbox.io/s/part-4-simple-memo-fz4xhw?file=/src/App.tsx
+
+<img width="1276" alt="part4-memo-normal-example" src="https://user-images.githubusercontent.com/8413604/219857100-a290ba55-d868-49d9-b52d-b3db6f6b02e5.png">
+
+---
+
+### جلوگیری با React.memo: کامپوننت با props
+
+برای اینکه React.memo کار کند، همه value که مقادیر اولیه نیستند باید به خاطر بسپارید
+
+نمونه کد از سازنده محتوا اصلی:
+
+https://codesandbox.io/s/part-4-1-memo-on-component-with-props-fq55hm?file=/src/App.tsx
+
+<img width="1278" alt="part4-memo-with-props" src="https://user-images.githubusercontent.com/8413604/219857182-b49e1880-bddc-489f-822b-7107744ab358.png">
+
+
+---
+
+### جلوگیری با React.memo: کامپوننتی که به عنوان props یا child 
+
+گزینه React.memo باید برای عناصر ارسال شده به عنوان child/props‌ اعمال شود. Memoizing کامپوننت والد کار نخواهد کرد: child و props کامپوننت ها objects خواهند بود، بنابراین با هر رندر مجدد تغییر خواهند کرد.
+این موضوع به ریفرنس چک بودن در جاوااسکریپت مربوط می باشد
+
+اطلاعات بیشتر:
+https://www.developerway.com/posts/react-elements-children-parents
+
+نمونه کد از نویسنده مطلب اصلی
+https://codesandbox.io/s/part-4-2-memo-on-components-in-props-55tebl?file=/src/App.tsx
+
+<img width="1283" alt="part4-memo-as-props" src="https://user-images.githubusercontent.com/8413604/219857330-8fc4239a-f9e6-48c2-bb3a-e0aa95962d78.png">
+
+---
+
+### بهبود عملکرد رندر مجدد با useMemo/useCallback
