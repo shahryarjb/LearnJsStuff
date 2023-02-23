@@ -655,3 +655,28 @@ Circle.prototype.constructor = Circle;
 ```
 حالا اگر به بالا نگاه کنید ما دوباره بعد از ریست شدن می آییم دوباره `Circle.prototype.constructor = Circle;` را قرار می دهیم. اینجوری دوباره به حالت نرمال بر می گردیم و همینطور duplicate را نیز دارا خواهیم بود بر اساس موردی که به ارث می بریم
 پس بهترین تمرین این هست که هر سری دارید ریست می کنید پرتوتایپ رو بیایید یک بار دیگر constructor نیز ریست بکنید 
+
+---
+### توضیح در مورد صدا زدن Super Constructor
+
+به کد زیر نگاه کنید. در حقیقت این کد کار نمی کند
+```javascript
+function Shape(color) {
+  this.color = color;
+}
+function Circle(radius, color) {
+  Shape(color);
+  this.radius = radius;
+}
+const c = new Circle(1, 'red');
+```
+بخاطر اینکه اگر شما بیایید window.color رو صدا بزندی می بنید که red رو برگردوند در صورتی که ما نیاز داریم در Circle رنگ بگیره برای این کار ما نیاز داریم به صورت زیر انجام بدهیم
+
+کد زیر مشکل را حل می کند
+```javascript
+function Circle(radius, color) {
+  Shape.call(this, color);
+  this.radius = radius;
+}
+```
+حالا this می آید به خود Circle نگاه می کنید. در بالاتر ما توضیح دادیم وقتی ما با new یک اینستنس درست می کنیم در حقیقت داریم می گیم بیا این چیزی که ما می دیم رو قبول کن و اگر new رو برداریم می بنیم که اون داره از this اولیه یعنی window همه چیز می خونه همین مشکل هم همینجا هم هست که می تونیم با call این مشکل رو حل کنیم.
