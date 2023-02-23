@@ -736,3 +736,50 @@ Circle.prototype.duplicate = function () {
 نگاه کنید دوباره متد را دوباره نویسی کردیم برای اون یک فانکشن به خصوص
 
 ---
+
+### توضیح در مورد Polymorphism
+
+اگر بخواهیم تعریفی ازPolymorphism ارائه کنیم می شود many forms یا چند ریختی که یک تکنیک در آبجکت اورنت پروگرمینگ می باشد البته شکل های دیگرش در زبان های فانکشنال هست که معادلش پروتکل می باشد.
+
+به کد زیر توجه کنید هر آبجکت یک نوع خاص متد duplicate برای خودش داره
+```javascript
+function extend(Child, Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+}
+
+function Shape(color) {
+  this.color = color;
+}
+
+Shape.prototype.duplicate = function () {
+  console.log('duplicate');
+};
+
+function Circle() {}
+
+extend(Circle, Shape);
+
+Circle.prototype.duplicate = function () {
+  console.log('duplicate circle');
+};
+
+function Square() {}
+
+extend(Square, Shape);
+
+Square.prototype.duplicate = function () {
+  console.log('duplicate Square');
+};
+
+const c = new Circle();
+```
+
+یعنی از یک متد در شکل های متفاوت و مصارف متفاوت داریم یا همان چند ریختی می باشد. حال فکر کنید بخواهیم ازش استفاده کنیم
+```javascript
+const shapes = [new Circle(), new Square()];
+
+for (let shape of shapes) shape.duplicate();
+```
+همانطور می بنید ما اومدیم و تمام duplicate هارو که هر کدوم ورودی و خروجی خودشو داره صدا زدیم با form های مختلف. این کانسپت بسیار کانسپت قوی هست برای توسعه نرم افزار.
+اگر این امکان نداشتیم باید هر سری تایپ اون shape رو پیدا می کردیم و بعد در if می اومدیم صداش می کردیم و بسیار کد های زیاد و شروط متفاوتی می خواست
