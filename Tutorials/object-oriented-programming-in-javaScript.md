@@ -696,3 +696,43 @@ function extend(Child, Parent) {
 extend(Circle, Shape);
 ```
 با این روش دیگر کد های تکراری برای وراثت را نمی نویسیم
+
+---
+
+### توضیح در مورد Method Overriding
+
+خوب این کار خیلی ساده هست بعد از اینکه پرتوتایپ کردیم متدی که می خواستیم بعد از اون می تونیم اون رو اوررایت کنیم قبلش اگر بزاریم هیچ تاثیری ندارد
+```javascript
+function extend(Child, Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+}
+
+function Shape(color) {
+  this.color = color;
+}
+
+Shape.prototype.duplicate = function () {
+  console.log('duplicate');
+};
+
+function Circle() {}
+
+extend(Circle, Shape);
+
+Circle.prototype.duplicate = function () {
+  console.log('duplicate circle');
+};
+
+const c = new Circle();
+```
+
+اگر به خط
+```javascript
+Circle.prototype.duplicate = function () {
+  console.log('duplicate circle');
+};
+```
+نگاه کنید دوباره متد را دوباره نویسی کردیم برای اون یک فانکشن به خصوص
+
+---
