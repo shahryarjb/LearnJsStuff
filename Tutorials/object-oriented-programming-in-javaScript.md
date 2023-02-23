@@ -637,3 +637,21 @@ const c = new Circle(1);
 Circle.prototype = Object.create(Shape.prototype);
 ```
 حال شما متد duplicate را نیز در Circle دارید. `c.duplicate()`
+
+---
+### تنظیم مجدد constructor
+
+اگر خط ساخت آبجکت ارث بری شده در بالا رو غیر فعال کنید می بنید که هر سری که شما از Circle یکی می سازید داخل پرتوتایپ اون هم باز اسم Circle هست و شما می تونید حتی به صورت زیر عمل کنید
+```javascript
+new Circle.prototype.Circle(1)
+```
+و به همان صورتی هست که که خود Circle رو new بزنیم. حالا اگر بیایید `Circle.prototype = Object.create(Shape.prototype);` را دوباره از کامنت در بیارید دیگر در پرتوتایپ Circle دوباره Circle را نمی بنید این سری Shape فانکشن رو return می کند بجای Circle حالا اگر بیایید `new Circle.prototype.constructor()` را صدا بزنید می بنید که `Shape{}` بر می گرداند دلیل آن این هست که ما در حقیقت با `Object.create` داریم reset می کنیم پرتوتایپ رو با مثال زیر بهتر متوجه می شوید
+
+```javascript
+// Circle.prototype.constructor = Circle
+// new Circle.prototype.constructor() => new Circle()
+Circle.prototype = Object.create(Shape.prototype);
+Circle.prototype.constructor = Circle;
+```
+حالا اگر به بالا نگاه کنید ما دوباره بعد از ریست شدن می آییم دوباره `Circle.prototype.constructor = Circle;` را قرار می دهیم. اینجوری دوباره به حالت نرمال بر می گردیم و همینطور duplicate را نیز دارا خواهیم بود بر اساس موردی که به ارث می بریم
+پس بهترین تمرین این هست که هر سری دارید ریست می کنید پرتوتایپ رو بیایید یک بار دیگر constructor نیز ریست بکنید 
