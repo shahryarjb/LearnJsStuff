@@ -973,3 +973,65 @@ const draw = c.draw;
 
 ---
 ### توضیح در مورد پراپرتی های خصوصی با استفاده از symbol ها
+
+خوب شما اگر بیایید کد زیر رو یک اینستنس ازش درست کنید به راحتی می تونید تمام پراپتر های داخلشو چاپ کنید یا استفاده کنید یعنی public هست
+```javascript
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+}
+```
+حالا اگر بخوایم radius رو خصوصی کنیم و عمومی نباشد باید چیکار کنی؟
+
+یکی از راه ها به این صورت هست که تو اسمش _ قرار بدهید
+```javascript
+class Circle {
+  constructor(radius) {
+    this._radius = radius;
+  }
+}
+```
+این یک ابسترکشن نیست بیشتر یک قراری هست بین توسعه دهندگان و همینطور بازم قابل دسترسی هست. پس برا اینکه بخوایم متد و پراپرتی های private داشته باشیم می تونیم از سیمبول های ES6 استفاده کنیم
+
+در حقیقت Symbol به ما یونیک آیدنتیفایر می ده و هر سری صداش می کنیم دقیقا همین کارو مجدد انجام می دهد
+
+```javascript
+const _radius = Symbol();
+
+class Circle {
+  constructor(radius) {
+    this[_radius] = radius;
+  }
+}
+const c = new Circle(1);
+```
+
+حالا وقتی می آییم c را چاپ می کنیم می بنیم دیگه اثری از `_radius` نیست و فقط Symbol چاپ می شود. این امکان جلوی دستیابی مستقیم را می گیرد پس به صورت pure چیزی نیست که خصوصی باشد
+
+راه دستیابی به این سیملود به روش زیر هست
+```javascript
+const c = new Circle(1);
+const key = Object.getOwnPropertySymbols(c)[0];
+console.log(c[key]);
+```
+
+حالا اگر بخوایم برای متد این کارو کنیم یک امکان جدید در ES6 هست به نام کامپیوتد پراپرتی که به صورت زیر اعمال می کنیم
+
+```javascript
+const _radius = Symbol();
+const _draw = Symbol();
+
+class Circle {
+  constructor(radius) {
+    this[_radius] = radius;
+  }
+
+  [_draw]() {
+    
+  }
+}
+```
+همانطور می بنید حالا draw نیز پراویت می باشد
+
+---
