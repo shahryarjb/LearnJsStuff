@@ -1307,3 +1307,32 @@ const c = new Circle();
 ---
 
 ## توضیح در مورد Module ها
+ماژول ها وقتی که کد هایمان زیاد می شود کمک فراوانی می کند اون هارو در فایل های متعدد قرار می دهد و بعد هر زمانی که نیاز بود لود می کند
+
+- از جمله نگهداری بهتر
+- قابل استفاده مجدد
+- انتزاع کردن کد ها
+
+```javascript
+const _radius = new WeakMap();
+
+class Circle extends Shape {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  draw() {
+    console.log('Circle with radius ' + _radius.get(this));
+  }
+}
+
+const c = new Circle(10);
+console.log(_radius.get(c));
+c.draw();
+```
+به کد بالا نگاه کنید این کد در یک فایل وجود دارد و ما باید اون رو ببریم در فایل مخصوص به خودش و در فایل هایی که می خواهیم import کنیم.
+
+ما در ES5 هیچ موردی مثل module نداریم. این مورد در ES6 به صورت نیتیو ساپورت می شود
+
+---
+
