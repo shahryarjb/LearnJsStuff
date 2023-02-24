@@ -894,3 +894,53 @@ const Square = class {};
 بر خلاف فانکشن کلاس ها هویست نمی شوند در هر دو شکل خودشون پس باید حتما اینستنس که ازش می سازیم باید بعد از تعریف کردنش باشد و در قطعه کد بالا دومین شکل ساخت کلاس چیزی مرسوم نیست و همینطور زیاد شفاف نمی باشد. هیچ براورده ای ندارد
 
 ---
+### توضیح در مورد Static Methods
+
+در زبان های کلاسیک آبجکت اورنتد به این صورت هست که شما دو نوع متد دارید یکی از اینستنس کردن هست یکی دیگه نیز استاتیک متد ها هستند.
+
+```javascript
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  // Instanc Method
+  draw() {}
+
+  // Static Method
+  static parse(str) {
+
+  }
+}
+
+const circle = new Circle(1)
+console.log(circle)
+```
+اگر این کد رو چاپ بکنید متوجه این می شوید که متد parse دیگر در اینتنس متد نیست. ولی می تواند به صورت `Circle.parse()` آن را مستقیم صدا زد.
+
+برای درک بهتر بیاییم یک قطعه کدی درست کنیم که این مورد رو در پروژه واقعی برای ما پیاده سازی کند
+```javascript
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  // Instanc Method
+  draw() {}
+
+  // Static Method
+  static parse(str) {
+    const radius = JSON.parse(str);
+    return new Circle(radius);
+  }
+}
+
+const circle = Circle.parse('{ "radius": 1 }');
+console.log(circle);
+```
+
+ما در حقیقت استاتیک متد درست کردیم برای ایجاد یک utility function شما در جاوااسکریپت هم خیلی از این موارد می بنید مثلا از Math وقتی استفاده می کنید پر از این استاتیک متد هاست.
+
+---
+
+### توضیح در مورد this در کلاس ها
