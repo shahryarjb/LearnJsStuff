@@ -1220,3 +1220,46 @@ c.radius // 10
 
 ---
 ### توضیح در مورد وراثت در کلاس ها
+
+اگر نظرتون باشه ما مجبور بودیم برای وراثت کنستراکتر رو ریست کنیم و چندین مشکل دیگه که مرحله مرحله اون هارو حل کردیم ولی در class این مشکلات نیست و خیلی سر راست می باشد 
+
+```javascript
+class Shape {
+  move() {
+    console.log('move');
+  }
+}
+
+class Circle extends Shape {
+  draw() {
+    console.log('draw');
+  }
+}
+
+const c = new Circle();
+```
+
+حالا فرض کنیم Shape رو بخوایم یک کلار بدیم بهش باید از super استفاده کنیم که به شرح زیر می باشد
+```javascript
+class Shape {
+  constructor(color) {
+    this.color = color;
+  }
+
+  move() {
+    console.log('move');
+  }
+}
+
+class Circle extends Shape {
+  constructor(color) {
+    super(color);
+  }
+
+  draw() {
+    console.log('draw');
+  }
+}
+
+const c = new Circle('red');
+```
