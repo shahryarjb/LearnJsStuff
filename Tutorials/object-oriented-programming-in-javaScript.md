@@ -1263,3 +1263,47 @@ class Circle extends Shape {
 
 const c = new Circle('red');
 ```
+
+---
+
+### توضیح در مورد اورراتینگ متد ها
+
+جاوااسکریپت به صورت پیشفرض اول به متد داخل کلاس نگاه می کند بعد به وراثت و پرنتش پس به صورت زیر می تونیم اون رو اورایت کنیم
+```javascript
+class Shape {
+  move() {
+    console.log('move');
+  }
+}
+
+class Circle extends Shape {
+  move() {
+    console.log('circle move');
+  }
+}
+
+const c = new Circle();
+```
+
+حالا شما یک سناریو دارید که می خواهید Shape متد move رو در move که می خواهید ری رایت کنید استفاده کنید که باید از super دوباره اینجا استفاده کنید
+
+```javascript
+class Shape {
+  move() {
+    console.log('move');
+  }
+}
+
+class Circle extends Shape {
+  move() {
+    super.move();
+    console.log('circle move');
+  }
+}
+
+const c = new Circle();
+```
+
+---
+
+## توضیح در مورد Module ها
