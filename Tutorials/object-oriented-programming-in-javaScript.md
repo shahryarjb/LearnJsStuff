@@ -1035,3 +1035,111 @@ class Circle {
 همانطور می بنید حالا draw نیز پراویت می باشد
 
 ---
+
+### استفاده از WeakMaps برای ساخت پراپرتی های و متد های خصوصی
+
+در حقیقت WeakMap یک دیکشنری می باشد و می تواند شامل تمامی موارد مثل آبجکت ولیو باشد و دلیل اینکه ازش استفاده می کنیم این هست که key اون weak می باشد و هیچ رفرنسی از key اون در گاربیج کالکشن نیست
+
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+}
+
+const c = new Circle(1);
+```
+حالا اگر c رو چاپ کنیم نمی تونیم radius رو داخل اون ببنیم
+
+حالا اگر بخواهیم داخل خود کلاس اون رو صدا بزنیم به این صورت می باشد 
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  draw() {
+    _radius.get(this);
+  }
+}
+
+const c = new Circle(1);
+```
+
+حالا اگر بخواهیم متد مخفی یا خصوصی بسازیم می توانیم به این صورت عمل کنیم و همینطور اون رو صدا بزنیم
+```javascript
+const _radius = new WeakMap();
+const _move = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+
+    _move.set(this, function() {
+      console.log('move', this)
+    })
+  }
+
+  draw() {
+    _move.get(this)()
+  }
+}
+
+const c = new Circle(1);
+```
+
+حالا خروجی این this اینجا چی می شود `console.log('move', this)` بله undefiend می شود چون داخل بادی کلاس همیشه strict مود می باشد
+
+حالا برای اینکه بتوانیم this  در constructor رو به ارث ببریم باید چیکار کنیم!! یعنی جلوی re-set کردن رو بگیریم. یکی از راهای خوب در این زمینه استفاده از ارو فانکشن هاست
+
+```javascript
+const _radius = new WeakMap();
+const _move = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+
+    _move.set(this, () => {
+      console.log('move', this)
+    })
+  }
+
+  draw() {
+    _move.get(this)()
+  }
+}
+
+const c = new Circle(1);
+```
+حالا دیگر undefiend بر نمی گردد بلکه خود آبجکت Circle بر می گردد. با این کار می تونیم به تمام آبجکت های خصوصی و عمومی در move دسترسی پیدا کنیم.
+
+حالا سوال ایجاد می شه چرا ما یک WeakMap برای تمام کارامون درست نمی کنیم و باید به صورت جدا برای هر کدوم بسازیم؟
+
+یکی از دلایل می تونه شلوغ شدن باشد و سنتکس تو در تویی که قرار هست درست کنیم ولی اگر ترجیه می دید مشکلی نداره استفاده کنید ولی برای دسترسی به اون باید به صورت زیر عمل کنید
+
+
+```javascript
+const privateProps = new WeakMap();
+
+...
+constructor(radius) {
+    privateProps.set(this, {
+      radius: radius,
+      move:() => {
+
+      }
+    })
+  }
+
+  privateProps.get(this).radius
+  ...
+```
+
+---
+### توضیح در مورد getter و setter در کلاس ها
+
