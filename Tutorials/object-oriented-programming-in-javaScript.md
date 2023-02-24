@@ -1143,3 +1143,80 @@ constructor(radius) {
 ---
 ### توضیح در مورد getter و setter در کلاس ها
 
+
+قبلا در همین مطلب در مورد این موضوع صحبت کردیم یکی از روش های در کلاس به صورت زیر می باشد
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  getRadius() {
+    return _radius.get(this);
+  }
+}
+
+const c = new Circle(1);
+```
+
+یک روش دیگر برای این کار به صورت زیر می باشد
+```javascript
+constructor(radius) {
+    _radius.set(this, radius);
+
+    Object.defineProperty(this, 'radius', {
+      get: function() {
+        
+      }
+    })
+  }
+```
+
+خیلی کد کثیفی می باشد و همینطور ES6 برای این کار راه حل تمیز و خوانا تری رو ارائه کرده است
+
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  get radius() {
+    return _radius.get(this);
+  }
+}
+
+const c = new Circle(1);
+```
+اگر ببنید ما کلید واژه get رو پشت متد قرار دادیم و اومدیم داخل اون پرایویت پراپرتی رو فراخوانی کردیم حالا می تونیم صدا بزنیم c.radius
+
+حالا بیاییم برای set اینکارو بکنیم
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  get radius() {
+    return _radius.get(this);
+  }
+
+  set radius(value) {
+    if (value <= 0) throw new Error('Invalid radius');
+    _radius.set(this, value);
+  }
+}
+
+const c = new Circle(1);
+c.radius // 1
+c.radius = 10
+c.radius // 10
+```
+
+---
+### توضیح در مورد وراثت در کلاس ها
