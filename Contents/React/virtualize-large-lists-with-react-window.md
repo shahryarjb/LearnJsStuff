@@ -49,7 +49,9 @@ const ListComponent = () => (
 export default ListComponent;
 ```
 
+
 <div dir="rtl">
+ 
  1. کامپوننت `FixedSizeList` از پراپرتی‌های `height`، `width` و `itemSize` برای کنترل اندازه آیتم‌ها درون لیست استفاده می‌کند.
  
  2. تابعی که ردیف‌ها را رندر می‌کند به عنوان فرزند به `FixedSizeList` داده می‌شود. جزئیات مربوط به آیتم خاصی می‌تواند با استفاده از آرگومان `index` (items[index]) دسترسی پیدا کند.
