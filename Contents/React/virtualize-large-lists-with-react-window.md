@@ -260,5 +260,163 @@ const Row = ({ index, style }) => {
 
 [منبع](https://web.dev/articles/virtualize-long-lists-react-window)
 
+# ویدیو
+
+[منبع](https://www.youtube.com/watch?v=mPzPP7Qh9YM)
+
 یک لایبرری دیگر برای مجازی سازی کردن
 [TanStack Virtual](https://tanstack.com/virtual/latest)
+
+در کامپوننت زیر اولین و دومین  پراپس خودمون اضافه کردیم
+سومین پراپس مربوط هست به به لایبرری ویژوال که پاس داده شده به این کامپوننت
+
+```ts
+import { CSSProperties } from "react";
+
+type ListItemProps = {
+  name: string;
+  index: number;
+  virtualizeStyles: CSSProperties;
+};
+
+const ListItem = ({ name, index, virtualizeStyles }: ListItemProps) => {
+  return (
+    <div style={virtualizeStyles}>
+      <li className="listItem">
+        <div>
+          <strong>Name {" -> "}</strong>
+          <p>{name}</p>
+        </div>
+        <p>index: {index}</p>
+      </li>
+    </div>
+  );
+};
+```
+
+این `virtualizeStyles` یک سری استایل هستند
+
+کد زیر یه ارایه ۵۵۰ خونه‌ای ساختیم که اسامی میوه‌ها رو از آرایه می‌گیره و در هر خونه این ارایه جدید قرار میده
+
+```ts
+const fruites = ["Apple", "Orange", "Kiwi", "Papaya", "Melone", "Berries", "Pear","Grapes"];
+
+export const randomizedFruites = Array.from(
+  { length: 550 },
+  () => fruites[Math.floor(Math.random() * fruites.length)]
+);
+```
+
+یه هوک داریم به نام `useVirtualizer` در این لایبرری
+
+این هوک چند پراپس ضروری می‌گیره
+
+1. اولی طول آرایه اصلی که می‌خوایم مجازی سازیش کنیم رو می‌گیره
+2. `getScrollElement` کانتینری هست که قراره اسکرول بخوره رف اون المنت رو ریترن میکنه و در اصل یک فانکشن هست
+3. `estimateSize` هم یک فانکشن هست وحداکثر سایزی که ایتم ما ممکنه داشته باشه منظور هاز سایز ارتفاع هست
+4. `overscan` هم پراپرتی ضروری بعدی هست که این مشخص کننده تعداد ایتم هایی که توی ویندو نیستن و بالا  و پایین  لیست هستن و می‌خوان با اسکرول کردن رندر بشن
+نکته: `overscan` هر چی تعداش بیشتر باشه تایم `initial render` ما بیشتر میشه
+
+```tsx
+const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+const virtualizer = useVirtualizer({
+    randomizedFruites.length,
+    getScrollElement: () => wrapperRef.current,
+    estimateSize: () => 100,
+    overscan: 5,
+  });
+
+return (<div ref={wrapperRef}></div>);
+```
+
+این هوک یک سری پراپرتی داره توش  که مهمترینش `items` هامون هست که قراره ویرچوالایز بشن و ریترن بشن
+
+اینجوری هم بشه دسترسی پیدا میکنیم
+
+```tsx
+  const items = virtualizer.getVirtualItems();
+```
+
+این ایتم هایی که ریترن شده ارایه ای از اسمای که داخل میوه ها داریم نیست
+اینجا فقط ایندکسش رو بهمون میده
+کاری که ما باید بکنیم اینه که ایندکسی که بهمون میده توی `randomizedFruites`
+بذاریم و اون ایتم رو بگیریم
+الان میتونیم ایتم ها رو در دام نمایش بدیم
+
+کامپوننت `ListItem` سه تا پراپس میگرفت `index` `name` و `virtualizeStyles`
+
+`virtualizeStyles`
+یک سری استایل های پایه هست که این لایبرری بهشون احتیاج داره
+`position: "absolute"`
+باید باشه چون این کلا با `absolute` و `transform‍` داره کار می‌کنه
+استایل ها در زیر مشخص است
+
+این خیلی مهم هست `transform: "translateY(${item.start}px)"` اون `item.start` میشه نقطه شروع لیست
+
+```tsx
+ return (
+    <div ref={parentRef}>
+        {items.map((item) => (
+          <ListItem
+            virtualizeStyles={{
+              position: "absolute",
+              width: "100%",
+              top: 0,
+              left: 0,
+              transform: `translateY(${item.start}px)`,
+              height: item.size,
+            }}
+            index={item.index}
+            name={randomizedUsers[item.index]}
+            key={item.key}
+          />
+        ))}
+    </div>
+  );
+```
+
+در کد بالا یک `div`
+دیگه نیاز داریم که میشه کانتینر ما میشه کانتینری که میاد به میزان لازم  یک ارتفاعی رو میگیره
+ مثلا ۱۰۰۰ ایتم داشته باشیم باید بیاد دقیقا به اندازه اون ۱۰۰۰ ایتم ارتفاعی بگیره که اون هم خود لایبرری بهمون میده
+
+ارتفاع کانتینر والد میشه `virtualizer.getTotalSize()`
+
+به پرنت اصلی هم باید استایل داداندازه باید داشته باشه که اگر محتوا از ارتفاعش بیشتر بود بفهمونه به رپر که باید صفحه اسکرول بخوره
+
+ ```tsx
+ const wrapperStyles: CSSProperties = {
+    width: 400,
+    height: 400,
+    overflowY: "auto",
+    padding: "0 0.5rem",
+  };
+
+  const parentStyles: CSSProperties = {
+    position: "relative",
+    width: "100%",
+    height: virtualizer.getTotalSize(),
+  };
+  
+ return (
+    <div ref={parentRef} style={wrapperStyles}>
+      <div style={parentStyles}>
+        {items.map((item) => (
+          <ListItem
+            virtualizeStyles={{
+              position: "absolute",
+              width: "100%",
+              top: 0,
+              left: 0,
+              transform: `translateY(${item.start}px)`,
+              height: item.size,
+            }}
+            index={item.index}
+            name={randomizedUsers[item.index]}
+            key={item.key}
+          />
+        ))}
+      </div>
+    </div>
+  );
+```
