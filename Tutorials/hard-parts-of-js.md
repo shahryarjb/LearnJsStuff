@@ -44,4 +44,4 @@ const newOutput = multiplyBy2(10)
 const output = multiplyBy2(num)
 ```
 
-![alt text](./images/hpjs-1-3.jpg)
+![alt text](./images/hpjs-3.jpg)
