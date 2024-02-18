@@ -18,14 +18,14 @@ const newOutput = multiplyBy2(10)
 
 خط اول با اسم `num` تو مموری ذخیره میشه
 
-![alt text](./images/hpjs1.png)
+![alt text](./images/hpjs1.jpg)
 
 خط دوم فانکشن ما هست که دو قسمت داره اولینش `identifire` هست به این معنی که یک لیبل برای هر چیزی هست که در مموری ذخیره می‌کنیم
 در کل هر اسم متغیر و فانکشن `identifire` هست یا همون لیبل برای
 
 در مورد فانکشن یک `identifire` داریم. کد داخل فانگشن بسته‌بندی میشه و ذخیره میشه در مموری
 
-![alt text](./images/hpjs2.png)
+![alt text](./images/hpjs2.jpg)
 
 سپس `thread of execution` میره خط های بعدی رو اجرا می‌کنه
 
@@ -44,4 +44,4 @@ const newOutput = multiplyBy2(10)
 const output = multiplyBy2(num)
 ```
 
-![alt text](./images/hpjs3.png)
+![alt text](./images/hpjs3.jpg)
