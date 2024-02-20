@@ -70,7 +70,7 @@ const output = multiplyBy2(num)
 ![alt text](./images/hpjs-5.jpg)
 
 خط اخر میگه برو دیتایی با لیبل `result` رو پیدا کن و مقدارش رو که ۶ هست و انتقال بده به لیبل `output`
-بیسیکلی کامند `output = multiplyBy2(3)` رو به یک مقدار تبدیل کردیم که مقدار لیبل `result` هست
+بیسیکلی کامند `output = multiplyBy2(3)` رو به یک مقدار تبدیل کردیم که مقدار در لیبل `result` هست
 
 ![alt text](./images/hpjs-6.jpg)
 
