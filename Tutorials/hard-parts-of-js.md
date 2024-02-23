@@ -18,14 +18,14 @@ const newOutput = multiplyBy2(10)
 
 خط اول با اسم `num` تو مموری ذخیره میشه
 
-![alt text](./images/hpjs-1.jpg)
+![hard parts of javascript](./images/hpjs-1.jpg)
 
 خط دوم فانکشن ما هست که دو قسمت داره اولینش `identifire` هست به این معنی که یک لیبل برای هر چیزی هست که در مموری ذخیره می‌کنیم
 در کل هر اسم متغیر و فانکشن `identifire` هست یا همون لیبل برای
 
 در مورد فانکشن یک `identifire` داریم. کد داخل فانگشن بسته‌بندی میشه و ذخیره میشه در مموری
 
-![alt text](./images/hpjs-2.jpg)
+![hard parts of javascript](./images/hpjs-2.jpg)
 
 سپس `thread of execution` میره خط های بعدی رو اجرا می‌کنه
 
@@ -44,7 +44,7 @@ const newOutput = multiplyBy2(10)
 const output = multiplyBy2(num)
 ```
 
-![alt text](./images/hpjs-3.jpg)
+![hard parts of javascript](./images/hpjs-3.jpg)
 
 ران کردن کد دو تا مرحله داره اول خط به خط پیش بریم و هر خط انجام بشه دوم جایی داشته باشیم که دیتا رو توش بذاریم
 
@@ -63,20 +63,20 @@ const output = multiplyBy2(num)
 
 بیسیکلی دو تا چیز متفاوت هستند پارامتر حکم لیبل داره و آرگیومنت چیزی هست که در اون لیبل ذخیره میشه.
 
-![alt text](./images/hpjs-4.jpg)
+![hard parts of javascript](./images/hpjs-4.jpg)
 
 خط اول فانکشن یک `const` داریم با لیبل `result` مقدارش ۶ هست
 
-![alt text](./images/hpjs-5.jpg)
+![hard parts of javascript](./images/hpjs-5.jpg)
 
 خط اخر میگه برو دیتایی با لیبل `result` رو پیدا کن و مقدارش رو که ۶ هست و انتقال بده به لیبل `output`
 بیسیکلی کامند `output = multiplyBy2(3)` رو به یک مقدار تبدیل کردیم که مقدار در لیبل `result` هست
 
-![alt text](./images/hpjs-6.jpg)
+![hard parts of javascript](./images/hpjs-6.jpg)
 
 در جاوااسکریپت فقط یک `execution context` داریم یعنی فقط یک کار در آن واحد می‌تونیم انجا بدیم
 
-![alt text](./images/hpjs-7.jpg)
+![hard parts of javascript](./images/hpjs-7.jpg)
 
 موقع اجرای فانکشن داخل `execution context` فانکشن میشه بعد از ریترن کردن مقدارش ازش خارج میشه و به `global execution context` بر می‌گرده تا خط بعدی رو اجرا کنه که ساخت `newOutput` هست
 خب `newOutput` هم مثل مقداری قبلی در ابندا هیچ دیتایی نخواهد داشت و در این مرحله چون فانکشن `multiplyBy2(10)` با مقدار ۱۰ ران میشه یک `execution context` جدید خواهیم داشت
@@ -91,7 +91,7 @@ const output = multiplyBy2(num)
 
 اول `multiplyBy2(3)` بهش اضافه میشه و جاوااسکریپت میدونه که چه چیزی در حال حاظر داره ران میشه و `thread of execution` در کجا قرار داره
 
-![alt text](./images/hpjs-9.jpg)
+![hard parts of javascript](./images/hpjs-9.jpg)
 
 و نکته این هست که چون استک هست هر چیزی که در بالای این استک قرار داره در حال حاظر داره ران میشه
 وقتی ران شدن اون فانکشن تموم میشه و کیوردی که به ما می فهمونه اون فانکشن ران شدنش تموم شده `return` هست فانکشن از بالای `call stack` خارج میشه
@@ -101,17 +101,17 @@ const output = multiplyBy2(num)
 توجه باید بشه که همیشه در پایین ترین قسمت کال استک `global execution context` قرار داره میشه اینجوری در نظر گرفت که همه کد ها داخل یک فانکشن با لیبل `global` قرار داره و لحظه ای که کد ما ران میشه `global()` به پایین `call stack` اضافه میشه پس
 فانکشن `multiplyBy2(3)` بالای `global()` قرار می‌گیره و وقتی `multiplyBy2(3)` از استک خارج میشه `thread of execution` میره سراغ `global()`
 
-![alt text](./images/hpjs-10.jpg)
+![hard parts of javascript](./images/hpjs-10.jpg)
 
-![alt text](./images/hpjs-12.jpg)
+![hard parts of javascript](./images/hpjs-12.jpg)
 
 بعد از آن می‌رسیم به `multiplyBy2(10)` و داخل `call stack` میره و وقتی ران شد و تمام شد از استک خارج شد  دوباره بر می‌گردیم به `global()`
 
 اگر فانکشن دیگه ای داخل `multiplyBy2()` داشتیم و در همان فانکشن کال میشد اون فانکشن بالای `multiplyBy2(10)` در `call stack` قرار میگرفت
 
-![alt text](./images/hpjs-11.jpg)
+![hard parts of javascript](./images/hpjs-11.jpg)
 
-![alt text](./images/hpjs-12.jpg)
+![hard parts of javascript](./images/hpjs-12.jpg)
 
 پس هر چقدر فانکشن تو در تو داشته باشیم به تریتیب توی `call stack` قرار میگرند و اخرین فانکشنی که ران میشه بالاترین آیتمی هست که در `call stack` قرار داره
 و خارج شدن از کال استک هم به ترتیب از بالا به پایین هست چون `LIFO` هست
@@ -155,3 +155,34 @@ function squareNum(num){
 نداریم تا زمانیکه فانکشن رو ران کنیم با مقدار `argument` ای که پس می‌کنیم بهش
 
 با همین ایده مبحث `higher order funtion` قابل پیاده سازی هست
+
+## Repeating Functionality
+
+```js
+function copyArrayAndMultiplyBy2(array) {
+  const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(array[i] * 2);
+  }
+  return output;
+}
+const myArray = [1,2,3];
+const result = copyArrayAndMultiplyBy2(myArray);
+```
+
+مراحل اجرای فانکشن بالا به صورت زیراست
+با لیبل `copyArrayAndMultiplyBy2` کد فانکشن تو مموری ذخیره میشه بعد میرسیم به `myArray` در مموری آرایه با این لیبل ذخیره میشه و سپس `result` داریم که فانکشن با لیبل `copyArrayAndMultiplyBy2` رو ران می‌کنه تا خروجی فانکشن مشخص نیشه این لیبل مقداری نداره
+
+بعد ران شدن فانکشن یک `execution context` داریم
+در لوکال مموری پارامتر ها و متغیر های داخل فانکشن رو ذخیره میکنیم
+
+![hard parts of javascript](./images/hpjs-13.jpg)
+
+به `for loop` می رسیم
+می‌دونیم که این قطعه کد تا زمانی که `i < array.length` هست اجرا می‌شه
+
+![hard parts of javascript](./images/hpjs-14.jpg)
+
+و در نهایت فانکشن `copyArrayAndMultiplyBy2()` از `call stack` خارج میشه
+
+![hard parts of javascript](./images/hpjs-15.jpg)
