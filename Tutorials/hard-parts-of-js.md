@@ -186,3 +186,77 @@ const result = copyArrayAndMultiplyBy2(myArray);
 و در نهایت فانکشن `copyArrayAndMultiplyBy2()` از `call stack` خارج میشه
 
 ![hard parts of javascript](./images/hpjs-15.jpg)
+
+## higher order functions
+
+تفاوت فانکشن قبلی با این فانکشن‌های پایین در عمل ریاضی هست
+
+```js
+function copyArrayAndDivideBy2(array) {
+  const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(array[i] / 2);
+  }
+  return output;
+ }
+const myArray = [1,2,3];
+const result = copyArrayAndDivideBy2(myArray);
+```
+
+```js
+function copyArrayAndAdd3(array) {
+ const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(array[i] + 3);
+    }
+  return output;
+ }
+const myArray = [1,2,3];
+const result = copyArrayAndAdd3(myArray);
+```
+
+این فانکشن ها شبیه به هم هستند فقط در اعمال ریاضیات که روی مقادیر ارایه اعمال میشه تفاوت دارند
+
+فانکشن رو میتونیم `generalize` بکنیم
+هر عمل روی فانکشن رو می‌تونیم به عنوان پارامتر پس بدیم به فانکشن
+
+فانکشن های بالا به فانکشن زیر قابل تغییر هستند
+
+```js
+function copyArrayAndManipulate(array, instructions) {
+ const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(instructions(array[i]));
+  }
+  return output;
+}
+
+function multiplyBy2(input) { return input * 2; }
+
+const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
+```
+
+اجرای کد بالا به صورت زیر
+ابتدل مثل فانکشن های قبل همه فانکشن ها و متغیر ها در مموری قرار میگیره
+
+فانکشن اصلی در `call stack` قرار میگیره سپس خط به خط کد داخل فانکشن اجرا میشه
+
+در این فانکشن به عنوان پارامتر فانکشن دیگه ای  پس شده که وقتی اجرا میشه فانکشن مد نظر داخل `call stack` قرار میگیره و  برای خودش هم یک `execution context` داره
+
+هر بار مقدار یک خانه از ارایه داخل به عنوان پارامتر به فانکشن `multiplyBy2` پس میشه و خروجی این فانکشن در آرایه `output` پوش میشه
+هر باری که فانکشن `multiplyBy2` کال میشه یک `execution context` براش ساخته میشه با مقدار هر خانه از ارایه که در اون ایندکس قرار داریم
+
+![hard parts of javascript](./images/hpjs-16.jpg)
+
+![hard parts of javascript](./images/hpjs-17.jpg)
+
+![hard parts of javascript](./images/hpjs-18.jpg)
+
+مقادیر `output` ریترن میشه به مموری و داخل لیبل `result` قرار میگیره و در نهایت فانکشن از `call stack` خارج شده و تنها فانکشنی که در `call stack` قرار داره ‍`global()` هست.
+
+![hard parts of javascript](./images/hpjs-19.jpg)
+
+![hard parts of javascript](./images/hpjs-20.jpg)
+
+تعریف `higher order function` میشه تابع بیرونی که فانکشن‌ها رو قبول می‌کنده
+و به فانکشنی داخل این فانکشن وارد می‌کنیم `callback` گفته میشه
