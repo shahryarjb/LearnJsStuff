@@ -258,9 +258,6 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 
 ![hard parts of javascript](./images/hpjs-20.jpg)
 
-تعریف `higher order function` میشه تابع بیرونی که فانکشن‌ها رو قبول می‌کنده
-و به فانکشنی داخل این فانکشن وارد می‌کنیم `callback` گفته میشه
-
 در مثال قبل `copyArrayAndManipulate([1, 2, 3], multiplyBy2)` آرایه گلوبال هست و به فانکشن مستقیما پس شده و
 در عکس زیر مشخص هست که `array` درفانکشن به این آرایه لینک شده و کپی نشده و در `array` یک رفرنس به اون آرایه داریم
 
@@ -303,3 +300,46 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 به عنوان آرگیومنت یک فانکشن‌ها تعریف بشوند و داخل فانکشن‌ها ازشون استفاده بشه (کپی با رفرنس میشوند)
 به عنوان خروجی فانکشن ریترن بشوند که بهش `closure` می‌گیم
 
+تعریف `higher order function` میشه تابع بیرونی که فانکشن‌ها رو قبول می‌کنده
+و به فانکشنی داخل این فانکشن وارد می‌کنیم `callback` گفته میشه
+در مثال زیر `copyArrayAndManipulate` میشه `higher order function` و `multiplyBy2` میشه `callback`
+
+فانکشن بیرونی که فانکشن کوچیک دیگه رو داخل خودش قبول میکنه میشه `higher order function`
+فانکشنی که وارد فانکشن دیگه به عنوان آرگیومنت پس میدیم میشه `callback`
+
+فانکشنی که فانکشنی را ریترن میکند هم `higher order function` هست
+
+```js
+function copyArrayAndManipulate(array, instructions) {
+ const output = [];
+  for (let i = 0; i < array.length; i++) {
+    output.push(instructions(array[i]));
+  }
+  return output;
+}
+function multiplyBy2(input) { return input * 2; }
+const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
+```
+
+کالبک ها و `higher order function` ها کمک می‌کنند به `DRY`
+
+فانکشن بالا کاری میکنه که متود `map` روی ارایه ها انجام میده
+یک سری دیتا به صورت ارایه می‌گیره و یک سری تغییرات روی دیتا انجام میده  و کالکشنی جدید از دیتا ایجاد میکنه
+کد خوانا تر و `declarative` خواهیم داشت
+
+نکته: کالبک ها پایه و اساس `asynchronous` در جاوا اسکریپت هستند `promis` ها و `async/await`
+
+## Arrow Funtions
+
+در مثال زیر مشخص هست که یک فانکشن داریم
+
+```js
+function multiplyBy2(input) { return input * 2; }
+```
+
+چون کیورد فانکشن موجود هست
+به روش دیگه ای هم میشه این فانکشن را تعریف کرد
+
+```js
+const multiplyBy2 = (input) => { return input*2 }
+```
