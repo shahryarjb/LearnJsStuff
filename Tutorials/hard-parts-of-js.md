@@ -332,14 +332,51 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 ## Arrow Funtions
 
 در مثال زیر مشخص هست که یک فانکشن داریم
+چون کیورد فانکشن موجود هست
 
 ```js
 function multiplyBy2(input) { return input * 2; }
 ```
 
-چون کیورد فانکشن موجود هست
-به روش دیگه ای هم میشه این فانکشن را تعریف کرد
+به روش دیگه ای هم میشه این فانکشن را تعریف کرد چون فانکشن ها در جاوا اسکریپت ابجکت هستند پس می‌تونیم توی یک متغیر ذخیرشون کنیم
+در مثال زیر کد سما راست رو در لیبل `multiplyBy2` ذخیره می‌کنیم
 
 ```js
 const multiplyBy2 = (input) => { return input*2 }
 ```
+
+نحوه ذخیره هر دو فانکشن در مموری مثل هم هست
+
+![hard parts of javascript](./images/hpjs-22.jpg)
+
+حتی می‌تونیم فانکشن رو به این صورت ها هم بنویسیم
+
+```js
+const multiplyBy2 = (input) => input*2
+
+//or
+
+const multiplyBy2 = input => input*2 // because we have one parameter
+
+const output = multiplyBy2(3) //6
+```
+
+در بالا `return` حذف شده مشکلی ایجاد نمی‌کنه چون انجین جاوااسکریپت وقتی کد رو روان میکنه خودش `return` پشت مقداری که قراره ریترن بشه قرار میده
+
+![hard parts of javascript](./images/hpjs-23.jpg)
+
+مستقیم خود `arrow function` میشه به عنوان `argument` گذاشت
+
+```js
+const result = copyArrayAndManipulate([1, 2, 3], input => input*2);
+```
+
+کد `input => input*2` مستقیما داخل `higher order function` قرار می‌گیره
+
+![hard parts of javascript](./images/hpjs-24.jpg)
+
+کد بالا برای خوانایی مناسب هست و استاندارد هست
+اما همیشه نباید ازشون استفاده کنیم
+
+اما `arrow function` ها متفاوت با فانکشنی که با کیورد`function` تعریف شده ها با `this` برخورد می‌کنند ی
+
