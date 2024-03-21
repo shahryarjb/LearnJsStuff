@@ -30,7 +30,7 @@ const newOutput = multiplyBy2(10)
 سپس `thread of execution` میره خط های بعدی رو اجرا می‌کنه
 
 کلمه `variable` به این معنی نیست که یک لیبل و دیتا داشته باشیم برای مقداری
-لیترالی به معنای این هست که می‌تونیم دیتای  داخل این لیبل رو تغییر بدیم.
+لیترالی به معنای این هست که می‌تونیم دیتای داخل این لیبل رو تغییر بدیم.
 با `constant` نمیشه دیتای داخل یک لیبل رو تغییر داد
 
 در خط ۷ کد بالا `output` نمی‌دونیم داخلش قراره چه مقداری باشه چون `function call` یا یک `command` هست
@@ -41,14 +41,14 @@ const newOutput = multiplyBy2(10)
 مقدارش حتی `undefined` هم نیست هیچ مقداری نداره
 
 ```js
-const output = multiplyBy2(num)
+const output = multiplyBy2(num);
 ```
 
 ![hard parts of javascript](./images/hpjs-3.jpg)
 
 ران کردن کد دو تا مرحله داره اول خط به خط پیش بریم و هر خط انجام بشه دوم جایی داشته باشیم که دیتا رو توش بذاریم
 
-یک فانکشن ران بشه مثل اینه که یک برنامه کوچک داشته باشیم و وقتی فانکشنی رو اجرا می‌کنیم هم دو تا چیز نیازه `thread of execution` و مموری که دیتا  متغیر ها و تمام اجزا کدی که در اون فانکشن موجود هستند ذخیره کنیم
+یک فانکشن ران بشه مثل اینه که یک برنامه کوچک داشته باشیم و وقتی فانکشنی رو اجرا می‌کنیم هم دو تا چیز نیازه `thread of execution` و مموری که دیتا متغیر ها و تمام اجزا کدی که در اون فانکشن موجود هستند ذخیره کنیم
 
 به این دو اجزای مهم برای ران کردن فانکشن `execution context` گفته میشه
 
@@ -87,7 +87,7 @@ const output = multiplyBy2(num)
 
 جاوااسکریپت اینکه کدوم فانکشن در حال حاظر داره ران میشه رو پیگیری می‌کنه که کجای `thread of execution` هستیم
 
-یک قسمتی از انجین جاوااسکریپت `call stack` هست یک روش برای ذخیهر اطلاعات در کامپیوتر هست روش های مختلفی داریم مثل آرایه ها و آبجکت هاو همچین استک‌ها `stacks`  وقتی فانکشی ران میشه به این استک اضافه میشه
+یک قسمتی از انجین جاوااسکریپت `call stack` هست یک روش برای ذخیهر اطلاعات در کامپیوتر هست روش های مختلفی داریم مثل آرایه ها و آبجکت هاو همچین استک‌ها `stacks` وقتی فانکشی ران میشه به این استک اضافه میشه
 
 اول `multiplyBy2(3)` بهش اضافه میشه و جاوااسکریپت میدونه که چه چیزی در حال حاظر داره ران میشه و `thread of execution` در کجا قرار داره
 
@@ -105,7 +105,7 @@ const output = multiplyBy2(num)
 
 ![hard parts of javascript](./images/hpjs-12.jpg)
 
-بعد از آن می‌رسیم به `multiplyBy2(10)` و داخل `call stack` میره و وقتی ران شد و تمام شد از استک خارج شد  دوباره بر می‌گردیم به `global()`
+بعد از آن می‌رسیم به `multiplyBy2(10)` و داخل `call stack` میره و وقتی ران شد و تمام شد از استک خارج شد دوباره بر می‌گردیم به `global()`
 
 اگر فانکشن دیگه ای داخل `multiplyBy2()` داشتیم و در همان فانکشن کال میشد اون فانکشن بالای `multiplyBy2(10)` در `call stack` قرار میگرفت
 
@@ -116,10 +116,10 @@ const output = multiplyBy2(num)
 پس هر چقدر فانکشن تو در تو داشته باشیم به تریتیب توی `call stack` قرار میگرند و اخرین فانکشنی که ران میشه بالاترین آیتمی هست که در `call stack` قرار داره
 و خارج شدن از کال استک هم به ترتیب از بالا به پایین هست چون `LIFO` هست
 
-___
+---
 
 تا اینجا `memory` بر رسی کردیم که دیتا و قطعه کد توش ذخیره میشه که بعدا میتون اجرا بشه
-مبحث بعدی `thread of execution` هست که در کد خط به خط حرکت می‌کنیم و مقادیر و دیتا رو ذخیره میکنیم تو مموری و همچنین برخی از قطعه کد ها (فانکشنالیتی‌های) ذخیره شده رو ران می‌کنیم و  `execution context` ای داریم برای اون فانکشن و وقتی ران شدن فانکشن تموم شد و خروجی مشخص شد از حافظه حذف میشه و به سراغ بقیه کد میره
+مبحث بعدی `thread of execution` هست که در کد خط به خط حرکت می‌کنیم و مقادیر و دیتا رو ذخیره میکنیم تو مموری و همچنین برخی از قطعه کد ها (فانکشنالیتی‌های) ذخیره شده رو ران می‌کنیم و `execution context` ای داریم برای اون فانکشن و وقتی ران شدن فانکشن تموم شد و خروجی مشخص شد از حافظه حذف میشه و به سراغ بقیه کد میره
 سومین مبحث هم `call stack` بود که مشخص میکنه کجای `thread of execution` هستیم
 
 ## Generalized Funtions
@@ -128,16 +128,16 @@ ___
 وقتی به کیورد fucntion میرسیم جاواساکریپت فانکشن رو در مموری ذخیره میکنه
 
 ```js
-function tenTimesTen(){
-  return 10 * 10
+function tenTimesTen() {
+  return 10 * 10;
 }
 ```
 
 حالا اگر `9^2` رو بخوایم
 
 ```js
-function nineTimesNine(){
-  return 9 * 9
+function nineTimesNine() {
+  return 9 * 9;
 }
 ```
 
@@ -146,8 +146,8 @@ function nineTimesNine(){
 در مورد این فانکشن مقداری در خودش ضرب میشه پس اون عدد می‌تونیم به صورت ورودی بگیریم می تونیم فانکشن رو جنرال بنویسیم همین کار رو با گرفتن یک پارامتر انجام بده و `reusable` می‌کنیم فانکشنمون رو
 
 ```js
-function squareNum(num){
-  return num * num
+function squareNum(num) {
+  return num * num;
 }
 ```
 
@@ -166,7 +166,7 @@ function copyArrayAndMultiplyBy2(array) {
   }
   return output;
 }
-const myArray = [1,2,3];
+const myArray = [1, 2, 3];
 const result = copyArrayAndMultiplyBy2(myArray);
 ```
 
@@ -198,20 +198,20 @@ function copyArrayAndDivideBy2(array) {
     output.push(array[i] / 2);
   }
   return output;
- }
-const myArray = [1,2,3];
+}
+const myArray = [1, 2, 3];
 const result = copyArrayAndDivideBy2(myArray);
 ```
 
 ```js
 function copyArrayAndAdd3(array) {
- const output = [];
+  const output = [];
   for (let i = 0; i < array.length; i++) {
     output.push(array[i] + 3);
-    }
+  }
   return output;
- }
-const myArray = [1,2,3];
+}
+const myArray = [1, 2, 3];
 const result = copyArrayAndAdd3(myArray);
 ```
 
@@ -224,14 +224,16 @@ const result = copyArrayAndAdd3(myArray);
 
 ```js
 function copyArrayAndManipulate(array, instructions) {
- const output = [];
+  const output = [];
   for (let i = 0; i < array.length; i++) {
     output.push(instructions(array[i]));
   }
   return output;
 }
 
-function multiplyBy2(input) { return input * 2; }
+function multiplyBy2(input) {
+  return input * 2;
+}
 
 const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 ```
@@ -241,7 +243,7 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 
 فانکشن اصلی در `call stack` قرار میگیره سپس خط به خط کد داخل فانکشن اجرا میشه
 
-در این فانکشن به عنوان پارامتر فانکشن دیگه ای  پس شده که وقتی اجرا میشه فانکشن مد نظر داخل `call stack` قرار میگیره و  برای خودش هم یک `execution context` داره
+در این فانکشن به عنوان پارامتر فانکشن دیگه ای پس شده که وقتی اجرا میشه فانکشن مد نظر داخل `call stack` قرار میگیره و برای خودش هم یک `execution context` داره
 
 هر بار مقدار یک خانه از ارایه داخل به عنوان پارامتر به فانکشن `multiplyBy2` پس میشه و خروجی این فانکشن در آرایه `output` پوش میشه
 هر باری که فانکشن `multiplyBy2` کال میشه یک `execution context` براش ساخته میشه با مقدار هر خانه از ارایه که در اون ایندکس قرار داریم
@@ -268,7 +270,7 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 ![hard parts of javascript](./images/hpjs-13.jpg)
 
 در این مثال `myArray` به همراه مقدار `[1,2,3]` در گلوبال مموری ذخیره شد و پارامتر بهش لینک شده
-برای همین هست که نمی‌خوایم دیتایی که ورودی فانکشن هست تغییر کنه  داخل فانکشن به خاطر اینکه ممکنه روی دیتای گلوبال هم تغییراتی بده
+برای همین هست که نمی‌خوایم دیتایی که ورودی فانکشن هست تغییر کنه داخل فانکشن به خاطر اینکه ممکنه روی دیتای گلوبال هم تغییراتی بده
 
 **side Effect**
 
@@ -311,20 +313,22 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 
 ```js
 function copyArrayAndManipulate(array, instructions) {
- const output = [];
+  const output = [];
   for (let i = 0; i < array.length; i++) {
     output.push(instructions(array[i]));
   }
   return output;
 }
-function multiplyBy2(input) { return input * 2; }
+function multiplyBy2(input) {
+  return input * 2;
+}
 const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 ```
 
 کالبک ها و `higher order function` ها کمک می‌کنند به `DRY`
 
 فانکشن بالا کاری میکنه که متود `map` روی ارایه ها انجام میده
-یک سری دیتا به صورت ارایه می‌گیره و یک سری تغییرات روی دیتا انجام میده  و کالکشنی جدید از دیتا ایجاد میکنه
+یک سری دیتا به صورت ارایه می‌گیره و یک سری تغییرات روی دیتا انجام میده و کالکشنی جدید از دیتا ایجاد میکنه
 کد خوانا تر و `declarative` خواهیم داشت
 
 نکته: کالبک ها پایه و اساس `asynchronous` در جاوا اسکریپت هستند `promis` ها و `async/await`
@@ -335,14 +339,18 @@ const result = copyArrayAndManipulate([1, 2, 3], multiplyBy2);
 چون کیورد فانکشن موجود هست
 
 ```js
-function multiplyBy2(input) { return input * 2; }
+function multiplyBy2(input) {
+  return input * 2;
+}
 ```
 
 به روش دیگه ای هم میشه این فانکشن را تعریف کرد چون فانکشن ها در جاوا اسکریپت ابجکت هستند پس می‌تونیم توی یک متغیر ذخیرشون کنیم
 در مثال زیر کد سما راست رو در لیبل `multiplyBy2` ذخیره می‌کنیم
 
 ```js
-const multiplyBy2 = (input) => { return input*2 }
+const multiplyBy2 = (input) => {
+  return input * 2;
+};
 ```
 
 نحوه ذخیره هر دو فانکشن در مموری مثل هم هست
@@ -352,13 +360,13 @@ const multiplyBy2 = (input) => { return input*2 }
 حتی می‌تونیم فانکشن رو به این صورت ها هم بنویسیم
 
 ```js
-const multiplyBy2 = (input) => input*2
+const multiplyBy2 = (input) => input * 2;
 
 //or
 
-const multiplyBy2 = input => input*2 // because we have one parameter
+const multiplyBy2 = (input) => input * 2; // because we have one parameter
 
-const output = multiplyBy2(3) //6
+const output = multiplyBy2(3); //6
 ```
 
 در بالا `return` حذف شده مشکلی ایجاد نمی‌کنه چون انجین جاوااسکریپت وقتی کد رو روان میکنه خودش `return` پشت مقداری که قراره ریترن بشه قرار میده
@@ -368,7 +376,7 @@ const output = multiplyBy2(3) //6
 مستقیم خود `arrow function` میشه به عنوان `argument` گذاشت
 
 ```js
-const result = copyArrayAndManipulate([1, 2, 3], input => input*2);
+const result = copyArrayAndManipulate([1, 2, 3], (input) => input * 2);
 ```
 
 کد `input => input*2` مستقیما داخل `higher order function` قرار می‌گیره
@@ -392,13 +400,13 @@ const result = copyArrayAndManipulate([1, 2, 3], input => input*2);
 کاربرد هاش در `iterators` و `curry` و `partial applications` و `maintain state in asynchronous`
 
 هر باری که فانکشنی رو ران می‌کنیم یک `execution contect` ایجاد میشه که یک لوکال مموری یا `variable environment` به صورت `temporary` داره
-چون نیازی نیست فانکشن بدونه  قبلا ران شده و چه مقادیری به عنوان پارامتر بهش پس شده
+چون نیازی نیست فانکشن بدونه قبلا ران شده و چه مقادیری به عنوان پارامتر بهش پس شده
 و کارکرد فانکشن هم به همین صورت هست
-به `variable environment` میشه `state` نامید دیتای live  در زمان اجرای این فانکشن در مموری لوکال ذخیره شده
+به `variable environment` میشه `state` نامید دیتای live در زمان اجرای این فانکشن در مموری لوکال ذخیره شده
 
 ```js
-function multiplyBy2 (inputNumber){
-  const result = inputNumber*2;
+function multiplyBy2(inputNumber) {
+  const result = inputNumber * 2;
   return result;
 }
 const output = multiplyBy2(7);
@@ -409,3 +417,45 @@ const output = multiplyBy2(7);
 برنامه قابلیت اینکه فانکشن `permanent memory` داشته باشه داریم اون استیت رو نگه داریم و فانکشن یاداوری داشته باشه از اجرای قبلیش
 یعنی `function definition` نه فقط وقتی که ران میشه بلکه خود فانکشن مموری داشته باشه و به یاد بیاره با همین مقادیر ورودی قبلا اجرا شده و دوباره اجرا نشه و با این ویژگی میتونیم محدود کنیم که فقط یک بار ران بشه
 
+با ریترن یک فانکشن از invocation و اجرای فانکشن دیگر
+
+فانکشن ها می‌تونن از فانکشن های دیگه ریترن بشن
+
+```js
+function createFunction() {
+  function multiplyBy2(num) {
+    return num * 2;
+  }
+  return multiplyBy2;
+}
+const generatedFunc = createFunction();
+const result = generatedFunc(3); // 6
+```
+
+یک فانشکن به نام createFunction داریم
+یک لیبل داریم به نام `generatedFunc` که داخلش خروجی `createFunction()` قرار خواهد گرفت
+
+مثل مطالب قبلی فانشکن اجرا میشه داخل این فانکشن چی قرار داره؟ یک فانکشن دیگه به نام `multiplyBy2` چیزی که ریترن داده شده این فانکشن هست
+پس `generatedFunc` یه لیبل برای فانشکن `multiplyBy2` هست
+در لوکال مموری `multiplyBy2` داریم که بعد از از بین رفتن `execution context` فانشکن `createFunction()` حذف میشه
+اما این `multiplyBy2` در `generatedFunc` خواهیم داشت به این صورت به اون فانکشن دسترسی خواهیم داشت از طریق `generatedFunc`
+
+اجرای کد بالا به ترتیب زیر است
+![hard parts of javascript](./images/hpjs-25.jpg)
+
+![hard parts of javascript](./images/hpjs-26.jpg)
+
+![hard parts of javascript](./images/hpjs-27.jpg)
+در مرحله بالا `execution context` حذف میشه
+
+به خط بعدی میریم
+
+جاوااسکریپت زبان synchronous هست یک بار اجرا میشه و دیگه سراغ اون کد نمیره
+
+این `generatedFunc` کدی هست که در مرحله قبل به عنوان `multiplyBy2` بوده و هیچ کانکشنی به `createFunction()` نداره فقط به وسیله این فانکشن مقدار دهی شده
+
+چون در کد می‌بینیم که به `createFunction()` باید برگردیم تا کد داخلش رو ببینیم برای همین به اشتباه فکر میکنیم که `generatedFunc` همون `createFunction()` هست اما جاوااسکریپت این کار رو نمیکنه بلکه به مقادیر و ولیو های داخل گلوبال مموری رجوع میکنه
+
+![hard parts of javascript](./images/hpjs-28.jpg)
+
+و در نهایت دوباره این `execution context` از مموری حذف میشه
