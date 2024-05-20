@@ -459,3 +459,44 @@ const result = generatedFunc(3); // 6
 ![hard parts of javascript](./images/hpjs-28.jpg)
 
 و در نهایت دوباره این `execution context` از مموری حذف میشه
+
+## Nested Funtion Scope
+
+calling a function in the same funtion call as it was defined
+
+```js
+function outer() {
+  let counter = 0;
+  function incrementCounter() {
+    counter++;
+  }
+  return incrementCounter;
+}
+const myNewFunction = outer();
+myNewFunction();
+myNewFunction();
+```
+
+جایی که فانکشن رو کال می‌کنیم مشخص میکنه به چه دیتایی دسترسی داریم در این زمان
+
+چون در خود فانکشن `incrementCounter` هیچ متغیری تعریف نشده و `counter` در `execution context‍` این فانکشن نداریم
+به `call stack` نگاه انداختیم
+
+یک گلوبال مموری داریم که `outer` درش ذخیره شده
+این فانکشن یک `execution context` داره که در لوکال مموری `counter` و `incrementCounter` تعریف میشن
+
+فانکشن `incrementCounter` رو `execute` میکنیم این فانکشن هم `execution context‍` خودش رو داره
+در بالای فانکشن `outer` در `call stack` قرار میگیره `incrementCounter` نکته وقتی فانکشن کامل اجرا شد به چیزی که در `call stack` هست بر می‌گردیم که فانکشن `outer` هست
+
+کدی که درش دار اجرا میشه `counter++` هست اول از همه برای `counter` در `execution context` فانکشن `incrementCounter` بررسی می کنیم که این متغیر موجود هست یا نه و چه مقداری داره
+در اونجا موجود نیست
+بالای لیست `call stack` رو بررسی میکنیم این متغیر اونجا در دسترس نیست پس قسمت پایین تر `call stack` بررسی میکنیم در لوکال مموری فانکشن
+`outer` پیدا می‌کنیم در اونجا بهش یک عدد اضافه میکنیم و مقدارش تغییر میکنه
+پس هر فانکشن داخل فانکشن دیگه تعریف شده باشه فانکشن های داخلی به مموری فانکشن های والد خودشون دسترسی دارن
+
+این فانکشن هم داخل `outer` ران میشه هم خود کد داخل لوکال مموریش ذخیره میشه چون سیو شده در این جا پس می‌تونه ارتباطی بین
+متغیر های ووالد و فانکشن های فرزند بر قرار باشه
+
+مساله بالا هنوز مشخص نیست
+
+## retaining function memory
