@@ -500,3 +500,18 @@ myNewFunction();
 مساله بالا هنوز مشخص نیست
 
 ## retaining function memory
+
+اجرای فانکشن به ترتیب مراحل زیر است
+
+![hard parts of javascript](./images/hpjs-29.jpg)
+
+![hard parts of javascript](./images/hpjs-30.jpg)
+
+![hard parts of javascript](./images/hpjs-31.jpg)
+
+فقط funtion defenition سیو نمی‌کنیم در مموری
+در این مثال `increment counter` هر چیزی که در لوکال مموری فانکشن `outer` ذخیره شده بود رو در گلوبال مموری ذخیره میکنه در لیبل `myNewFuntion`
+
+![hard parts of javascript](./images/hpjs-32.jpg)
+
+![hard parts of javascript](./images/hpjs-33.jpg)
