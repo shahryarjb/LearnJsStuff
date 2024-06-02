@@ -615,3 +615,87 @@ myNewFunction();
 به طور کلی بهش `closure` گفته میشه
 توجه باید بشه صد تا لیلبل دیگه از این فانکشن داشتیم هر کدوم کوله پشتی مخصوص به خودشون رو دارن که رفرنس بمشه به اون بخش از حافظه
 ابجگت هایی از متود ها یا ارایه ای از فانکشن ها میتونه فانکشن `outer` برگردونه باز هم همشون به همون کوله پشنی لینگ هستن و رفرنس دارند
+
+### Multuple Closure instances
+
+```js
+function outer() {
+  let counter = 0;
+  function incrementCounter() {
+    counter++;
+  }
+  return incrementCounter;
+}
+
+const myNewFunction = outer();
+myNewFunction();
+myNewFunction();
+
+const anotherFunction = outer();
+anotherFunction();
+anotherFunction();
+```
+
+در این کد یک لیبل دیگه داریم وقتی `anotherFunction()`
+فانکشت `outer` ران میشه داخل اون قرار میگیره هر چیزی که ریترن میکنه که یک فانکشن هست
+
+ران میشه یک `execution context` مربوط به خودش داره
+به `local variable envitonment` فانکشن `outer` رفرنس میشه
+که این فانکشن هم از طریق `[[scope]]` به هیدن پراپرتی دسترسی داره
+
+دو باره فانکشن `myNewFunction()` ران کردیم
+بعد فانکشن `anotherFunction` ران میکنیم
+
+توجه باید کرد که هر باری که فانکشن `outer`ران میشه یه لوکال مموری جداگانه برای خودش داره
+پس مقادیر `counter` در این فانکشن کال ها روی هم اثری نداره
+به این صورت نیست که به مقدار`counter` در کوله پشتی `myNewFunction` هست دسترسی داشته باشیم از طریق `anotherFunction`
+بلکه چون `outer` دوباره ران شده `execution context` مخصوص خودش رو داشته پس مقدار اولیه `counter` در اولین `anotherFunction();` صفر و بعد از اضافه شدن یک عدد بهش مقدارش ۱ میشه
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  2
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  1
+anotherFunction(); // counter=  2
+```
+
+پس هر برا فانکشن رو روان کنیم هر لیبل کوله پشتی مخصوص خودش رو داره چون فانکشن هر بار ران میشه لوکال مموری مخصوص به خودش رو داره که رفرنس میشه بهش
+
+```js
+function outer() {
+  function incrementCounter() {
+    let counter = 0;
+    counter++;
+  }
+  return incrementCounter;
+}
+```
+
+اگر کدهای قبلی این شکلی بود یعنی `counter` داخل خود فانکشن `incrementCounter` تعریف شده در اون حال `counter` هر بار فانکشن کال بشه دیلیت میشه از لوکال مموری فانکشن پس خروی به این شکل میشد
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  1
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  1
+anotherFunction(); // counter=  1
+```
+
+چون متغیر دیگه در `[[scope]]` نبوده بلکه داخل خود فانکشن بوده و دسترسی داشتیم بهش
+
+اگر `counter` در خود `outer` تعریف نمیکردیم و داخل گلوبال بود
+خروجی به شکل زیر میشد
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  2
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  3
+anotherFunction(); // counter=  4
+```
