@@ -699,3 +699,36 @@ const anotherFunction = outer();
 anotherFunction(); // counter=  3
 anotherFunction(); // counter=  4
 ```
+
+Closure gives our functions persistent memories and entirely new toolkit for writing professional code
+
+**Helper functions**
+Everyday professional helper functions like ‘once’ and ‘memoize’
+به فانکشن هامون مموری دائمی میده پس در این گونه فانکشن ها میتونیم استفاده کنیم
+برای مثال فانکشنی داریم که هر مقداری رو دو برابر میکنه
+اگر ورودی همون قبلی بود نیاز نیست محاسبات دوباره انجام بده همون مقدار قبلی رو بر می‌گردونه
+
+```js
+multiplyBy2(10); // counter=  20
+multiplyBy2(10); // counter=  20
+```
+
+بحث `memoization` بحث استانداردی در کامپیوتر ساینس هست
+مثلا فانکشنی داریم `nthPrimeNumber(140000)` اگر بخوایم چندمین عدد از اعداد اول رو انتخاب کنیم نیاز نیست وقتی یک بار محاسبه کردیم دوباره این کار رو بکنیم
+کافیه کوله پشتی رو چک کردیم
+کل بحث `memoization` هم همینه persistent memories of previous input output combinations
+
+**Iterators and generators:**
+فانکشنی داشته باشیم که هر بار ران میشه یه المنت از ارایه ای رو برگردونه در کوله پشتی باید شمارشگری داشته باشیم که دیتای موجود رو بشماره
+Which use lexical scoping and closure to achieve the most contemporary patterns for handling data in JavaScript
+
+**Module pattern:**
+Preserve state for the life of an application without polluting the global namespace
+دیتایی رو نیاز داریم که در کل اپلیکیشن مورد نیاز هست داخل فانکشن که نمیتونیم بذاریم
+چون حذف میشه
+خوب نیست که در گلوبال نگه داریمش
+در سناریو `module pattern` به کمکمون میاد کارش هم حفاظت از استیت داخل این کوله پشتیه این راهی برای تغییر و نگهداری دیتا در اپلیکیشن هست
+
+**Asynchronous JavaScript:** Callbacks and Promises rely on closure to persist state in an asynchronous environment
+تسکی داریم که کلا در اینده قرار هست اجرا بشه یا بررسی بشه و وقتی انجام شد کاری رو روی اون دیتا انجام بده و وقتی دیتا اومد بای مثال فانکشنی رو اجرا کنه
+21
