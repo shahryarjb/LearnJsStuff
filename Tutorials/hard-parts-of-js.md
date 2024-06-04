@@ -732,3 +732,87 @@ Preserve state for the life of an application without polluting the global names
 **Asynchronous JavaScript:** Callbacks and Promises rely on closure to persist state in an asynchronous environment
 تسکی داریم که کلا در اینده قرار هست اجرا بشه یا بررسی بشه و وقتی انجام شد کاری رو روی اون دیتا انجام بده و وقتی دیتا اومد بای مثال فانکشنی رو اجرا کنه
 21
+
+### Promises | Single Thread execution
+
+با `call back model` تفاوت انچنانی نداره
+مبحث `event loop` هم مشخص کننده این هست که چه تسکی داره ران میشه یا تسک های بعدی که قرار هست ران بشه کدومه
+
+خط به خط کد اجرا میشه و اگر نیاز باشه متغیر ها در مموری ذخیره میکنه
+خط به خط که داریم اجرا می‌کنیم `thread of execution` از بالا به پایین کد ها رو اجرا میکنه
+تا وقتی که اجرای فانکشن تمام نشده جاوا اسکریپت اجازه اجرای خط بعدی رو نمیده
+وقتی اجرای فانکشن تموم بشه `execution context` رو حذف میکنه به خط بعدی میره
+
+این مدل اجرای کد در جاوا اسکریپته هر تسکی داریم باید تمام بشه تا به خط بعدی بریم
+![hard parts of javascript](./images/hpjs-10.jpg)
+
+**Slow function blocks further code running**
+Javascript is
+
+1. Single threaded (one command runs at a time)
+2. Synchronously executed (each line is run in order the code appears)
+
+برای مثال برای اینکه توییت از سرور توییتر بگیریم طول میکشه توییت های جدید بیاد تا نمایش بدیم با این تعاریف باید توی اجرای اون خط منتظر بمونیم
+و منتظر اون دیتا بمونیم و وقتی از سمت سرور اومد میتونیم تسک رو اجرا کنیم و به خط بعدی بریم هیچ کد دیگه ای نمی‌تونیم ران کنیم تا این پاسخ نیومده!
+
+```js
+const tweets = getTweets('http://twitter.com/will/1');
+// ⛔350ms wait while a request is sent to Twitter HQ
+displayTweets(tweets);
+// more code to run
+console.log('I want to runnnn!');
+```
+
+تا وقتی پاسخ از دیتا در `tweets` نیاد نمی‌تونیم `displayTweets` رو ران کنیم
+با این مدل جاوا اسکریپت نمیشه همچین سناریویی رو داشته باشیم
+
+اگر فانکشنی رو دیلی بدیم چطور میشه؟
+
+```js
+function printHello() {
+  console.log('Hello');
+}
+setTimeout(printHello, 1000);
+console.log('Me first!');
+```
+
+مدل فعلی جاوا اسکریپت که بررسی کردمی انتظار میره
+
+```js
+// After 1000 milliecond log "Hello"
+// Then log 'Me first!'
+```
+
+اما در واقعا به ترتیب زیر هست
+
+```js
+// Then log 'Me first!'
+// After 1000 milliecond log "Hello"
+```
+
+کد زیر
+
+```js
+function printHello() {
+  console.log('Hello');
+}
+setTimeout(printHello, 0);
+console.log('Me first!');
+```
+
+```js
+// Then log 'Me first!'
+// After 1000 milliecond log "Hello"
+```
+
+تریتب اجرا با اینکه زمان ۰ هست باز هم مثل بالا هست
+
+Our core JavaScript engine has 3 main parts:
+
+- Thread of execution
+- Memory/variable environment
+- Call stack
+  We need to add some new components:
+- Web Browser APIs/Node background APIs
+- Promises
+- Event loop, Callback/Task queue and micro task queue
