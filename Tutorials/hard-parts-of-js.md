@@ -616,3 +616,203 @@ myNewFunction();
 توجه باید بشه صد تا لیلبل دیگه از این فانکشن داشتیم هر کدوم کوله پشتی مخصوص به خودشون رو دارن که رفرنس بمشه به اون بخش از حافظه
 ابجگت هایی از متود ها یا ارایه ای از فانکشن ها میتونه فانکشن `outer` برگردونه باز هم همشون به همون کوله پشنی لینگ هستن و رفرنس دارند
 
+### Multuple Closure instances
+
+```js
+function outer() {
+  let counter = 0;
+  function incrementCounter() {
+    counter++;
+  }
+  return incrementCounter;
+}
+
+const myNewFunction = outer();
+myNewFunction();
+myNewFunction();
+
+const anotherFunction = outer();
+anotherFunction();
+anotherFunction();
+```
+
+در این کد یک لیبل دیگه داریم وقتی `anotherFunction()`
+فانکشت `outer` ران میشه داخل اون قرار میگیره هر چیزی که ریترن میکنه که یک فانکشن هست
+
+ران میشه یک `execution context` مربوط به خودش داره
+به `local variable envitonment` فانکشن `outer` رفرنس میشه
+که این فانکشن هم از طریق `[[scope]]` به هیدن پراپرتی دسترسی داره
+
+دو باره فانکشن `myNewFunction()` ران کردیم
+بعد فانکشن `anotherFunction` ران میکنیم
+
+توجه باید کرد که هر باری که فانکشن `outer`ران میشه یه لوکال مموری جداگانه برای خودش داره
+پس مقادیر `counter` در این فانکشن کال ها روی هم اثری نداره
+به این صورت نیست که به مقدار`counter` در کوله پشتی `myNewFunction` هست دسترسی داشته باشیم از طریق `anotherFunction`
+بلکه چون `outer` دوباره ران شده `execution context` مخصوص خودش رو داشته پس مقدار اولیه `counter` در اولین `anotherFunction();` صفر و بعد از اضافه شدن یک عدد بهش مقدارش ۱ میشه
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  2
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  1
+anotherFunction(); // counter=  2
+```
+
+پس هر برا فانکشن رو روان کنیم هر لیبل کوله پشتی مخصوص خودش رو داره چون فانکشن هر بار ران میشه لوکال مموری مخصوص به خودش رو داره که رفرنس میشه بهش
+
+```js
+function outer() {
+  function incrementCounter() {
+    let counter = 0;
+    counter++;
+  }
+  return incrementCounter;
+}
+```
+
+اگر کدهای قبلی این شکلی بود یعنی `counter` داخل خود فانکشن `incrementCounter` تعریف شده در اون حال `counter` هر بار فانکشن کال بشه دیلیت میشه از لوکال مموری فانکشن پس خروی به این شکل میشد
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  1
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  1
+anotherFunction(); // counter=  1
+```
+
+چون متغیر دیگه در `[[scope]]` نبوده بلکه داخل خود فانکشن بوده و دسترسی داشتیم بهش
+
+اگر `counter` در خود `outer` تعریف نمیکردیم و داخل گلوبال بود
+خروجی به شکل زیر میشد
+
+```js
+const myNewFunction = outer();
+myNewFunction(); // counter=  1
+myNewFunction(); // counter=  2
+
+const anotherFunction = outer();
+anotherFunction(); // counter=  3
+anotherFunction(); // counter=  4
+```
+
+Closure gives our functions persistent memories and entirely new toolkit for writing professional code
+
+**Helper functions**
+Everyday professional helper functions like ‘once’ and ‘memoize’
+به فانکشن هامون مموری دائمی میده پس در این گونه فانکشن ها میتونیم استفاده کنیم
+برای مثال فانکشنی داریم که هر مقداری رو دو برابر میکنه
+اگر ورودی همون قبلی بود نیاز نیست محاسبات دوباره انجام بده همون مقدار قبلی رو بر می‌گردونه
+
+```js
+multiplyBy2(10); // counter=  20
+multiplyBy2(10); // counter=  20
+```
+
+بحث `memoization` بحث استانداردی در کامپیوتر ساینس هست
+مثلا فانکشنی داریم `nthPrimeNumber(140000)` اگر بخوایم چندمین عدد از اعداد اول رو انتخاب کنیم نیاز نیست وقتی یک بار محاسبه کردیم دوباره این کار رو بکنیم
+کافیه کوله پشتی رو چک کردیم
+کل بحث `memoization` هم همینه persistent memories of previous input output combinations
+
+**Iterators and generators:**
+فانکشنی داشته باشیم که هر بار ران میشه یه المنت از ارایه ای رو برگردونه در کوله پشتی باید شمارشگری داشته باشیم که دیتای موجود رو بشماره
+Which use lexical scoping and closure to achieve the most contemporary patterns for handling data in JavaScript
+
+**Module pattern:**
+Preserve state for the life of an application without polluting the global namespace
+دیتایی رو نیاز داریم که در کل اپلیکیشن مورد نیاز هست داخل فانکشن که نمیتونیم بذاریم
+چون حذف میشه
+خوب نیست که در گلوبال نگه داریمش
+در سناریو `module pattern` به کمکمون میاد کارش هم حفاظت از استیت داخل این کوله پشتیه این راهی برای تغییر و نگهداری دیتا در اپلیکیشن هست
+
+**Asynchronous JavaScript:** Callbacks and Promises rely on closure to persist state in an asynchronous environment
+تسکی داریم که کلا در اینده قرار هست اجرا بشه یا بررسی بشه و وقتی انجام شد کاری رو روی اون دیتا انجام بده و وقتی دیتا اومد بای مثال فانکشنی رو اجرا کنه
+21
+
+### Promises | Single Thread execution
+
+با `call back model` تفاوت انچنانی نداره
+مبحث `event loop` هم مشخص کننده این هست که چه تسکی داره ران میشه یا تسک های بعدی که قرار هست ران بشه کدومه
+
+خط به خط کد اجرا میشه و اگر نیاز باشه متغیر ها در مموری ذخیره میکنه
+خط به خط که داریم اجرا می‌کنیم `thread of execution` از بالا به پایین کد ها رو اجرا میکنه
+تا وقتی که اجرای فانکشن تمام نشده جاوا اسکریپت اجازه اجرای خط بعدی رو نمیده
+وقتی اجرای فانکشن تموم بشه `execution context` رو حذف میکنه به خط بعدی میره
+
+این مدل اجرای کد در جاوا اسکریپته هر تسکی داریم باید تمام بشه تا به خط بعدی بریم
+![hard parts of javascript](./images/hpjs-10.jpg)
+
+**Slow function blocks further code running**
+Javascript is
+
+1. Single threaded (one command runs at a time)
+2. Synchronously executed (each line is run in order the code appears)
+
+برای مثال برای اینکه توییت از سرور توییتر بگیریم طول میکشه توییت های جدید بیاد تا نمایش بدیم با این تعاریف باید توی اجرای اون خط منتظر بمونیم
+و منتظر اون دیتا بمونیم و وقتی از سمت سرور اومد میتونیم تسک رو اجرا کنیم و به خط بعدی بریم هیچ کد دیگه ای نمی‌تونیم ران کنیم تا این پاسخ نیومده!
+
+```js
+const tweets = getTweets('http://twitter.com/will/1');
+// ⛔350ms wait while a request is sent to Twitter HQ
+displayTweets(tweets);
+// more code to run
+console.log('I want to runnnn!');
+```
+
+تا وقتی پاسخ از دیتا در `tweets` نیاد نمی‌تونیم `displayTweets` رو ران کنیم
+با این مدل جاوا اسکریپت نمیشه همچین سناریویی رو داشته باشیم
+
+اگر فانکشنی رو دیلی بدیم چطور میشه؟
+
+```js
+function printHello() {
+  console.log('Hello');
+}
+setTimeout(printHello, 1000);
+console.log('Me first!');
+```
+
+مدل فعلی جاوا اسکریپت که بررسی کردمی انتظار میره
+
+```js
+// After 1000 milliecond log "Hello"
+// Then log 'Me first!'
+```
+
+اما در واقعا به ترتیب زیر هست
+
+```js
+// Then log 'Me first!'
+// After 1000 milliecond log "Hello"
+```
+
+کد زیر
+
+```js
+function printHello() {
+  console.log('Hello');
+}
+setTimeout(printHello, 0);
+console.log('Me first!');
+```
+
+```js
+// Then log 'Me first!'
+// After 1000 milliecond log "Hello"
+```
+
+تریتب اجرا با اینکه زمان ۰ هست باز هم مثل بالا هست
+
+Our core JavaScript engine has 3 main parts:
+
+- Thread of execution
+- Memory/variable environment
+- Call stack
+  We need to add some new components:
+- Web Browser APIs/Node background APIs
+- Promises
+- Event loop, Callback/Task queue and micro task queue
