@@ -808,6 +808,8 @@ console.log('Me first!');
 تریتب اجرا با اینکه زمان ۰ هست باز هم مثل بالا هست
 
 Our core JavaScript engine has 3 main parts:
+javascript is not enough we need new pieces which aren't javascript
+we need these features
 
 - Thread of execution
 - Memory/variable environment
@@ -816,3 +818,436 @@ Our core JavaScript engine has 3 main parts:
 - Web Browser APIs/Node background APIs
 - Promises
 - Event loop, Callback/Task queue and micro task queue
+
+### WEB APIS
+
+### Classes & Prototypes
+
+دیتایی که روی اسکرین می بینیم دیتایی هست که در مموری ذخیره شده و حالا میایم اون رو نمایش میدیم
+
+#### Objects - store functions with their associated data!
+
+```js
+const user1 = {
+  name: 'Will',
+  score: 3,
+  increment: function () {
+    user1.score++;
+  },
+};
+
+const user2 = {}; //create an empty object
+//assign properties to that object
+user2.name = 'Tim';
+user2.score = 6;
+user2.increment = function () {
+  user2.score++;
+};
+
+const user3 = Object.create(null);
+user3.name = 'Eva';
+user3.score = 9;
+user3.increment = function () {
+  user3.score++;
+};
+```
+
+میشه گفت این ایده از `encapsulation` هست که فانکشنالیتی و دیتایی که نیاز هست در یک جا تجمیع کنیم
+
+بعد از اینکه ابجکت هم درست کردیم با `dot notation` می تونیم پراپرتی و متود های جدید بهش اضافه کنیم
+به `name: 'Will'` key- value pair گفته میشه همچنین property name: property value هم گفته میشه
+
+کانسپت به این صورت هست که دیتا داریم فانکشنالیتی هم داریم کنار هم قرار می دیمشون چیزی که در ابجکت های بالا مشخص هست
+
+در یوزر 3 می بینیم که با استفاده از فانکشن built in جاوا اسکریپت هست
+
+Object.create is going to give us fine-grained control over our object later on
+
+در این مثال یک ابجکت خالی بر می گردونه!
+با اینکه نال هست ولی میشه یه ابجکت داخلش قرار داد خالی یا با پراپرتی و متود اما در نهایت یک ابجکت خالی بر میگردونه البته که hidden properties ممکنه داشته باشه
+هیچ پراپرتی دایرکتی درش وجود نداره
+و در خط های بعدی بهش پراپرتی و متود اضافه میکنیم
+
+ولی خوب برای هر یوزر بخواهیم یک ابجکت تعریف کنیم میشه principal DRY رو نقض میکنیم
+
+![hard parts of javascript](./images/hpjs-34.jpg)
+
+## Factory Function
+
+```js
+function userCreator(name, score) {
+  const newUser = {};
+  newUser.name = name;
+  newUser.score = score;
+  newUser.increment = function () {
+    newUser.score++;
+  };
+  return newUser;
+}
+const user1 = userCreator('Will', 3);
+const user2 = userCreator('Tim', 5);
+user1.increment();
+```
+
+برای فانکشن فکتوری وقتی کال میشه هم `execution context` داریم
+خط اخر increment داریم که در فکتوری فانکشن تغریف شد و طبق عکس چون کل ابجمت `newUser` در گلوبال مموری ذخیره میشه
+و همچنین با دات نوتیشن میتونیم به این فانکشن دسترسی داشته باشیم از طریق متغیری که ساختیم
+توی فانکشن `newUser.score++` داریم
+ولی در گلوبال مموری `newUser` نداریم!
+طبق مبحث کلوژر وقتی فانکشن به مقداری نیاز داشته باشه با خودش و کوله پشتی یا اسکوپ به مموری میبره
+
+![hard parts of javascript](./images/hpjs-35.jpg)
+
+## Using the prototype chain
+
+مشکل این چیه؟ مشکل اینه که یک فانکشن رو در دو ابجکت در مموری ذخیره کردیم!
+با اینکه دیتای متفاوت دارند ولی یک کد در دو جا ذخیره شده! که identical هستند
+می تونیم هزار یوزر داشته باشیم همزمان این فانکشن در همه ابجکت ها در مموری ذخیره میشه!
+
+اگر بخوایم فانکشن و پراپرتی جدید اضافه کنید باید manually اضافه کنیم به هر ابجکت
+
+راه بهتری داریم که بشه همین `user1.increment()` امکان رو هم داشت؟
+
+راه حل یک آبجکت داریم که این فانکشن درش ذخیره میشه
+یعنی وقتی user2 در ابجکت خودش در مموری دنبال این متود گشت و پیداش نکرد میره داخل اون ابجکت رو بررسی میکنه
+کدشو میگیره و ران میکنه
+یعنی این ابجکت لینک میشه به ابجکت user1 و user2
+
+با استفاده از prototype chain امکان پذیر هست
+
+![hard parts of javascript](./images/hpjs-36.jpg)
+
+با تکنیک `Object.create()` این کار انجام میشه
+
+```js
+function userCreator(name, score) {
+  const newUser = Object.create(userFunctionStore);
+  newUser.name = name;
+  newUser.score = score;
+  return newUser;
+}
+const userFunctionStore = {
+  increment: function () {
+    this.score++;
+  },
+  login: function () {
+    console.log('Logged in');
+  },
+};
+const user1 = userCreator('Will', 3);
+const user2 = userCreator('Tim', 5);
+user1.increment();
+```
+
+باید توجه داشت که `Object.create` یک ابجکت خالی درست میکنه!
+ولی `Object.create(userFunctionStore)` داریم
+
+که متود هایی داخلش داریم پس `user1.increment()` بدون مشکلی اجرا میشه چون ابجکت user1 به این `userFunctionStore` لینک شده
+
+![hard parts of javascript](./images/hpjs-36.jpg)
+
+به چه صورت لینک هست به این صورت که یک پراپرتی مخفی در ابجکت داریم به نام `__proto__` و لینک هست به `userFunctionStore` به این ابجکت رفرنس داره
+
+جاوا اسکریپت `prototypal feature` داره وقتی دیتایی یا متودی در ابجکت پیدا نکرد میره سراغ`__proto__` و بررسی میکنه که به چی رفرنس داره
+و اگر موجود بود ازش استفاده میکنه
+
+خوب چون `user1.increment()` فانکشن هست پس `execution context` خودش رو داره
+
+و بخاطر این ساختار prototypal جاوااسکریپت وقتی پراپرتی پیدا نمیشه اولین کار آبجکت پروتو رو چک میکنه
+این فیچری هست که جاوا اسکریپت داره ابجکت های مختلف از طریق پروتو دسترسی داریم
+
+خب `Object.create` ابجکت خالی میسازه که اون هم `__proto__` داره
+ولی این `__proto__` مثل lexical scope property مخفی نیست اون رو نمیشه به راحتی دسترسی داشت! حتی توی کنسول لاگ دید ولی `__proto__` میشه در کنسول مشاهده کرد
+
+حالا متود increment رو ران میکنیم طبق کد قبلی خط اخر
+
+این متود روی همه یوزر های ساخته شده باید اعمال بشه
+کد داخلش
+
+```js
+this.score++;
+```
+
+یک پارامتر implicit داریم به نام `this`
+توی لوکال مموری به عنوان placeholder یا لیبل داریمش مقدار داخلش مهم هست با توجه به یوزری که این فانکشن اجرا میشه هست به صورت زیر
+
+![hard parts of javascript](./images/hpjs-37.jpg)
+
+نکته مهم این هست در مورد `this` اینکه همیشه به محتوای سمت چپ دات اشاره میکنه
+
+پس در مثال بالا `this.score++` میشه `user1.score++`
+
+و از اونجایی که که user1 در گلوبال مموری هست مقدار پراپرتیش رو تغییر میده
+
+45
+
+## hasOwnProperty
+
+در جاوااسکریپت headline object داریم که `Object.prototype` نامیده میشه که فانکشن هایی داره که همه ابجکت هامون بهش دسترسی دارن
+چطور همه ابجکت ها بهش دسترس دارن؟ خوب چون
+همه ابجکت ها `__proto__` پراپرتی رو دارن
+
+```js
+function userCreator(name, score) {
+  const newUser = Object.create(userFunctionStore);
+  newUser.name = name;
+  newUser.score = score;
+  return newUser;
+}
+const userFunctionStore = {
+  increment: function () {
+    this.score++;
+  },
+  login: function () {
+    console.log('Logged in');
+  },
+};
+const user1 = userCreator('Will', 3);
+const user2 = userCreator('Tim', 5);
+user1.hasOwnProperty('score');
+```
+
+در کد بالا user1 که hasOwnProperty متودی به این نام نداره از طریق prototype chain به userFunctionStore رفرنس داره سراغ اون میره ولی این متود اونجا هم نیست پس میره سراغ `__proto__` userFunctionStore این ابجکت
+
+نکته اینجاست چرا چرا خود یوزر دسترسی نداره؟
+چون با `object.create`ما مشخص میکنیم چی توی `__proto__` قرار بگیره
+ابجکتی هم که در `__proto__` رفرنس شده خودش یا `__proto__` اون به این `Object.property` دسترسی داره در نهایت
+
+اما خود `Object.property` هم پروتوتایپ داره `__ptoro__: null` به این معنی که به ته خط رسیدیم
+
+![hard parts of javascript](./images/hpjs-38.jpg)
+![hard parts of javascript](./images/hpjs-39.jpg)
+
+## This Keyword
+
+Declaring & calling a new function inside our ‘method’ increment
+
+```js
+function userCreator(name, score) {
+  const newUser = Object.create(userFunctionStore);
+  newUser.name = name;
+  newUser.score = score;
+  return newUser;
+}
+const userFunctionStore = {
+  increment: function () {
+    function add1() {
+      this.score++;
+    }
+    add1();
+  },
+};
+const user1 = userCreator('Will', 3);
+const user2 = userCreator('Tim', 5);
+user1.increment();
+```
+
+در این مثال `this` داخل فانکشن add به گلوبال آبجکت اشاره میکنه!
+چرا this به گلوبال ابجکت اشاره میکنه؟ چون سمت چپ `add1();`چیزی نداریم! مثل `user.increment()` نیست
+قبلا برای حل این مشکل از راه زیر استفاده میکردن
+
+```js
+var that = this;
+```
+
+با این کار به ابجکت مد نظر رفرنس داریم!
+دیزاین پترنی هست که قبلا استفاده میشده زیاد
+
+روش دیگر استفاده از متود call هست
+
+```js
+add1.call(this);
+```
+
+مشکل رو حل میکنه و با این کار `this` داخل فانکشن `add` به گلوبال مموری اشاره نخواهد کرد
+
+![hard parts of javascript](./images/hpjs-40.jpg)
+
+## َArrow Funtions
+
+روش دیگر برای حل مشکل بالا که در es6 معرفی شد استفاده از `arrow funtions` هست
+چون در arrow funtion ها `this` اتوماتیک `lexical scope` هست
+برای همین راه ساده و clean هست برای رفع مشکل رفرنس this در جاوااسکریپت
+پس بهتر هست از این فانکشن استفاده بشه
+
+اگر increment در مثال های قبل رو به عنوان arrow function استفاده میکردیم this در اون مثال به کجا رفرنس داشت؟
+
+ایا به ابجکت سمت چپ برای مثال user1 رفرنس داره یا this میشه جایی که ذخیره شده؟ که در این مثال گلوبال مموری هست
+جواب جایی که ذخیره میشه هست بنابراین این کد اگر arrow function باشه کار نخواهد کرد و this دیگه user1 نیست
+
+برای متود های ابجکت بهنر هست از arrow function استفاده نشه؟؟؟؟؟؟؟؟؟
+اما به فانکنش هایی که داخلش اون متود داریم که می خواهیم رفرنس this مشابه باشه بهتره از arrow function استفاده بشه
+Arrow functions override the normal this rules
+
+**prototype chain**
+Problems: No problems! It's beautiful. Maybe a little long-winded
+Benefits: Super sophisticated but not standard
+درسته که راه مناسبی هست اما استاندارد نیست و بهتر هست استفاده نشه این کمک میکنه که بدونیم this کیورد یا پروتو چطور کار میکنه
+
+## New Keyword
+
+به جای طی کردن مراحل قبلی راه بهتری هم هست
+همه مراحل رو اتوماتیک میکنه
+
+The new keyword automates a lot of our manual work
+
+When we call the function that returns an object with new in front we automate 2
+things
+
+1. Create a new user object
+2. Return the new user object
+
+```js
+function userCreator(name, score) {
+  // remove this line: const newUser = Object.create(functionStore);
+  this.name = name; // remove newUser
+  this.score = score; // remove newUser
+  // remove this line: return newUser;
+}
+userCreator.prototype; // {}; // remove functionStore
+//instead add increment to prototype of object
+userCreator.prototype.increment = function () {
+  this.score++;
+};
+// Create a new instance with new keyword
+const user1 = new userCreator('Will', 3);
+```
+
+در کامنت ها مشخص شده چه چیزهایی حذف شده و مشخص هم هست که چه چیزی اضافه شده
+
+برعکس مثال قبل دیگه ابجکتی به نام newUser نداریم که ریترن کنیم
+همچنین دیگه functionStore هم موجود نیست که فانکشن increment داخلش بذاریم
+
+توجه باید کرد
+وقتی از new استفاده می کنیم
+اتوماتیک ابجکتی میسازیم داخل اون `execution context` با لیبل this
+
+پس وقتی سمت چپ متودی ابجکتی داریم که با دات نوتیشن کال کردیم به صورت impilicit به اون ابجکت اساین میشه
+
+این دو با هم فرق دارن!
+
+بحث دیگری که پیش میاد اینه که به جای اون ابجکتی که فانکنش های share شده رو در مموری نگهداری میکردیم که ابکجت ها بهش لینک داشتن functionStore اسمش بود چی میشه؟
+
+پس به ابجکتی نیاز داریم که اطمینان داشته باشیم که با new ساخته شد پراپرتی `__proto__` اش به ابجکتی لینک میشه
+
+Functions both objects and functions in js
+
+```js
+function multiplyBy2(num) {
+  return num * 2;
+}
+multiplyBy2.stored = 5;
+multiplyBy2(3); // 6
+multiplyBy2.stored; // 5
+multiplyBy2.prototype; // {}
+```
+
+We could use the fact that all functions have a default property `prototype` on their object version, (itself an
+object) - to replace our `functionStor` object
+در مثال بالا `multiplyBy2.stored = 5;` یک پراپرتی روی فانکشن خواهد بود که هیچ تاثیری در محاسبتا و خروجی فانکشن نخواهد داشت
+
+و بعد از این لاین هر بار با دات نوتیشن به این پراپرتی دسترسی داریم
+
+همچنین یک پراپرتی داریم به نام prototype حتی پراپرتی مخفی هم نیست
+که مقدار دیفالتش یک ابجکت خالی هست
+
+به این معنی هست فانکشنی که با new ساخته میشه وقتی ران میشه
+ابجکتی که در ساخت فانکشن داریم منظور userCreator هست پروتو `__proto__` اش به پراپرتی prototype فانکشن userCreator رفرنس داره
+
+همه ابجکت هایی که با این روش ساخته میشن برای دسترسی به shared method هاشون نیاز دارن که به ابجکت useCreator که یک پراپرتی به نام prototype داره لینک بشن
+
+![hard parts of javascript](./images/hpjs-41.jpg)
+
+51
+به new میتونیم بگیم modifire
+توانایی این رو داره که در رفتار userCreator تغییراتی اعمال کنه و به صورت اتوماتیک چیز هایی رو وارد execution contex اش بکنه وقتی اجرا میشه
+
+```js
+function userCreator(name, score){
+ this.name = name;
+ this.score = score;
+}
+userCreator.prototype.increment = function(){ this.score++; };
+userCreator.prototype.login = function(){ console.log("login"); };
+const user1 = new userCreator(“Eva”, 9)
+user1.increment()
+```
+
+در گلولال مموری یک combo از function defintion به اضافه یک ابجکت داریم
+نکته این هست که این ابجکت همیشه هر فانکشنی میسازیم وجود داره فقط مختص این بحث نیست که ابجکت خالی نیست و یک پراپرتی به نام prototype داره که یک ابجکت خالی هست
+
+در این مثال `userCreator.prototype` میشه به این صورت به این پراپرتی دسترسی داشت و همچنین برای درسترسی به متود های و پراپرتی های داخل پروتوتایپ هم میشه با دات بهشون دسترسیداشت به این صورت `userCreator.prototype.increment`
+
+در این قسمت `userCreator.prototype.increment` میریم سراغ `userCreator` در مموری سپس `userCreator.prototype` ابجکتش رو چک میکنیم مقداری با لیبل`increment` پیدا نمیکنیم
+
+پس یک لیبل با این نام میسازیم و داخلش یک function definition ذخیره میکنیم
+برای خط بعدیش هم login به همین شکل هست
+
+خط بعدیش ساخت user1 هست که در ابتدا تا وقتی فانکشن ران نشده چیزی داخلش نیست!
+در این قسمت فانکشن userCreator رو با new میسازیم
+که همونطور گفتیم به صورت اتوماتیک یک سری موارد رو به execution context این فانکشن اضافه میکنه
+
+چرا از new استفاده می کنیم براس ساخت ابجکت
+
+این ابجکت با لیبل this در execution context `new userCreator()` شامل `__proto__` میشه که این پراپرتی به بخش ابجکت prtotype فانکشن `useCretor` در گلوبال مموری اشاره میکنه
+
+بعد این مراحل مقادیر name و score رو داخلش میذاریم
+
+خط اخر هم use1.increment هست که در گلوبال مموری use1 رو میگرده و گیدا میکنه چون وجود داره
+مرحله بعد داخلش دنبال increment میگرده اونجا نیست
+به صورت اتوماتیک`__proto__` رو چک میکنه
+که لینک هست به userCretor.prototype ابجکت
+داخل ابجکت prototypeرو بررسی میکنه و پیداش میکنه سپس کدرش رو ران میکنه
+که خود این فانکشن هم execution context خودش رو داره
+
+مشکل این راه حل چیه؟ اینکه اگر فانکشن userCretor با new ران نکنیم چی میشه این this مقدارش چی خواهد بود؟
+مشخصا مقدارش گلوبال ابجکت خواهد بود
+
+چرا مشکل داره چون نمیدونیم این فانکشن برای اینکه به درتسی کار بکنه نیاز به new داره
+پس راه حل مناسبی نخواهد بود
+
+![hard parts of javascript](./images/hpjs-42.jpg)
+
+## class : The class ‘syntactic sugar’
+
+مثال قبلی یک combination بود با اینکه کد ها از هم جدا بودند
+
+We’re writing our shared methods separately from our object ‘constructor’ itself
+(off in the userCreator.prototype object)
+
+```js
+class UserCreator {
+  constructor(name, score) {
+    this.name = name;
+    this.score = score;
+  }
+  increment() {
+    this.score++;
+  }
+  login() {
+    console.log('login');
+  }
+}
+const user1 = new UserCreator('Eva', 9);
+user1.increment();
+```
+
+![hard parts of javascript](./images/hpjs-43.png)
+
+در زیر بنا چیزی عوض نمیشه اجرا به همون شکل هست با این تفاوت که پراپرتی و متود جداگانه تعریف نمیشوند
+لیبل فانکشن رو میگیریم و جاش class قرار میدیم
+
+وقتی کلاس میسازیم در مموری یک combo از فانکشن + ابجکت خواهیم داشت مثلا قبل
+کلمه constructor میشه قسمت فانکشن این کلاس در مموری
+
+برای متود ها وقتی به `increment` و`login` میرسیم
+مثل قبل `userCretor.prototype.increment` هست
+
+این قسمت هم مثل قبل هست`const user1 = new UserCreator('Eva', 9)`
+تغییری نداشتیم
+
+![hard parts of javascript](./images/hpjs-44.jpg)
+
+پس اجرای این کد دقیقا مثل
+![hard parts of javascript](./images/hpjs-42.jpg)
+هست
