@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CarouselSlide > matches snapshot 1`] = `
+.c0 {
+  object-fit: cover;
+  width: 100%;
+  height: 500px;
+}
+
+<figure>
+  <img
+    class="c0"
+  />
+  <figcaption
+    data-testid="caption"
+  >
+    <strong />
+     
+  </figcaption>
+</figure>
+`;

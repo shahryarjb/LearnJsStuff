@@ -1,0 +1,49 @@
+{
+  "name": "test-driven-carousel",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint:js": "eslint . && prettier --list-different .",
+    "lint:css": "stylelint \"**/*.{ts,tsx}\"",
+    "lint": "npm run lint:js && npm run lint:css",
+    "format:js": "eslint --fix . && prettier --log-level warn --write .",
+    "format:css": "stylelint \"**/*.{ts,tsx}\" --fix",
+    "format": "npm run format:js && npm run format:css",
+    "build": "tsc && vite build",
+    "test": "vitest",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.0.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/eslint": "^8.21.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "@vitejs/plugin-react": "^4.0.4",
+    "babel-plugin-styled-components": "^2.1.4",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^6.0.1",
+    "happy-dom": "^9.20.3",
+    "jest-styled-components": "^7.1.1",
+    "postcss-styled-syntax": "^0.4.0",
+    "prettier": "^2.8.4",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard": "^34.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4"
+  }
+}
