@@ -1,7 +1,7 @@
 import { screen, fireEvent,waitFor } from '../../test-utils';
 import { describe, it, expect } from 'vitest';
-import ComboModal from './ComboModal';
 import { render } from '../../test-utils';
+import ComboModal from './ComboModal';
 
 describe('ComboModal Component', () => {
   it('renders Select and Modal', () => {
