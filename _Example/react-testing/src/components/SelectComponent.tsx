@@ -1,8 +1,17 @@
 import { Select } from '@mantine/core';
 import { useState } from 'react';
 
-export default function SelectComponent({ allowDeselect = true }) {
-  const [value, setValue] = useState<string | null>(null);
+interface SelectComponentProps {
+  allowDeselect?: boolean;
+  controlledValue?: string | null;
+}
+
+export default function SelectComponent({
+  allowDeselect = true,
+  controlledValue = null,
+}: SelectComponentProps) {
+  const [value, setValue] = useState<string | null>(controlledValue);
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const handleChange = (selectedValue: string | null) => {
     if (allowDeselect || selectedValue !== value) {
@@ -10,6 +19,10 @@ export default function SelectComponent({ allowDeselect = true }) {
     } else {
       setValue(value); // Retain the current value if deselect is not allowed
     }
+  };
+
+  const handleSearchChange = (search: string) => {
+    setSearchValue(search);
   };
 
   return (
@@ -20,6 +33,9 @@ export default function SelectComponent({ allowDeselect = true }) {
       data={['Mona', 'Mani', 'Arn', 'Mania']}
       value={value}
       onChange={handleChange}
+      searchable
+      searchValue={searchValue}
+      onSearchChange={handleSearchChange}
     />
   );
 }
