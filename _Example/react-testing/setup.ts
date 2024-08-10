@@ -1,3 +1,4 @@
+import { server } from './src/mocks/server';
 import '@testing-library/jest-dom/vitest';
 
 import { vi } from 'vitest';
@@ -27,3 +28,7 @@ class ResizeObserver {
 }
 
 window.ResizeObserver = ResizeObserver;
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterAll(() => server.close())
+afterEach(() => server.resetHandlers())

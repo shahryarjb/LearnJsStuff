@@ -1,11 +1,11 @@
-import Layout from './pages/Layout';
-import Providers from './providers';
+import "./App.css"
+import CharacterSelect from "./components/CharacterSelect";
 
 function App() {
   return (
-    <Providers>
-      <Layout />
-    </Providers>
+    <div className="dd h-screen">
+      <CharacterSelect />
+    </div>
   );
 }
 
